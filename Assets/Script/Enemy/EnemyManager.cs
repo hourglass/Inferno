@@ -30,9 +30,11 @@ public class EnemyManager : MonoBehaviour
     //웨이브 변수
     int[] enemyCount = new int[10]; //웨이브 당 적군 수
     int waveNumber = 0; // 현재 웨이브
-    int maxWave = 10;    // 최대 웨이브
+    int maxWave = 5;    // 최대 웨이브
     float waveDelay = 1f;    //웨이브마다의 딜레이
     float spwanDelay = 0.25f; //적 생성마다의 딜레이
+
+    int area = 0; // 구역을 구분할 변수
 
     void Start()
     {
@@ -100,8 +102,6 @@ public class EnemyManager : MonoBehaviour
         enemyList.Remove(tm);
     }
 
-    #region SpwanPoint
-    float area = 0;
 
     Vector2 SpwanPoint()
     {
@@ -152,5 +152,4 @@ public class EnemyManager : MonoBehaviour
         }
         return sign;
     }
-    #endregion
 }

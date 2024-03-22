@@ -25,6 +25,7 @@ public class Circle : MonoBehaviour
 
     private void SetUpCircle()
     {
+        // 라인 선 굵기 설정
         lineRenderer.widthMultiplier = LineWidth;
 
         float deltaTheta = (2f * Mathf.PI) / vertexCount;
@@ -41,21 +42,22 @@ public class Circle : MonoBehaviour
 
     private void PlaceOnCircle()
     {
+        // 플레이어에서 마우스를 향하는 벡터 얻기
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 pos = mousePos - (Vector2)playerTm.position;
 
-        //오브젝트 위치
-        float angle = Mathf.Atan2(pos.x, pos.y) * Mathf.Rad2Deg;
-        pos.x = radius * Mathf.Sin(angle * Mathf.Deg2Rad);
-        pos.y = radius * Mathf.Cos(angle * Mathf.Deg2Rad);
+        // 오브젝트 위치   
+        float angle = Mathf.Atan2(pos.x, pos.y) * Mathf.Rad2Deg; // 원점에서 해당 벡터의 사이 각도 구하기
+        pos.x = radius * Mathf.Sin(angle * Mathf.Deg2Rad);       // 구한 각도의 sin값은 x의 거리
+        pos.y = radius * Mathf.Cos(angle * Mathf.Deg2Rad);       // 그힌 각도의 cos값은 y의 거리
 
+        // 현재 플레이어 위치에서 계산한 거리만큼 이동
         point.transform.position = pos + (Vector2)playerTm.position;
 
         //오브젝트 회전
-        float dir_x = mousePos.x - transform.position.x;
-        float dir_y = mousePos.y - transform.position.y;
-        float dir = (Mathf.Atan2(dir_y, dir_x) * Mathf.Rad2Deg);
+        float dir = (Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg);
 
-        point.transform.rotation = Quaternion.Euler(0f, 0f, dir - 90f);
+        // 계산 방향에서 스프라이트 방향만큼 회전
+        point.transform.rotation = Quaternion.Euler(0f, 0f, dir - 90f); 
     }
 }

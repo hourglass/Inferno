@@ -68,7 +68,6 @@ public class PlayerController : PlayerStat
         }
     }
 
-    #region Dash
     IEnumerator DashRoutine()
     {
         moveSpeed += dashSpeed;
@@ -84,5 +83,4 @@ public class PlayerController : PlayerStat
         dashState = true;
         particle.SetActive(false);
     }
-    #endregion
 }
