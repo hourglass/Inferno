@@ -255,12 +255,14 @@ public class WeaponManager : MonoBehaviour
 
     IEnumerator PassiveRoutine(ActionDelegate action, float delay)
     {
+        var passiveDelay = new WaitForSeconds(delay);
+
         while (true)
         {
             if (action != null)
             {
                 action();
-                yield return new WaitForSeconds(delay);
+                yield return passiveDelay;
             }
             else
             {
