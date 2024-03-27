@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Arrow : WeaponStat
+public class Arrow : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 0f;
 

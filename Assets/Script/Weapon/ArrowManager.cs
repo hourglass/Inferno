@@ -20,19 +20,25 @@ public class ArrowManager : WeaponManager
     [SerializeField] AudioClip[] arrowSound = null;
     [SerializeField] AudioSource arrowAudio = null;
 
-    GameObject defaultAttackObj = null;
-    GameObject defaultSkillObj = null;
+    // 현재 공격 & 스킬을 저장할 변수
+    GameObject currentAttackObj = null;
+    GameObject currenSkillObj = null;
+
 
     protected override void InitWeapon()
     {
-        defaultAttackObj = attackObj;
-        defaultSkillObj = skillObj;
+        // 기본 공격 & 스킬 프리팹 등록
+        currentAttackObj = attackObj;
+        currenSkillObj = skillObj;
+
+        // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
     }
 
     protected override void InitChoiceDatas()
     {
+        // 선택지 정보 입력
         InputChoiceInfos("공격 3점사");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.AddChain,
@@ -60,25 +66,28 @@ public class ArrowManager : WeaponManager
     }
 
 
+    // 기본 공격 함수
     void DefaultAttack()
     {
         PlaySound();
-        Create(defaultAttackObj, spawnPoint, 0);
+        Create(currentAttackObj, spawnPoint, 0);
     }
 
+    // 기본 스킬 함수
     void DefaultSkill()
     {
         PlaySound();
 
         for (int i = 0; i < 12; i++)
         {
-            Create(defaultSkillObj, spawnPoint, 30 * i);
+            Create(currenSkillObj, spawnPoint, 30 * i);
         }
     }
 
+
+    // 공격 3연속 수행 함수
     void TripleAttack()
     {
-        attackDelay = 0.5f;
         StartCoroutine(TripleBurst());
     }
 
@@ -93,16 +102,18 @@ public class ArrowManager : WeaponManager
         }
     }
 
+    // 기본 공격 & 스킬 프리팹 변경 함수
     void SetAttackPierceable()
     {
-        defaultAttackObj = pierceableAttackObj;
+        currentAttackObj = pierceableAttackObj;
     }
 
     void SetSkillPierceable()
     {
-        defaultSkillObj = pierceableSkillObj;
+        currenSkillObj = pierceableSkillObj;
     }
 
+    // 패시브 오브젝트 생성 함수
     void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
@@ -116,6 +127,7 @@ public class ArrowManager : WeaponManager
         Create(bombObj, transform, 0);
     }
 
+    // 소리 재생 함수
     void PlaySound()
     {
         int index = Random.Range(0, arrowSound.Length);

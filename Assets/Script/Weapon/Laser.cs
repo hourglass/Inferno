@@ -22,8 +22,6 @@ public class Laser : MonoBehaviour
 
     private void Start()
     {
-        TowerManager.LaserDel += SetAttackDelay;
-        
         tm = GetComponent<Transform>();
         laserAudio = GetComponent<AudioSource>();
 
@@ -57,11 +55,6 @@ public class Laser : MonoBehaviour
     {
         lineRenderer.SetPosition(0, startPos);
         lineRenderer.SetPosition(1, endPos);
-    }
-
-    void SetAttackDelay()
-    {
-        attackDelay = 0.15f;
     }
 
     IEnumerator Hit(Vector2 pos)

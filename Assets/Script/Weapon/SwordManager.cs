@@ -21,6 +21,7 @@ public class SwordManager : WeaponManager
     [SerializeField] AudioSource swordAudio = null;
     int audioIndex = 0;
 
+
     void Start()
     {
         swordAudio = GetComponent<AudioSource>();
@@ -28,12 +29,14 @@ public class SwordManager : WeaponManager
 
     protected override void InitWeapon()
     {
+        // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
     }
 
     protected override void InitChoiceDatas()
     {
+        // 선택지 정보 입력
         InputChoiceInfos("공격 시 검기 추가");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.AddChain,
@@ -60,6 +63,8 @@ public class SwordManager : WeaponManager
                          delegate { this.SummonBomb(); }, 2f);
     }
 
+
+    // 기본 공격 함수
     void DefaultAttack()
     {
         MotionDel();
@@ -68,6 +73,8 @@ public class SwordManager : WeaponManager
         Create(slashObj, spawnPoint, 0);
     }
 
+
+    // 기본 스킬 함수
     void DefaultSkill()
     {
         swordAudio.clip = swordSound[0];
@@ -82,6 +89,8 @@ public class SwordManager : WeaponManager
         }
     }
 
+
+    // 스킬 3연속 수행 함수
     void BurstSkill()
     {
         StartCoroutine(TripleBurst());
@@ -98,17 +107,21 @@ public class SwordManager : WeaponManager
         }
     }
 
+
+    // 검기 생성 함수
     void WaveSlash()
     {
         Create(waveObj, spawnPoint, 0);
     }
 
+    // 유도 화살 생성 함수
     void HomingArrowAttack()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
     }
 
+    // 패시브 오브젝트 생성 함수
     void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
@@ -122,7 +135,7 @@ public class SwordManager : WeaponManager
         Create(bombObj, transform, 0);
     }
 
-
+    // 소리 재생 함수
     void PlaySound()
     {
         swordAudio.clip = swordSound[audioIndex];

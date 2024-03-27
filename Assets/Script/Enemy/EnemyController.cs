@@ -3,75 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyController : EnemyStat
+public class EnemyController : MonoBehaviour
 {
+    // 잔상 파티클 오브젝트
     [SerializeField] GameObject afterImageEffect = null;
 
-    GameObject player = null;
+    // 추적할 플레이어 변수
+    static GameObject player = null;
 
-    Rigidbody2D rb;
-    Vector2 forward;
-    Vector2 playerPos;
+    Rigidbody2D rb;     
 
-    float rotSpeed = 500f;
-    float moveSpeed = 10f;
-    float dashSpeed = 40f;
+    float rotSpeed = 500f; // 회전 속도
+    float moveSpeed = 10f; // 이동 속도
+    float dashSpeed = 40f; // 대시 속도
 
-    float attackDuration = 2f;
-    float attackDelay = 2f;
+    float attackDuration = 2f; // 공격 지속시간
+    float attackDelay = 2f;    // 공격 딜레이
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        player = GameObject.FindWithTag("Player");
-        InvokeRepeating("ChasePlayer", 0f, 0.2f);
-        StartCoroutine(Attack());
-
         afterImageEffect.SetActive(false);
-    }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
+        // static 변수이므로 1번만 플레이어를 탐색하도록 설정
+        if (player == null)
         {
-            GiveToDamage(other.gameObject);
+            // 플레이어를 탐색해 저장
+            player = GameObject.FindWithTag("Player");
         }
 
-        if (other.tag == "Weapon")
-        {
-            var weapon = other.gameObject.GetComponent<WeaponStat>();
-            if (weapon != null) 
-            {
-                KnockBack(weapon.KnockBackForce);
-            }
-
-            TakeAllDamage();
-        }
+        InvokeRepeating("ChasePlayer", 0f, 0.2f); // 플레이어 추적 함수 실행
+        StartCoroutine(Attack());                 // 플레이어 공격 함수 실행
     }
 
-    public void SetPlayer(GameObject _player)
-    {
-        if (player != null)
-        {
-            player = _player;
-        }
-    }
-
-    void KnockBack(float power)
-    {
-        rb.AddForce(-forward * power);
-    }
-
+    // 플레이어 추적 함수
     void ChasePlayer()
     {
         if (player != null)
         {
-            playerPos = player.transform.position;
+            // 플레이어 null 체크 후 플레이어 위치 저장 
+            var playerPos = player.transform.position;
 
+            // 플레이어와의 거리가 0.2f보다 큰 지 확인
             if (Vector2.Distance(playerPos, rb.position) > 0.2f)
             {
-                forward = playerPos - rb.position;
+                var forward = (Vector2)playerPos - rb.position;
                 forward.Normalize();
 
                 float rotAmount = Vector3.Cross(forward, transform.up).z;
@@ -86,10 +62,12 @@ public class EnemyController : EnemyStat
         }
         else
         {
+            // 플레이어가 없어지면 추적 중지
             CancelInvoke("ChasePlayer");
         }
     }
 
+    // 공격 주기 코루틴
     IEnumerator Attack()
     {
         WaitForSeconds duration = new WaitForSeconds(attackDuration);

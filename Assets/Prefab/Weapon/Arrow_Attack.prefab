@@ -162,6 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7294455589688809329}
   - component: {fileID: 3813676592186414564}
+  - component: {fileID: -9157565193593905060}
   - component: {fileID: 873334629164313348}
   - component: {fileID: 7694869593276343002}
   m_Layer: 0
@@ -214,6 +215,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-9157565193593905060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928521833062057103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
+  damage: 15
+  knockBackRatio: 2
+  pierceable: 0
 --- !u!114 &873334629164313348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,10 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d98dd487091b4a4ba5bd74757a12948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
-  damage: 15
-  knockBackForce: 2000
-  pierceable: 0
   moveSpeed: 75
 --- !u!114 &7694869593276343002
 MonoBehaviour:

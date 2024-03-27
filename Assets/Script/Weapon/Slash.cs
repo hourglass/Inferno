@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slash : WeaponStat
+public class Slash : MonoBehaviour
 {
     void Start()
     {

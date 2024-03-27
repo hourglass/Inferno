@@ -450,10 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bf63b23ad3cfd4e9227e6774ca1e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 6055767282623672971}
   id: 1
   lifeTime: 10
-  explosionObj: {fileID: 9129553955517723635, guid: 3eb20db8d6a0f3a4da70749759703189, type: 3}
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024

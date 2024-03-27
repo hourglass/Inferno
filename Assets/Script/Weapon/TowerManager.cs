@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TowerManager : WeaponManager
 {
-    public delegate void LaserDelegate();
-    public static LaserDelegate LaserDel;
-
     [SerializeField] GameObject attackObj = null;
     [SerializeField] GameObject skillObj = null;
 

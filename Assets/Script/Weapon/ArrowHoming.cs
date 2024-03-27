@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ArrowHoming : WeaponStat
+public class ArrowHoming : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 0f;
 

@@ -8,28 +8,34 @@ public class WeaponManager : MonoBehaviour
     public delegate float PlayerManagerGetDirectionDel();
     public static PlayerManagerGetDirectionDel GetDirectionDel;
 
-    //이펙트 생성위치
+    // 공격 & 스킬 생성위치
     [SerializeField] protected Transform spawnPoint = null;
 
-    protected float attackDelay = 0.4f;
-    protected float skillDelay = 2f;
+    // 공격 & 스킬 딜레이
+    private float attackDelay = 0.4f; 
+    private float skillDelay = 2f;
 
+    // 공격 & 스킬 사용 가능 여부
     bool attckEnabled = true;
     bool skillEnabled = true;
 
+    // 공격 & 스킬 & 패시브를 수행할 delegate
     public delegate void ActionDelegate();
     protected ActionDelegate attackDel;
     protected ActionDelegate skillDel;
     protected ActionDelegate passiveDel;
 
-    protected Dictionary<int, ChoiceData> choiceDatas = new Dictionary<int, ChoiceData>();
-    protected Dictionary<int, string> choiceInfos = new Dictionary<int, string>();
+    // 선택지의 설명 텍스트를 저장할 Dictionary (Id로 식별)
+    private Dictionary<int, string> choiceInfos = new Dictionary<int, string>();
 
-    private Queue<int> selectedIdQueue = new Queue<int>();
-    private List<int> idList = new List<int>();
+    // 선택지의 객체 정보를 저장할 Dictionary (Id로 식별)
+    private Dictionary<int, ChoiceData> choiceDatas = new Dictionary<int, ChoiceData>();
 
-    private int currentId;
+    private int currentId; // 선택지 추가 시 증가 시킬 id 변수
+    private List<int> idList = new List<int>(); // id를 저장할 List
+    private Queue<int> selectedIdQueue = new Queue<int>(); // 랜덤으로 선택된 id를 저장할 Queue
 
+    // 함수의 종류를 구분할 enum
     protected enum ActionType
     {
         Attack,
@@ -37,13 +43,15 @@ public class WeaponManager : MonoBehaviour
         Passive
     }
 
+    // 함수의 실행 타입을 구분할 enum
     protected enum ExecutionType
     {
         Immediate,
         AddChain
     }
 
-    protected class ChoiceData
+    // 선택지 정보를 저장할 객체 클래스
+    private class ChoiceData
     {
         public ChoiceData()
         {
@@ -55,50 +63,59 @@ public class WeaponManager : MonoBehaviour
                           string _explainText,
                           float _passiveDelay = 0f)
         {
-            actionType = _actionType;
-            executionType = _executionType;
-            actionDel = _action;
-            explainText = _explainText;
-            passiveDelay = _passiveDelay;
+            actionType = _actionType;       // 함수의 종류
+            executionType = _executionType; // 함수의 실행타입
+            actionDel = _action;            // 실행할 함수
+            explainText = _explainText;     // 선택지 설명 텍스트
+            passiveDelay = _passiveDelay;   // 패시브 함수 주기
         }
 
-        private string explainText;
-
+        // 함수의 종류
         private ActionType actionType;
         public ActionType actionTypeP { get { return actionType; } set { actionType = value; } }
 
+        // 함수의 실행타입
         private ExecutionType executionType;
         public ExecutionType executionTypeP { get { return executionType; } set { executionType = value; } }
 
+        // 실행할 함수
         private ActionDelegate actionDel;
         public ActionDelegate actionDelP { get { return actionDel; } set { actionDel = value; } }
 
+        // 선택지 설명 텍스트
+        private string explainText;
+        public string explainTextP { get { return explainText; } }
+
+        // 패시브 함수 주기
         private float passiveDelay = 0f;
-        public float PassiveDelay { get { return passiveDelay; } }
+        public float passiveDelayP { get { return passiveDelay; } }
     }
 
 
     void Awake()
     {
-        PlayerManager.CanLookAtDel = CanLookAt;
-        PlayerController.InputKeyDel = InputKey;
-        ChoiceManager.GetChoiceDel = SelectRandomId;
-        ChoiceButton.GetSelectedIdDel = GetSelectedId;
-        ChoiceButton.GetExplainTextDel = GetExplainTextById;
-        ChoiceButton.ApplyChoiceDel = ChoiceSelected;
+        // 델리게이트 등록
+        PlayerManager.CanLookAtDel = CanLookAt;              // 방향 전환이 가능한지 확인하는 함수
+        PlayerController.InputKeyDel = InputKey;             // 키 입력 시 수행하는 함수
+        ChoiceManager.GetChoiceDel = SelectRandomId;         // 랜덤한 Id를 뽑는 함수
+        ChoiceButton.GetSelectedIdDel = GetSelectedId;       // 선택된 Id를 전달하는 함수
+        ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수
+        ChoiceButton.ApplyChoiceDel = ChoiceSelected;        // 선택지를 골랐을 때 처리하는 함수
 
-        InitWeapon();
-        InitChoiceDatas();
-        ShuffleIdList();
+        InitWeapon();       // 무기 초기화 함수
+        InitChoiceDatas();  // 선택지 정보 입력 함수
+        ShuffleIdList();    // id 리스트 셔플 함수
     }
 
     void InputKey()
     {
+        // 마우스 좌클릭 시 공격 함수 실행
         if (Input.GetMouseButtonDown(0) && attckEnabled)
         {
             StartCoroutine(AttackRoutine());
         }
 
+        // 마우스 휠클릭 시 스킬 함수 실행
         if (Input.GetMouseButtonDown(2) && skillEnabled)
         {
             StartCoroutine(SkillRoutine());
@@ -115,6 +132,16 @@ public class WeaponManager : MonoBehaviour
         //이 함수는 재정의 될 것임.
     }
 
+
+    // 선택지 텍스트를 입력하는 함수
+    protected void InputChoiceInfos(string explainText)
+    {
+        
+        choiceInfos[currentId] = explainText;
+    }
+
+
+    // 선택지 객체 정보를 입력하는 함수
     protected void InputChoiceDatas(ActionType actionType,
                                     ExecutionType executionType,
                                     ActionDelegate action,
@@ -123,22 +150,54 @@ public class WeaponManager : MonoBehaviour
         if (choiceInfos.Count > 0)
         {
             choiceDatas[currentId]
-                 = new ChoiceData(actionType,
-                                  executionType,
-                                  action,
-                                  choiceInfos[currentId],
-                                  passiveDelay);
+                 = new ChoiceData(actionType,             // 함수의 종류
+                                  executionType,          // 함수의 실행타입
+                                  action,                 // 실행할 함수
+                                  choiceInfos[currentId], // 선택지 설명 텍스트
+                                  passiveDelay);          // 패시브 함수 주기
 
-            idList.Add(currentId);
-            currentId++;
+            idList.Add(currentId); // Id 리스트에 Id 추가
+            currentId++;           // 현재 Id 증가
         }
     }
 
-    protected void InputChoiceInfos(string explainText)
+
+    // Id 리스트를 셔플하는 함수
+    private void ShuffleIdList()
     {
-        choiceInfos[currentId] = explainText;
+        if (idList.Count > 0)
+        {
+            // i를 감소시키면서 0~(i-1)의 랜덤 인덱스를 뽑아 i와 교환  
+            for (int i = (idList.Count - 1); i > 0; i--)
+            {
+                int rand = Random.Range(0, i);
+
+                int temp = idList[i];
+                idList[i] = idList[rand];
+                idList[rand] = temp;
+            }
+        }
     }
 
+
+    // 셔플된 리스트에서 3개를 골라 큐에 저장하는 함수
+    private void SelectRandomId()
+    {
+        int choiceCount = 3;
+
+        // 선택지가 3개 이상 남았을 때만 수행
+        if (idList.Count >= choiceCount)
+        {
+            // 셔플된 리스트에서 3개 고르기
+            for (int i = 0; i < choiceCount; i++)
+            {
+                selectedIdQueue.Enqueue(idList[i]);
+            }
+        }
+    }
+
+
+    // 저장된 큐에서 Id를 넘겨주는 함수
     private int GetSelectedId()
     {
         if (selectedIdQueue.Count > 0)
@@ -151,92 +210,81 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+
+    // 저장된 객체에서 선택지 설명을 넘겨주는 함수
     private string GetExplainTextById(int id)
     {
-        return choiceInfos[id];
+        return choiceDatas[id].explainTextP;
     }
 
-    private void ShuffleIdList()
-    {
-        if (idList.Count > 0)
-        {
-            // 리스트 셔플
-            for (int i = (idList.Count - 1); i > 0; i--)
-            {
-                int rand = Random.Range(0, i);
 
-                int temp = idList[i];
-                idList[i] = idList[rand];
-                idList[rand] = temp;
-            }
-        }
-    }
-
-    private void SelectRandomId()
-    {
-        int choiceCount = 3;
-
-        if (idList.Count >= choiceCount)
-        {
-            // 셔플된 리스트에서 3개 고르기
-            for (int i = 0; i < choiceCount; i++)
-            {
-                selectedIdQueue.Enqueue(idList[i]);
-            }
-        }
-    }
-
+    // 선택지를 골랐을 때 처리하는 함수
     private void ChoiceSelected(int id)
     {
+        // 함수의 종류 & 실행 타입 가져오기
         var actionType = choiceDatas[id].actionTypeP;
         var executionType = choiceDatas[id].executionTypeP;
 
+        // 함수의 실행 타입 확인
         if (executionType == ExecutionType.Immediate)
         {
+            // Immediate 타입이면 바로 수행
             choiceDatas[id].actionDelP();
         }
         else if (executionType == ExecutionType.AddChain)
         {
+            // AddChain 타입이면 기존 델리게이트에 추가
             switch (actionType)
             {
+                // 함수의 종류 확인
                 case ActionType.Attack:
-                    {
+                    {                   
+                        // 공격
                         attackDel += choiceDatas[id].actionDelP;
                     }
                     break;
                 case ActionType.Skill:
                     {
+                        // 스킬
                         skillDel += choiceDatas[id].actionDelP;
                     }
                     break;
                 case ActionType.Passive:
                     {
-                        var action = choiceDatas[id].actionDelP;
-                        var delay = choiceDatas[id].PassiveDelay;
+                        // 패시브
+                        var action = choiceDatas[id].actionDelP;    // 수행할 함수
+                        var delay = choiceDatas[id].passiveDelayP;  // 패시브 수행 주기
+
+                        // delay가 0보다 클 때만 수행
                         if (delay > 0)
-                        {
+                        {                      
+                            // 해당 정보로 코루틴 수행
                             StartCoroutine(PassiveRoutine(action, delay));
                         }
                     }
                     break;
             }
         }
-
-        idList.Remove(id);
+       
+        idList.Remove(id);  // 선택된 Id를 리스트에서 제거
+        ShuffleIdList();    // Id 리스트 셔플
     }
 
 
+    // 방향 전환 가능 상태를 넘겨주는 함수
     private bool CanLookAt()
     {
         bool canLookAt = attckEnabled;
         return canLookAt;
     }
 
+    // 특정 위치에 게임오브젝트를 생성하는 함수
     protected void Create(GameObject obj, Transform spawn, float degree)
     {
         Instantiate(obj, spawn.position, Quaternion.Euler(0f, 0f, (degree - 90) + GetDirectionDel()));
     }
 
+    // 공격 주기 코루틴
     IEnumerator AttackRoutine()
     {
         attackDel();
@@ -245,6 +293,7 @@ public class WeaponManager : MonoBehaviour
         attckEnabled = true;
     }
 
+    // 스킬 주기 코루틴
     IEnumerator SkillRoutine()
     {
         skillDel();
@@ -253,6 +302,7 @@ public class WeaponManager : MonoBehaviour
         skillEnabled = true;
     }
 
+    // 패시브 주기 코루틴
     IEnumerator PassiveRoutine(ActionDelegate action, float delay)
     {
         var passiveDelay = new WaitForSeconds(delay);

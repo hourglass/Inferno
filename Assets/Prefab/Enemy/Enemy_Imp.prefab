@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5742045036101202906}
   - component: {fileID: 7806348503748108699}
   - component: {fileID: 570966857655733712}
+  - component: {fileID: 116429146704754119}
   m_Layer: 10
   m_Name: Enemy_Imp
   m_TagString: Enemy
@@ -110,11 +111,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43b8c39e69f86a4695f5edbebbc9c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  afterImageEffect: {fileID: 973018965263456866}
+--- !u!114 &116429146704754119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943317080959114069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07bd4b5b2425aa40bccc5858df1a229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   dieEffect: {fileID: 5756734961213713251, guid: c084ae2f50542c0429e890f2f4412814, type: 3}
   maxHealth: 40
   bodyDamage: 10
   expPoint: 10
-  afterImageEffect: {fileID: 973018965263456866}
 --- !u!1 &4091426805020641210
 GameObject:
   m_ObjectHideFlags: 0

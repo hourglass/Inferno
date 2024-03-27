@@ -24,7 +24,7 @@ public class EnemyStat : MonoBehaviour
     [SerializeField] float bodyDamage = 0;
     [SerializeField] float expPoint = 0;
 
-    protected float currentHealth;
+    private float currentHealth;
 
     void Awake()
     {
@@ -33,7 +33,44 @@ public class EnemyStat : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // 플레이어에 충돌 시 피해를 주는 함수 실행
+        if (other.tag == "Player")
+        {
+            GiveToDamage(other.gameObject);
+        }
+
+        // 무기 타입에 충돌 시 피해를 받는 함수 실행
+        if (other.tag == "Weapon")
+        {
+            // 대미지 큐에 있는 모든 피해를 받는 함수 실행
+            TakeAllDamage();
+        }
+    }
+
+    void GiveToDamage(GameObject obj)
+    {
+        obj.GetComponent<PlayerStat>().TakeDamage(getBodyDamage());
+    }
+
+    void TakeAllDamage()
+    {
+        if (WeaponStat.damageQueue.Count > 0)
+        {
+            for (int i = 0; i < WeaponStat.damageQueue.Count; i++)
+            {
+                if (currentHealth <= 0)
+                {
+                    WeaponStat.damageQueue.Clear();
+                    break;
+                }
+                TakeDamage(WeaponStat.damageQueue.Dequeue());
+            }
+        }
+    }
+
+    void TakeDamage(float damage)
     {
         //체력 감소
         currentHealth -= damage;
@@ -63,29 +100,8 @@ public class EnemyStat : MonoBehaviour
         return maxHealth;
     }
 
-    protected float getBodyDamage()
+    float getBodyDamage()
     {
         return bodyDamage;
-    }
-
-    protected void GiveToDamage(GameObject obj)
-    {
-        obj.GetComponent<PlayerController>().TakeDamage(getBodyDamage());
-    }
-
-    protected void TakeAllDamage()
-    {
-        if (WeaponStat.damageQueue.Count > 0)
-        {
-            for (int i = 0; i < WeaponStat.damageQueue.Count; i++)
-            {
-                if (currentHealth <= 0)
-                {
-                    WeaponStat.damageQueue.Clear();
-                    break;
-                }
-                TakeDamage(WeaponStat.damageQueue.Dequeue());
-            }
-        }
     }
 }

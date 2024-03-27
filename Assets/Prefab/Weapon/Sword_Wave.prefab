@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 764995432651089001}
   - component: {fileID: 2672539329403473081}
   - component: {fileID: 2925064942814817831}
-  - component: {fileID: -3436700822283960619}
+  - component: {fileID: 2346413236659978910}
   - component: {fileID: 9200649899771258947}
+  - component: {fileID: -3436700822283960619}
   m_Layer: 0
   m_Name: Sword_Wave
   m_TagString: Weapon
@@ -172,7 +173,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-3436700822283960619
+--- !u!114 &2346413236659978910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,9 +182,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2867635419985171683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 895bfa367a1ac4d47ba4eeaf91915db6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
+  damage: 10
+  knockBackRatio: 2
+  pierceable: 1
 --- !u!114 &9200649899771258947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,8 +201,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fed3c7e37600044891748346d08da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
-  damage: 10
-  knockBackForce: 1500
-  pierceable: 1
   moveSpeed: 50
+--- !u!114 &-3436700822283960619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867635419985171683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895bfa367a1ac4d47ba4eeaf91915db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

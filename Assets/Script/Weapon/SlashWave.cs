@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class SlashWave : WeaponStat
+public class SlashWave : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 0f;
 
@@ -11,20 +11,5 @@ public class SlashWave : WeaponStat
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * moveSpeed;
-
-        Invoke("SelfDestroy", 0.5f);
-    }
-
-    void SelfDestroy()
-    {
-        Destroy(gameObject);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Enemy")
-        {
-            GiveToDamage(other.gameObject);
-        }
     }
 }

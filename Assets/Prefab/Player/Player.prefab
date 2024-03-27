@@ -150,7 +150,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   expBar: {fileID: 0}
   LevelText: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 0
   particle: {fileID: 0}
 --- !u!114 &-3137647753517467685
 MonoBehaviour:
