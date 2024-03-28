@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour
     public delegate void WaveUIStartTextDel();
     public static WaveUIStartTextDel StartTextDel;
 
+    //Wave UI 현재 웨이브 숫자 함수
     public delegate void WaveUIDelegateNumber(int number);
     public static WaveUIDelegateNumber WaveNumberDel;
 
@@ -40,6 +41,7 @@ public class EnemyManager : MonoBehaviour
     {
         EnemyStat.RemoveDel = RemoveEnemy;
 
+        // 적군을 생성할 위치정보를 위한 스크린 정보
         cam = Camera.main;
         screen = cam.gameObject.GetComponent<CameraController>();
 
@@ -47,6 +49,8 @@ public class EnemyManager : MonoBehaviour
         Invoke("WaveStart", waveDelay);
     }
 
+
+    // 웨이브 당 생성할 적군 수를 저장하는 함수
     void InitArray()
     {
         for (int i = 0; i < 10; i++)
@@ -72,17 +76,30 @@ public class EnemyManager : MonoBehaviour
         InvokeRepeating("Spwan", 0f, spwanDelay);
     }
 
+
+    // 적군 관리 리스트에서 적군을 제거하는 함수
+    void RemoveEnemy(Transform tm)
+    {
+        enemyList.Remove(tm);
+    }
+
+
     void Spwan()
     {
         //모든적을 소환했는지 확인
         if (enemyCount[waveNumber] > 0)
         {
+            // 소환 지점 가져오기
             Vector2 point = SpwanPoint();
+            
+            // 적군 생성
             GameObject enemyObj = Instantiate(enemy, point, Quaternion.identity);
 
+            // 적군 관리 리스트에 추가
             enemyList.Add(enemyObj.transform);
             --enemyCount[waveNumber];
 
+            // 체력바 생성 델리게이트 수행
             CreateHPDel(enemyObj.transform);
         }
         else
@@ -90,66 +107,52 @@ public class EnemyManager : MonoBehaviour
             //모든 적을 처치 했는지 확인
             if (enemyList.Count <= 0)
             {
+                // 웨이브 숫자 증가
                 waveNumber++;
+
+                // 적군 생성 중지
                 CancelInvoke("Spwan");
                 Invoke("WaveStart", waveDelay);
             }
         }
     }
 
-    void RemoveEnemy(Transform tm)
-    {
-        enemyList.Remove(tm);
-    }
-
-
     Vector2 SpwanPoint()
     {
+        // 카메라의 위치 가져오기
         Vector2 camPos = cam.transform.position;
 
+        // 화면 가운데부터 상하 한쪽 방향의 길이
         float camHeight = cam.orthographicSize;
-        float camWidth = camHeight * cam.aspect;
+
+        // cam.aspect(종횡비) = 너비 / 높이 
+        // cam.aspect * 높이 = 너비
+        float camWidth = camHeight * cam.aspect; 
+
+        // 화면의 추가 여유 공간 크기
         float margin = 10f;
 
-        float screenX = screen.getScreenX();
-        float screenY = screen.getScreenY();
-
-        float sign = 0;
+        // 적군 생성 시 x,y 거리
         float spwanX = 0;
         float spwanY = 0;
 
+        // -1 or 1 랜덤 생성
+        float sign = (Random.Range(0, 2) * 2) - 1;
+
+        // area 변수가 0과 1를 번갈아 가며 카메라 바깥 상하좌우로 적군 생성
         switch (area)
         {
-            case 0:
-                sign = SpwanSign(camPos.x, (camWidth + margin), screenX);
-
+            case 0:          
                 spwanX = Random.Range(sign * camWidth, sign * (camWidth + margin));
                 spwanY = Random.Range(-camHeight, camHeight) + (-Mathf.Sign(camPos.y) * margin);
                 area = 1;
                 break;
             case 1:
-                sign = SpwanSign(camPos.y, (camHeight + margin), screenY);
-
                 spwanX = Random.Range(-camWidth, camWidth) + (-Mathf.Sign(camPos.x) * margin);
                 spwanY = Random.Range(sign * camHeight, sign * (camHeight + margin));
                 area = 0;
                 break;
         }
         return new Vector2(camPos.x + spwanX, camPos.y + spwanY);
-    }
-
-    float SpwanSign(float camPos, float camLength, float screenLength)
-    {
-        float sign = 0;
-
-        if (Mathf.Sign(camPos) * (camPos + camLength) >= Mathf.Sign(camPos) * screenLength)
-        {
-            sign = Mathf.Sign(camPos) * -1;
-        }
-        else
-        {
-            sign = (Random.Range(0, 2) * 2) - 1;
-        }
-        return sign;
     }
 }

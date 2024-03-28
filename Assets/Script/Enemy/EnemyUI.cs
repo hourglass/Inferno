@@ -15,16 +15,19 @@ public class EnemyUI : MonoBehaviour
     List<Transform> enemyList = new List<Transform>();
     List<Slider> hpList = new List<Slider>();
 
+
     void Start()
     {
-        EnemyManager.CreateHPDel = CreateHp;
-        EnemyStat.HpDel = DecreaseHP;
+        // 델리게이트 등록 함수
+        EnemyManager.CreateHPDel = CreateHp; // Hp바 생성 함수
+        EnemyStat.HpDel = DecreaseHP;        // Hp감소 함수
     }
 
     void Update()
     {
         Camera cam = Camera.main;
 
+        // Enemy List를 순회하면서 Hp바 위치를 갱신
         for (int i = 0; i < hpList.Count; i++)
         {
             if (hpList[i] != null && enemyList[i] != null)
@@ -35,6 +38,7 @@ public class EnemyUI : MonoBehaviour
         }
     }
 
+    // Hp바 생성 함수
     void CreateHp(Transform enemyTm)
     {
         Slider hp = Instantiate(hpBar) as Slider;
@@ -47,6 +51,7 @@ public class EnemyUI : MonoBehaviour
         enemyList.Add(enemyTm);
     }
 
+    // Hp바 갱신 함수
     void DecreaseHP(Transform enemyTm, float health)
     {
         int index = enemyList.IndexOf(enemyTm);

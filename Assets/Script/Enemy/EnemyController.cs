@@ -47,12 +47,22 @@ public class EnemyController : MonoBehaviour
             // 플레이어와의 거리가 0.2f보다 큰 지 확인
             if (Vector2.Distance(playerPos, rb.position) > 0.2f)
             {
-                var forward = (Vector2)playerPos - rb.position;
-                forward.Normalize();
+                // 플레이어로 향하는 방향 벡터
+                var direction = (Vector2)playerPos - rb.position;
+                direction.Normalize();
 
-                float rotAmount = Vector3.Cross(forward, transform.up).z;
+                // direction = 플레이어로 향하는 방향 벡터
+                // transform.up = 자신의 정면 벡터
+                // 벡터의 외적 시 두 벡터와 직교하는 새로운 벡터를 구할 수 있다.
+                // 2D 게임이므로 z축 밯향의 벡터를 회전축으로 삼는다.
+                float rotAmount = Vector3.Cross(direction, transform.up).z;
 
+                // angularVelocity는 회전 축의 방향에 대해서 오른손 법칙을 따른다.
+                // 두 벡터의 외적의 크기는 두 벡터가 만드는 평행사변형의 넓이와 같다.
+                // 회전 축 방향의 벡터 크기에 따라 회전 속도가 달라진다.
                 rb.angularVelocity = -rotAmount * rotSpeed;
+
+                // 회전 후 정면으로 이동
                 rb.velocity = transform.up * moveSpeed;
             }
             else

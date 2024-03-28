@@ -27,8 +27,10 @@ public class PlayerManager : MonoBehaviour
     {
         WeaponManager.GetDirectionDel = getDirection;
 
+        // 어떤 교단의 인덱스가 선택됐는지 가져오는 함수
         weaponIndex = GetIndexDel();
 
+        // 선택된 인덱스에 해당하는 무기 생성
         GameObject weapon = Instantiate(WeaponList[weaponIndex], transform.position, Quaternion.identity);
         weapon.transform.parent = gameObject.transform;
     }
@@ -37,10 +39,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (!ChoiceManager.gameIsPaused)
         {
+            // 가장 가까운 적을 탐색하는 함수
             SearchTarget();
 
+            // 방향 전환이 가능한 상태인지 확인
             if (CanLookAtDel())
             {
+                // 적을 바라보는 함수
                 LookAtTarget();
             }
         }
@@ -53,12 +58,16 @@ public class PlayerManager : MonoBehaviour
 
     void SearchTarget()
     {
+        // 원형으로 충돌체크
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
         Transform closeTarget = null;
 
         if (cols.Length > 0)
         {
+            // 감지 범위를 최대 거리로 설정
             float targetDistance = range;
+            
+            // 배열을 순회하며 가장 가까운 적을 탐색
             foreach (Collider2D colTarget in cols)
             {
                 float distance = Vector3.SqrMagnitude(transform.position - colTarget.transform.position);
@@ -68,32 +77,35 @@ public class PlayerManager : MonoBehaviour
                     closeTarget = colTarget.transform;
                 }
             }
+
+            // 탐색한 적을 저장
             target = closeTarget;
         }
     }
 
-    #region LookAtTarget
     void LookAtTarget()
     {
         Vector2 playerPos = transform.parent.position;
 
         if (target != null)
         {
+            // 타겟이 있을 경우 타겟을 바라봄
             float dir_x = target.position.x - playerPos.x;
             float dir_y = target.position.y - playerPos.y;
             direction = (Mathf.Atan2(dir_y, dir_x) * Mathf.Rad2Deg);
         }
         else
         {
+            // 타겟이 없을 경우 마우스를 바라봄
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             float dir_x = mousePos.x - playerPos.x;
             float dir_y = mousePos.y - playerPos.y;
             direction = (Mathf.Atan2(dir_y, dir_x) * Mathf.Rad2Deg);
         }
+
         //오브젝트 회전
         Quaternion targetRotation = Quaternion.AngleAxis(direction, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
     }
-    #endregion
 }

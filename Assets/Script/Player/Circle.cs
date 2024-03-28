@@ -31,10 +31,11 @@ public class Circle : MonoBehaviour
         float deltaTheta = (2f * Mathf.PI) / vertexCount;
         float theta = 0f;
 
+        // theta 각도 만큼 회전 하면서 라인 그리기
         lineRenderer.positionCount = vertexCount;
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
-            Vector2 pos = new Vector2(radius * Mathf.Cos(theta), radius * Mathf.Sin(theta));
+            Vector2 pos = new Vector2(radius * Mathf.Sin(theta), radius * Mathf.Cos(theta));
             lineRenderer.SetPosition(i, pos + (Vector2)playerTm.position);
             theta += deltaTheta;
         }
@@ -42,14 +43,14 @@ public class Circle : MonoBehaviour
 
     private void PlaceOnCircle()
     {
-        // 플레이어에서 마우스를 향하는 벡터 얻기
+        // 플레이어에서 마우스를 향하는 벡터 얻기                    56      
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 pos = mousePos - (Vector2)playerTm.position;
 
         // 오브젝트 위치   
         float angle = Mathf.Atan2(pos.x, pos.y) * Mathf.Rad2Deg; // 원점에서 해당 벡터의 사이 각도 구하기
         pos.x = radius * Mathf.Sin(angle * Mathf.Deg2Rad);       // 구한 각도의 sin값은 x의 거리
-        pos.y = radius * Mathf.Cos(angle * Mathf.Deg2Rad);       // 그힌 각도의 cos값은 y의 거리
+        pos.y = radius * Mathf.Cos(angle * Mathf.Deg2Rad);       // 구한 각도의 cos값은 y의 거리
 
         // 현재 플레이어 위치에서 계산한 거리만큼 이동
         point.transform.position = pos + (Vector2)playerTm.position;

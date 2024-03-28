@@ -28,8 +28,10 @@ public class EnemyStat : MonoBehaviour
 
     void Awake()
     {
+        // UI의 체력바 설정 델리게이트
         EnemyUI.MaxHeathDel = getMaxHealth;
 
+        // 현재 체력 설정
         currentHealth = maxHealth;
     }
 
@@ -49,11 +51,17 @@ public class EnemyStat : MonoBehaviour
         }
     }
 
+    // 대미지 전달 함수
     void GiveToDamage(GameObject obj)
     {
-        obj.GetComponent<PlayerStat>().TakeDamage(getBodyDamage());
+        var playerStat = obj.GetComponent<PlayerStat>();
+        if (playerStat != null) 
+        {
+            playerStat.TakeDamage(getBodyDamage());
+        }
     }
 
+    // 대미지 큐에 넣어진 피해를 차례로 받는 함수
     void TakeAllDamage()
     {
         if (WeaponStat.damageQueue.Count > 0)
@@ -86,6 +94,8 @@ public class EnemyStat : MonoBehaviour
         }
     }
 
+
+    // 적군 사망 함수
     void Die()
     {
         Instantiate(dieEffect, transform.position, Quaternion.identity);

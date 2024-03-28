@@ -33,14 +33,4 @@ public class CameraController : MonoBehaviour
 
         transform.position = new Vector3(currentX, currentY, transform.position.z);
     }
-
-    public float getScreenX()
-    {
-        return ScreenX;
-    }
-
-    public float getScreenY()
-    {
-        return ScreenY;
-    }
 }
