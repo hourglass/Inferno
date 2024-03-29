@@ -10,7 +10,7 @@ Unity 프로젝트
 </br>
 [ChoiceManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceManager.cs)  
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
-
+</br>
 ## Enemy  
 [EnemyController.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyController.cs)  
 [EnemyManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyManager.cs)  
