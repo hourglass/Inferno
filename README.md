@@ -1,7 +1,7 @@
 # Inferno
 Unity 프로젝트
 
-###Weapon  
+## Weapon  
 [WeaponManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponManager.cs)  
 </br>
 [SwordManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/SwordManager.cs)  
@@ -11,7 +11,7 @@ Unity 프로젝트
 [ChoiceManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceManager.cs)  
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
 
-###Enemy  
+## Enemy  
 [EnemyController.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyController.cs)  
 [EnemyManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyManager.cs)  
 [EnemyStat.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyStat.cs)  
