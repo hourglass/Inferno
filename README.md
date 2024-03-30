@@ -19,7 +19,10 @@ Unity 프로젝트
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
 - 선택지의 버튼을 관리하는 컴포넌트입니다.  
 - WeaponManager로부터 선택지의 설명 텍스트를 받아와 버튼에 적용합니다.  
-- onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.  
+- onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.
+</br>
+</br>
+</br>
 ## Player
 [PlayerController.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
 - 내용  
