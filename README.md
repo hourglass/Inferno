@@ -9,9 +9,9 @@ Unity 프로젝트
 </br>
 [SwordManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/SwordManager.cs)  
 [ArrowManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/ArrowManager.cs)  
-[TowerManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/TowerManager.cs)
-- 무기별 공격, 스킬, 패시브 함수가 작성된 컴포넌트 입니다.
-- 부모 클래스인 WeaponManager의 객체에 선택지 정보와 함께 작성된 함수를 넘겨줍니다.
+[TowerManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/TowerManager.cs)  
+- 무기별 공격, 스킬, 패시브 함수가 작성된 컴포넌트 입니다.  
+- 부모 클래스인 WeaponManager의 객체에 선택지 정보와 함께 작성된 함수를 넘겨줍니다.  
 </br>
 [ChoiceManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceManager.cs)  
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
