@@ -33,7 +33,7 @@ Unity 프로젝트
 ---
 [PlayerStat](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerStat.cs)  
 - 플레이어의 능력치를 관리하는 컴포넌트입니다.
-- 피해을 받았을 때의 처리와 UI를 갱신 합니다.
+- 피해를 받았을 때의 처리와 UI를 갱신 합니다.
 - 경험치를 얻었을 때의 처리와 UI를 갱신 합니다.
 ---
 [Circle](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
