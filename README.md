@@ -14,7 +14,7 @@ Unity 프로젝트
 ## ChoiceManager
 [ChoiceManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceManager.cs)
 - 선택지 UI를 관리하는 컴포넌트입니다.  
-- 플레이어의 레벨 업시 게임을 일시정지 하고 선택지 UI를 출력합니다.  
+- 플레이어의 레벨 업 시 게임을 일시정지 하고 선택지 UI를 출력합니다.  
 ## ChoiceButton
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
 - 선택지의 버튼을 관리하는 컴포넌트입니다.  
