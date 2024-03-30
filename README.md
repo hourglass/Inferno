@@ -24,7 +24,7 @@ Unity 프로젝트
 [PlayerController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
 - 플레이어의 조작 담당하는 컴포넌트입니다.  
 - 마우스 방향으로 플레이어를 이동 시키고 대시 함수를 수행합니다.  
-- WeaponManager에게 공격, 스킬함수를 넘겨받아 입력 시 함수를 수행합니다.  
+- WeaponManager에게 공격, 스킬 함수를 넘겨받아 입력 시 함수를 수행합니다.  
 ---
 [PlayerManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerManager.cs)  
 - 플레이어가 필요한 정보를 관리하는 컴포넌트입니다.  
