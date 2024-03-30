@@ -20,7 +20,6 @@ Unity 프로젝트
 - 선택지의 버튼을 관리하는 컴포넌트입니다.  
 - WeaponManager로부터 선택지의 설명 텍스트를 받아와 버튼에 적용합니다.  
 - onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.
---- 
 ## Player
 [PlayerController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
 - 플레이어의 조작 담당하는 컴포넌트입니다.  
@@ -41,7 +40,6 @@ Unity 프로젝트
 [Circle](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
 - 플레이어의 방향을 알려주는 오브젝트를 표시하는 컴포넌트입니다.
 - 방향을 표시하는 오브젝트가 움직이는 범위를 알려주는 원형의 물체를 그립니다.
----
 ## Enemy
 [EnemyController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyController.cs)  
 - 적군을 조종하는 컴포넌트입니다.
