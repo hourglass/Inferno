@@ -22,10 +22,15 @@ Unity 프로젝트
 - onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.  
 ## Player
 [PlayerController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
-- 플레이어의 이동과 대시 함수를 실행하는 컴포넌트입니다.
-- 마우스 방향으로 플레이어를 이동 시키  
+- 플레이어의 조작 담당하는 컴포넌트입니다.  
+- 마우스 방향으로 플레이어를 이동 시키고 대시 함수를 실행합니다.  
+- WeaponManager에게 공격, 스킬함수를 넘겨받아 입력 시 함수를 실행합니다.  
 ---
 [PlayerManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerManager.cs)  
+- 플레이어가 필요한 정보를 관리하는 컴포넌트입니다.  
+- 플레이어 스프라이트를 마우스 방향으로 회전시키는 함수를 실행합니다.  
+- 무기 선택창에서 선택된 항목의 인덱스를 받아와 인덱스에 해당하는 무기를 생성합니다.  
+---
 [PlayerStat](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerStat.cs)  
 [Circle](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
 </br>
