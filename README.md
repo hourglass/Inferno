@@ -36,7 +36,7 @@ Unity 프로젝트
 - 플레이어의 능력치를 관리하는 컴포넌트입니다.
 - 피해를 받았을 때의 처리를 수행하고 UI를 갱신 합니다.
 - 경험치를 얻었을 때의 처리를 수행하고 UI를 갱신 합니다.
-- 플레이어 사망 시의 처리를 실행합니다.
+- 플레이어 사망 시의 처리를 수행합니다.
 ---
 [Circle](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
 - 플레이어의 방향을 알려주는 오브젝트를 표시하는 컴포넌트입니다.
