@@ -5,7 +5,7 @@ Unity 프로젝트
 [WeaponManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponManager.cs)  
 - 마우스 입력을 받아 공격과 스킬 함수를 실행합니다.  
 - 아래의 무기 컴포넌트에서 함수를 델리게이트로 넘겨받아 공격, 스킬, 패시브 함수를 실행합니다.  
-- 선택지의 정보를 저장하는 객체를 관리하고 선택지와 관련된 기능들을 처리합니다.  
+- 선택지의 정보를 저장하는 객체를 관리하고 선택지와 관련된 기능들을 처리합니다.
 </br>  
 [SwordManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/SwordManager.cs)  
 [ArrowManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/ArrowManager.cs)  
