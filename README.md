@@ -12,16 +12,15 @@ Unity 프로젝트
 [TowerManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/TowerManager.cs)  
 - 무기별 공격, 스킬, 패시브 함수가 작성된 컴포넌트입니다.  
 - 부모 클래스인 WeaponManager의 객체에 선택지 정보와 함께 작성된 함수를 넘겨줍니다.  
-##ChoiceManager
+## ChoiceManager
 [ChoiceManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceManager.cs)
 - 선택지 UI를 관리하는 컴포넌트입니다.  
 - 플레이어의 레벨 업시 게임을 일시정지 하고 선택지 UI를 출력합니다.  
 ## ChoiceButton
 [ChoiceButton.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/System/ChoiceButton.cs)  
-- 선택지의 버튼을 관리하는 컴포넌트입니다.
-- WeaponManager로부터 선택지의 설명 텍스트를 받아와 버튼에 적용합니다.
-- onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.
-</br>
+- 선택지의 버튼을 관리하는 컴포넌트입니다.  
+- WeaponManager로부터 선택지의 설명 텍스트를 받아와 버튼에 적용합니다.  
+- onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.  
 ## Player
 [PlayerController.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
 [PlayerManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerManager.cs)  
