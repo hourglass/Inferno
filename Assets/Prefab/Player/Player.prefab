@@ -147,10 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811ab631eb1a78c42a3e6027fa0236be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  expBar: {fileID: 0}
-  LevelText: {fileID: 0}
-  maxHealth: 0
   particle: {fileID: 0}
 --- !u!114 &-3137647753517467685
 MonoBehaviour:

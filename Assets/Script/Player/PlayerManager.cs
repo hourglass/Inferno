@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public delegate int SceneSelectGetIndexDel();
-    public static SceneSelectGetIndexDel GetIndexDel;
-
+    // 방향 전환이 가능한 상태인지 받아올 델리게이트
     public delegate bool WeaponManagerCanLookAtDel();
     public static WeaponManagerCanLookAtDel CanLookAtDel;
+
+    // 무기 선택 창에서 선택된 인덱스를 받아올 델리게이트
+    public delegate int SceneSelectGetIndexDel();
+    public static SceneSelectGetIndexDel GetIndexDel;
 
     //무기 프리팹
     [SerializeField] List<GameObject> WeaponList = new List<GameObject>();
@@ -20,11 +22,12 @@ public class PlayerManager : MonoBehaviour
     float direction = 0f;
     float rotSpeed = 100f;
 
-    //사정거리
+    // 탐색 범위
     float range = 5000f;
 
     private void Start()
     {
+        // 현재 플레이어의 방향을 넘겨주는 델리게이트
         WeaponManager.GetDirectionDel = getDirection;
 
         // 어떤 교단의 인덱스가 선택됐는지 가져오는 함수

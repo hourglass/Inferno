@@ -96,7 +96,8 @@ public class WeaponManager : MonoBehaviour
     {
         // 델리게이트 등록
         PlayerManager.CanLookAtDel = CanLookAt;              // 방향 전환이 가능한지 확인하는 함수
-        PlayerController.InputKeyDel = InputKey;             // 키 입력 시 수행하는 함수
+        PlayerController.AttackDel = Attack;                 // 키 입력 시 실행할 공격 함수
+        PlayerController.SkillDel = Skill;                   // 키 입력 시 실행할 스킬 함수
         ChoiceManager.GetChoiceDel = SelectRandomId;         // 랜덤한 Id를 뽑는 함수
         ChoiceButton.GetSelectedIdDel = GetSelectedId;       // 선택된 Id를 전달하는 함수
         ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수
@@ -107,19 +108,20 @@ public class WeaponManager : MonoBehaviour
         ShuffleIdList();    // id 리스트 셔플 함수
     }
 
-    void InputKey()
+    void Attack()
     {
-        // 마우스 좌클릭 시 공격 함수 실행
-        if (Input.GetMouseButtonDown(0) && attckEnabled)
+        if (attckEnabled)
         {
             StartCoroutine(AttackRoutine());
-        }
+        }  
+    }
 
-        // 마우스 휠클릭 시 스킬 함수 실행
-        if (Input.GetMouseButtonDown(2) && skillEnabled)
+    void Skill()
+    {
+        if (skillEnabled)
         {
             StartCoroutine(SkillRoutine());
-        }
+        }      
     }
 
     protected virtual void InitWeapon()
