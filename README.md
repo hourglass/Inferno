@@ -1,7 +1,7 @@
 # Inferno
 Unity 프로젝트
 </br>
-## WeaponManager
+## [WeaponManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponManager.cs)  
 [WeaponManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponManager.cs)  
 - 마우스 입력을 받아 공격과 스킬 함수를 실행합니다.  
 - 아래의 무기 컴포넌트에서 함수를 델리게이트로 넘겨받아 공격, 스킬, 패시브 함수를 실행합니다.  
