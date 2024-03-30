@@ -22,6 +22,8 @@ Unity 프로젝트
 - onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.  
 ## Player
 [PlayerController.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
+- 내용  
+---
 [PlayerManager.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerManager.cs)  
 [PlayerStat.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerStat.cs)  
 [Circle.cs](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
