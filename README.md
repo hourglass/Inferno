@@ -37,9 +37,6 @@ Unity 프로젝트
 - 경험치를 얻었을 때의 처리를 수행하고 UI를 갱신 합니다.
 - 플레이어 사망 시의 처리를 수행합니다.
 ---
-[Circle](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Circle.cs)  
-- 플레이어의 방향을 알려주는 오브젝트를 표시하는 컴포넌트입니다.
-- 방향을 표시하는 오브젝트가 움직이는 범위를 알려주는 원형의 물체를 그립니다.
 ## Enemy
 [EnemyController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyController.cs)  
 - 적군을 조종하는 컴포넌트입니다.
