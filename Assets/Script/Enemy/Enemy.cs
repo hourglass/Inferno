@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     // 잔상 파티클 오브젝트
     [SerializeField] GameObject afterImageEffect = null;
