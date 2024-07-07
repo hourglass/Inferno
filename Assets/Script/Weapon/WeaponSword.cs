@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordManager : WeaponManager
+public class WeaponSword : Weapon
 {
     //칼 모션을 받아올 함수
     public delegate void SwordMotionDel();
     public static SwordMotionDel MotionDel;
 
-    //공격 & 스킬의 프리팹
-    [SerializeField] GameObject slashObj = null;
-    [SerializeField] GameObject skillObj = null;
-    [SerializeField] GameObject waveObj = null;
+    // 공격 & 스킬 생성위치
+    [SerializeField] private Transform spawnPoint = null;
 
-    [SerializeField] GameObject homingObj = null;
-    [SerializeField] GameObject bombObj = null;
+    //공격 & 스킬의 프리팹
+    [SerializeField] GameObject slashObj;
+    [SerializeField] GameObject skillObj;
+    [SerializeField] GameObject waveObj;
+
+    [SerializeField] GameObject homingObj;
+    [SerializeField] GameObject bombObj;
 
     //오디오
-    [SerializeField] AudioClip[] swordSound = null;
-    [SerializeField] AudioSource swordAudio = null;
+    [SerializeField] AudioClip[] swordSound;
+    [SerializeField] AudioSource swordAudio;
     int audioIndex = 0;
 
 
-    void Start()
+    void Awake()
     {
         swordAudio = GetComponent<AudioSource>();
     }
@@ -32,6 +35,8 @@ public class SwordManager : WeaponManager
         // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
+
+        Debug.Log("Called");
     }
 
     protected override void InitChoiceDatas()
@@ -40,27 +45,27 @@ public class SwordManager : WeaponManager
         InputChoiceInfos("공격 시 검기 추가");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.AddChain,
-                         delegate { this.WaveSlash(); });
+                         delegate { WaveSlash(); });
 
         InputChoiceInfos("공격 시 유도화살 2개 발사");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.AddChain,
-                         delegate { this.HomingArrowAttack(); });
+                         delegate { HomingArrowAttack(); });
 
         InputChoiceInfos("스킬 연속 3회 시전");
         InputChoiceDatas(ActionType.Skill,
                          ExecutionType.AddChain,
-                         delegate { this.BurstSkill(); });
+                         delegate { BurstSkill(); });
 
         InputChoiceInfos("주기마다 유도화살 4개 발사");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.HomingArrowPassive(); }, 2f);
+                         delegate { HomingArrowPassive(); }, 2f);
 
         InputChoiceInfos("주기마다 자폭병 소환");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.SummonBomb(); }, 2f);
+                         delegate { SummonBomb(); }, 2f);
     }
 
 

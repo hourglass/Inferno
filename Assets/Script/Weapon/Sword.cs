@@ -14,7 +14,7 @@ public class Sword : MonoBehaviour
 
     void Start()
     {
-        SwordManager.MotionDel = ToggleSwitch;
+        WeaponSword.MotionDel = ToggleSwitch;
     }
 
     void Update()

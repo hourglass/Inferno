@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     //플레이어의 각도를 받아올 델리게이트
     public delegate float PlayerManagerGetDirectionDel();
     public static PlayerManagerGetDirectionDel GetDirectionDel;
-
-    // 공격 & 스킬 생성위치
-    [SerializeField] protected Transform spawnPoint = null;
 
     // 공격 & 스킬 딜레이
     private float attackDelay = 0.4f; 
@@ -92,12 +89,12 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-    void Awake()
+    void Start()
     {
         // 델리게이트 등록
         PlayerManager.CanLookAtDel = CanLookAt;              // 방향 전환이 가능한지 확인하는 함수
-        PlayerController.AttackDel = Attack;                 // 키 입력 시 실행할 공격 함수
-        PlayerController.SkillDel = Skill;                   // 키 입력 시 실행할 스킬 함수
+        Player.AttackDel = Attack;                           // 키 입력 시 실행할 공격 함수
+        Player.SkillDel = Skill;                             // 키 입력 시 실행할 스킬 함수
         ChoiceManager.GetChoiceDel = SelectRandomId;         // 랜덤한 Id를 뽑는 함수
         ChoiceButton.GetSelectedIdDel = GetSelectedId;       // 선택된 Id를 전달하는 함수
         ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7022134943854219743}
   - component: {fileID: -1179977574408492549}
   m_Layer: 0
-  m_Name: Arrow_Homing
+  m_Name: Passive_Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

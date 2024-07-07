@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1708914679338906686}
   - component: {fileID: 1375219226543905388}
   m_Layer: 0
-  m_Name: Weapon_Explosion
+  m_Name: Passive_Explosion
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,5 +170,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
   damage: 25
-  knockBackForce: 2000
+  knockBackRatio: 0
   pierceable: 1

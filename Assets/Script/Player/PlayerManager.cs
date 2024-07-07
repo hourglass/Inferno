@@ -28,7 +28,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         // 현재 플레이어의 방향을 넘겨주는 델리게이트
-        WeaponManager.GetDirectionDel = getDirection;
+        Weapon.GetDirectionDel = getDirection;
 
         // 어떤 교단의 인덱스가 선택됐는지 가져오는 함수
         weaponIndex = GetIndexDel();

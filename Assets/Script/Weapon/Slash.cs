@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slash : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         Transform playerTm = GameObject.Find("PlayerManager").transform;
         transform.SetParent(playerTm);

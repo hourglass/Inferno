@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     float currentX = 0;
     float currentY = 0;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.Find("Player");
     }

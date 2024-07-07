@@ -36,7 +36,10 @@ public class WeaponStat : MonoBehaviour
     protected void GiveToDamage(GameObject obj)
     {
         damageQueue.Enqueue(damage);
-        Instantiate(weaponHit, obj.transform.position, Quaternion.identity);
+        if (weaponHit != null)
+        {
+            Instantiate(weaponHit, obj.transform.position, Quaternion.identity);
+        }
     }
 
     // 넉백 수치 만큼 적을 뒤로 밀어내는 함수

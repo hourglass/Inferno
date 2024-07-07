@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowManager : WeaponManager
+public class WeaponArrow : Weapon
 {
+    // 공격 & 스킬 생성위치
+    [SerializeField] private Transform spawnPoint = null;
+
     // 공격 & 스킬의 프리팹
-    [SerializeField] GameObject attackObj = null;
-    [SerializeField] GameObject skillObj = null;
+    [SerializeField] GameObject attackObj;
+    [SerializeField] GameObject skillObj;
 
     // 관통 공격 & 스킬의 프리팹
-    [SerializeField] GameObject pierceableAttackObj = null;
-    [SerializeField] GameObject pierceableSkillObj = null;
+    [SerializeField] GameObject pierceableAttackObj;
+    [SerializeField] GameObject pierceableSkillObj;
 
     // 패시브 능력 프리팹
-    [SerializeField] GameObject homingObj = null;
-    [SerializeField] GameObject bombObj = null;
+    [SerializeField] GameObject homingObj;
+    [SerializeField] GameObject bombObj;
 
     // 오디오
-    [SerializeField] AudioClip[] arrowSound = null;
-    [SerializeField] AudioSource arrowAudio = null;
+    [SerializeField] AudioClip[] arrowSound;
+    [SerializeField] AudioSource arrowAudio;
 
     // 현재 공격 & 스킬을 저장할 변수
-    GameObject currentAttackObj = null;
-    GameObject currenSkillObj = null;
+    GameObject currentAttackObj;
+    GameObject currenSkillObj;
 
 
     protected override void InitWeapon()
@@ -42,27 +45,27 @@ public class ArrowManager : WeaponManager
         InputChoiceInfos("공격 3점사");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.AddChain,
-                         delegate { this.TripleAttack(); });
+                         delegate { TripleAttack(); });
 
         InputChoiceInfos("공격 화살 관통");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.Immediate,
-                         delegate { this.SetAttackPierceable(); });
+                         delegate { SetAttackPierceable(); });
 
         InputChoiceInfos("스킬 화살 관통");
         InputChoiceDatas(ActionType.Skill,
                          ExecutionType.Immediate,
-                         delegate { this.SetSkillPierceable(); });
+                         delegate { SetSkillPierceable(); });
 
         InputChoiceInfos("주기마다 유도화살 4개 발사");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.HomingArrowPassive(); }, 2f);
+                         delegate { HomingArrowPassive(); }, 2f);
 
         InputChoiceInfos("주기마다 자폭병 소환");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.SummonBomb(); }, 2f);
+                         delegate { SummonBomb(); }, 2f);
     }
 
 

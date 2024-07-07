@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     // 잔상 파티클 오브젝트
-    [SerializeField] GameObject particle = null;
+    [SerializeField] GameObject particle;
 
     // 공격 & 스킬 함수 델리게이트
     public delegate void WeaponManagerInputKeyDel();
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     float dashTime = 0.25f;
     float dashDelay = 0.25f;
 
-    void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
         particle.SetActive(false);

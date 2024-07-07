@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerManager : WeaponManager
+public class WeaponTower : Weapon
 {
-    [SerializeField] GameObject attackObj = null;
-    [SerializeField] GameObject skillObj = null;
+    [SerializeField] GameObject attackObj;
+    [SerializeField] GameObject skillObj;
 
-    [SerializeField] GameObject homingObj = null;
-    [SerializeField] GameObject bombObj = null;
-    [SerializeField] GameObject arrowObj = null;
+    [SerializeField] GameObject homingObj;
+    [SerializeField] GameObject bombObj;
+    [SerializeField] GameObject arrowObj;
 
-    [SerializeField] AudioSource towerAudio = null;
-    [SerializeField] AudioClip buildSound = null;
+    [SerializeField] AudioSource towerAudio;
+    [SerializeField] AudioClip buildSound;
 
-    uint maxAttackCount = 3;
-    uint currAttackCount = 0;
-    uint maxSkillCount = 1;
-    uint currSkillCount = 0;
+    int maxAttackCount;
+    int currAttackCount;
+    int maxSkillCount;
+    int currSkillCount;
 
+    void Awake()
+    {
+        maxAttackCount = 3;
+        currAttackCount = 0;
+        maxSkillCount = 1;
+        currSkillCount = 0;
+    }
 
     void Start()
     {
@@ -37,27 +44,27 @@ public class TowerManager : WeaponManager
         InputChoiceInfos("공격 구조물 2개 추가");
         InputChoiceDatas(ActionType.Attack,
                          ExecutionType.Immediate,
-                         delegate { this.increaseAttackCount(); });
+                         delegate { increaseAttackCount(); });
 
         InputChoiceInfos("스킬 구조물 1개 추가");
         InputChoiceDatas(ActionType.Skill,
                          ExecutionType.Immediate,
-                         delegate { this.increaseSkillCount(); });
+                         delegate { increaseSkillCount(); });
 
         InputChoiceInfos("주기마다 유도화살 4개 발사");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.HomingArrowPassive(); }, 2f);
+                         delegate { HomingArrowPassive(); }, 2f);
 
         InputChoiceInfos("주기마다 자폭병 소환");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.SummonBomb(); }, 2f);
+                         delegate { SummonBomb(); }, 2f);
 
         InputChoiceInfos("주기마다 여러 방향의 화살 발사");
         InputChoiceDatas(ActionType.Passive,
                          ExecutionType.AddChain,
-                         delegate { this.ManyDirectionsArrow(); }, 4f);
+                         delegate { ManyDirectionsArrow(); }, 4f);
     }
 
     void DefaultAttack()
@@ -85,17 +92,17 @@ public class TowerManager : WeaponManager
 
     void increaseAttackCount()
     {
-        uint value = 2;
+        int value = 2;
         maxAttackCount = increaseBuildCount(maxAttackCount, value);
     }
 
     void increaseSkillCount()
     {
-        uint value = 1;
+        int value = 1;
         maxSkillCount = increaseBuildCount(maxSkillCount, value);
     }
 
-    uint increaseBuildCount(uint count, uint value)
+    int increaseBuildCount(int count, int value)
     {
         count += value;
         return count;

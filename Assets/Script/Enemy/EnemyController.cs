@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     float attackDuration = 2f; // 공격 지속시간
     float attackDelay = 2f;    // 공격 딜레이
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         afterImageEffect.SetActive(false);
@@ -31,7 +31,10 @@ public class EnemyController : MonoBehaviour
             // 플레이어를 탐색해 저장
             player = GameObject.FindWithTag("Player");
         }
+    }
 
+    void Start()
+    {
         InvokeRepeating("ChasePlayer", 0f, 0.2f); // 플레이어 추적 함수 실행
         StartCoroutine(Attack());                 // 플레이어 공격 함수 실행
     }
