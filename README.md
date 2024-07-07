@@ -38,7 +38,7 @@ Unity 프로젝트
 - 플레이어 사망 시의 처리를 수행합니다.
 ---
 ## Enemy
-[EnemyController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/EnemyController.cs)  
+[EnemyController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Enemy/Enemy.cs)  
 - 적군을 조종하는 컴포넌트입니다.
 - 적들의 이동과 공격 함수를 수행합니다.
 ---
