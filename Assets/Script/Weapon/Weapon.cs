@@ -111,7 +111,7 @@ public abstract class Weapon : MonoBehaviour
         if (attckEnabled)
         {
             StartCoroutine(AttackRoutine());
-        }  
+        }
     }
 
 
@@ -121,14 +121,13 @@ public abstract class Weapon : MonoBehaviour
         if (skillEnabled)
         {
             StartCoroutine(SkillRoutine());
-        }      
+        }
     }
 
 
     // 선택지 텍스트를 입력하는 함수
     protected void InputChoiceInfos(string explainText)
-    {
-        
+    {       
         choiceInfos[currentId] = explainText;
     }
 
