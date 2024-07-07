@@ -1,38 +1,45 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class Circle : MonoBehaviour
+public class CircleUI : MonoBehaviour
 {
-    public Transform playerTm;
-    public GameObject point;
-
-    private LineRenderer lineRenderer;
-
-    private int vertexCount = 40;
-    private float LineWidth = 0.5f;
-    private float radius = 7.5f;
-
-    private void Awake()
+    void Awake()
     {
+        InitVariable();
+    }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
+    {
+        // 멤버 변수 초기화
         lineRenderer = GetComponent<LineRenderer>();
+        drawCount = 40;
+        LineWidth = 0.5f;
+        radius = 7.5f;
     }
 
-    private void Start()
+
+    void Update()
     {
-        InvokeRepeating("SetUpCircle", 0f, 0.02f);
-        InvokeRepeating("PlaceOnCircle", 0f, 0.02f);
+        if (!ChoiceManager.gameIsPaused)
+        {
+            DrawCircle();
+            PlaceOnCircle();
+        }
     }
 
-    private void SetUpCircle()
+
+    void DrawCircle()
     {
         // 라인 선 굵기 설정
         lineRenderer.widthMultiplier = LineWidth;
 
-        float deltaTheta = (2f * Mathf.PI) / vertexCount;
+        float deltaTheta = (2f * Mathf.PI) / drawCount;
         float theta = 0f;
 
         // theta 각도 만큼 회전 하면서 라인 그리기
-        lineRenderer.positionCount = vertexCount;
+        lineRenderer.positionCount = drawCount;
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
             Vector2 pos = new Vector2(radius * Mathf.Sin(theta), radius * Mathf.Cos(theta));
@@ -41,7 +48,8 @@ public class Circle : MonoBehaviour
         }
     }
 
-    private void PlaceOnCircle()
+
+    void PlaceOnCircle()
     {
         // 플레이어에서 마우스를 향하는 벡터 얻기                    56      
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -61,4 +69,15 @@ public class Circle : MonoBehaviour
         // 계산 방향에서 스프라이트 방향만큼 회전
         point.transform.rotation = Quaternion.Euler(0f, 0f, dir - 90f); 
     }
+
+
+    //Member Variable//
+    public Transform playerTm;
+    public GameObject point;
+
+    LineRenderer lineRenderer;
+
+    int drawCount;
+    float LineWidth;
+    float radius;
 }

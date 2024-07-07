@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class WeaponStat : MonoBehaviour
 {
-    public static Queue<float> damageQueue = new Queue<float>();
+    void Awake()
+    {
+        InitVariable();
+    }
 
-    [SerializeField] GameObject weaponHit = null;
-    [SerializeField] float damage = 0f;
-    [SerializeField] float knockBackRatio = 0f;
-    [SerializeField] bool pierceable = false;
 
-    float knockBackForce = 1000f;
+    // 변수 초기화 함수
+    void InitVariable()
+    {
+        knockBackForce = 1000f;
+    }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -31,6 +35,7 @@ public class WeaponStat : MonoBehaviour
             }
         }
     }
+
 
     // 대미지 큐에 피해량을 저장하는 함수
     protected void GiveToDamage(GameObject obj)
@@ -54,4 +59,15 @@ public class WeaponStat : MonoBehaviour
             rigidbody.AddForce(forward * knockBackRatio * knockBackForce);
         }
     }
+
+
+    //Member Variable//
+    public static Queue<float> damageQueue = new Queue<float>();
+
+    [SerializeField] GameObject weaponHit;
+    [SerializeField] float damage;
+    [SerializeField] float knockBackRatio;
+    [SerializeField] bool pierceable;
+
+    float knockBackForce;
 }

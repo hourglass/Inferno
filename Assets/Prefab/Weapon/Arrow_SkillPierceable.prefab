@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2541960475666860583}
   - component: {fileID: 8255416443186251954}
   - component: {fileID: -2412290546340975494}
-  - component: {fileID: 8440936668064691786}
+  - component: {fileID: 5388943735532336853}
   - component: {fileID: 2989536830107147953}
   m_Layer: 0
   m_Name: Arrow_SkillPierceable
@@ -146,7 +146,7 @@ MonoBehaviour:
   damage: 5
   knockBackRatio: 1.5
   pierceable: 1
---- !u!114 &8440936668064691786
+--- !u!114 &5388943735532336853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,13 +155,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1457917311145515481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a42fc4604b1a2445a4efc0ea0c85c66, type: 3}
+  m_Script: {fileID: 11500000, guid: 00a77e522e5d54e418e2c5d5bd2312b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
-  damage: 5
-  knockBackRatio: 1.5
-  pierceable: 1
   moveSpeed: 75
   enemyMask:
     serializedVersion: 2

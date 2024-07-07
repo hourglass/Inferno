@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2672539329403473081}
   - component: {fileID: 2925064942814817831}
   - component: {fileID: 2346413236659978910}
-  - component: {fileID: 9200649899771258947}
+  - component: {fileID: 8382468924077122784}
   - component: {fileID: -3436700822283960619}
   m_Layer: 0
   m_Name: Sword_Wave
@@ -189,7 +189,7 @@ MonoBehaviour:
   damage: 10
   knockBackRatio: 2
   pierceable: 1
---- !u!114 &9200649899771258947
+--- !u!114 &8382468924077122784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2867635419985171683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fed3c7e37600044891748346d08da8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d7ef02810c758b4ab38dc903e21ccee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 50

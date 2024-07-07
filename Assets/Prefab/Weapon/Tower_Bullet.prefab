@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 7745402075153003928}
   - component: {fileID: 4227411339530516237}
   - component: {fileID: 4165545107050046806}
-  - component: {fileID: 4404470537757460981}
+  - component: {fileID: -4226036378898507540}
   - component: {fileID: 3743494858133254609}
   m_Layer: 0
   m_Name: Tower_Bullet
@@ -146,7 +146,7 @@ MonoBehaviour:
   damage: 10
   knockBackRatio: 1.5
   pierceable: 0
---- !u!114 &4404470537757460981
+--- !u!114 &-4226036378898507540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6629432391529997926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a42fc4604b1a2445a4efc0ea0c85c66, type: 3}
+  m_Script: {fileID: 11500000, guid: 00a77e522e5d54e418e2c5d5bd2312b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 75

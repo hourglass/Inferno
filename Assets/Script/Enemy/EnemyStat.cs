@@ -4,36 +4,22 @@ using UnityEngine;
 
 public class EnemyStat : MonoBehaviour
 {
-    //리스트 제거 함수
-    public delegate void EnemyStatRemoveDel(Transform tm);
-    public static EnemyStatRemoveDel RemoveDel;
-
-    //경험치 증가 함수
-    public delegate void PlayerStatExpPointDel(float expPoint);
-    public static PlayerStatExpPointDel ExpPointDel;
-
-    //UI 체력 감소 함수
-    public delegate void EnemyUIHpDel(Transform enemyTm, float health);
-    public static EnemyUIHpDel HpDel;
-
-    //처치 애니메이션
-    [SerializeField] GameObject dieEffect = null;
-
-    //능력치 변수
-    [SerializeField] float maxHealth = 0;
-    [SerializeField] float bodyDamage = 0;
-    [SerializeField] float expPoint = 0;
-
-    private float currentHealth;
-
     void Awake()
+    {
+        InitVariable();
+    }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
     {
         // UI의 체력바 설정 델리게이트
         EnemyUI.MaxHeathDel = getMaxHealth;
 
-        // 현재 체력 설정
+        // 멤버 변수 초기화   
         currentHealth = maxHealth;
     }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -51,6 +37,7 @@ public class EnemyStat : MonoBehaviour
         }
     }
 
+
     // 대미지 전달 함수
     void GiveToDamage(GameObject obj)
     {
@@ -60,6 +47,7 @@ public class EnemyStat : MonoBehaviour
             playerStat.TakeDamage(getBodyDamage());
         }
     }
+
 
     // 대미지 큐에 넣어진 피해를 차례로 받는 함수
     void TakeAllDamage()
@@ -78,6 +66,8 @@ public class EnemyStat : MonoBehaviour
         }
     }
 
+
+    // 대미지 처리 함수
     void TakeDamage(float damage)
     {
         //체력 감소
@@ -114,4 +104,30 @@ public class EnemyStat : MonoBehaviour
     {
         return bodyDamage;
     }
+
+
+    //Delegate//
+    //리스트 제거 함수
+    public delegate void EnemyStatRemoveDel(Transform tm);
+    public static EnemyStatRemoveDel RemoveDel;
+
+    //경험치 증가 함수
+    public delegate void PlayerStatExpPointDel(float expPoint);
+    public static PlayerStatExpPointDel ExpPointDel;
+
+    //UI 체력 감소 함수
+    public delegate void EnemyUIHpDel(Transform enemyTm, float health);
+    public static EnemyUIHpDel HpDel;
+
+
+    //Member Variable//
+    //처치 애니메이션
+    [SerializeField] GameObject dieEffect;
+
+    //능력치 변수
+    [SerializeField] float maxHealth;
+    [SerializeField] float bodyDamage;
+    [SerializeField] float expPoint;
+
+    float currentHealth;
 }

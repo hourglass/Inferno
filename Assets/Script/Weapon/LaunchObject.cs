@@ -1,15 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class SlashWave : MonoBehaviour
+public class LaunchObject : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 0f;
-
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * moveSpeed;
     }
+
+
+    //Member Variable//
+    [SerializeField] float moveSpeed = 0f;
 }

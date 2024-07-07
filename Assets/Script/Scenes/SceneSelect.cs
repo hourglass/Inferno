@@ -6,13 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneSelect : MonoBehaviour
 {
-    [SerializeField] Toggle[] selectToggles;
-
-    [SerializeField] Button JoinBtn = null;
-
-    int group_index = 0;
-
-    void Start()
+    void Awake()
     {
         PlayerManager.GetIndexDel = getGroupIndex;
 
@@ -35,11 +29,6 @@ public class SceneSelect : MonoBehaviour
         SceneManager.LoadScene("3.Game");
     }
 
-    void BackToMenu()
-    {
-        SceneManager.LoadScene("0.Menu");
-    }
-
     void ToggleCheck()
     {
         for (int i = 0; i < selectToggles.Length; i++)
@@ -55,4 +44,11 @@ public class SceneSelect : MonoBehaviour
     {
         return group_index;
     }
+
+
+    //Member Variable//
+    [SerializeField] Toggle[] selectToggles;
+    [SerializeField] Button JoinBtn = null;
+
+    int group_index = 0;
 }

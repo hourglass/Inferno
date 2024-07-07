@@ -6,21 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class EscapeButton : MonoBehaviour
 {
-    public delegate void ResumeDelegate();
-    public static ResumeDelegate ResumeDel;
-
-    [SerializeField] Button ResumeButton = null;
-    [SerializeField] Button TitleButton = null;
-
-    void Start()
+   void Awake()
     {
         ResumeButton.onClick.AddListener(delegate { ResumeDel(); });
         TitleButton.onClick.AddListener(delegate { BackToMenu(); });
     }
+
 
     void BackToMenu()
     {
         ResumeDel();
         SceneManager.LoadScene("0.Menu");
     }
+
+
+    //Delegate//
+    // 게임 재개 델리게이트
+    public delegate void ResumeDelegate();
+    public static ResumeDelegate ResumeDel;
+
+    //Member Variable//
+    [SerializeField] Button ResumeButton;
+    [SerializeField] Button TitleButton;
 }

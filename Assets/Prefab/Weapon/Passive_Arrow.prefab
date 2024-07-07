@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3968025580945649074}
   - component: {fileID: 7405809152008679207}
   - component: {fileID: -1762666111462887091}
-  - component: {fileID: 7022134943854219743}
+  - component: {fileID: 6964181859160209714}
   - component: {fileID: -1179977574408492549}
   m_Layer: 0
   m_Name: Passive_Arrow
@@ -79,7 +79,7 @@ MonoBehaviour:
   damage: 10
   knockBackRatio: 1.5
   pierceable: 0
---- !u!114 &7022134943854219743
+--- !u!114 &6964181859160209714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,13 +88,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 30409993167699532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a42fc4604b1a2445a4efc0ea0c85c66, type: 3}
+  m_Script: {fileID: 11500000, guid: 00a77e522e5d54e418e2c5d5bd2312b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
-  damage: 10
-  knockBackRatio: 1.5
-  pierceable: 0
   moveSpeed: 75
   enemyMask:
     serializedVersion: 2

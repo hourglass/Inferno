@@ -2,37 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+public class Tower : MonoBehaviour
 {
-    public delegate void TowerManagerBuildDel(int id);
-    public static TowerManagerBuildDel BuildDel;
-
-    //타워 id
-    [SerializeField] int id = 0;
-
-    //지속 시간
-    [SerializeField] float lifeTime = 0;
-
-    //사정 거리
-    float range = 5000f;
-
-    //타겟 변수
-    [SerializeField] LayerMask enemyMask = 0;
-    Transform target = null;
-    float dir = 0f;
-    float rotSpeed = 5000f;
-
-
-    void Start()
+    private void Awake()
     {
-        Invoke("SelfDestroy", lifeTime);
+        InitVariable();
+        Destroy(gameObject, lifeTime);
     }
 
-    void SelfDestroy()
+
+    // 변수 초기화 함수
+    void InitVariable()
     {
-        BuildDel(id);
-        Destroy(gameObject);
+        range = 2500f;
+        rotSpeed = 2500f;
     }
+
 
     void Update()
     {
@@ -40,6 +25,14 @@ public class TowerController : MonoBehaviour
         LookAtTarget();
     }
 
+
+    private void OnDestroy()
+    {
+        BuildDel(id);
+    }
+
+
+    // 적군 탐지 함수
     void SearchTarget()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
@@ -61,17 +54,40 @@ public class TowerController : MonoBehaviour
         }
     }
 
+
+    // 방향 전환 함수
     void LookAtTarget()
     {
         if (target != null)
         {
             float dir_x = target.position.x - transform.position.x;
             float dir_y = target.position.y - transform.position.y;
-            dir = (Mathf.Atan2(dir_y, dir_x) * Mathf.Rad2Deg);
+            direction = (Mathf.Atan2(dir_y, dir_x) * Mathf.Rad2Deg);
         }
 
         //오브젝트 회전
-        Quaternion targetRotation = Quaternion.AngleAxis(dir, Vector3.forward);
+        Quaternion targetRotation = Quaternion.AngleAxis(direction, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
     }
+
+
+    //Delegate//
+    public delegate void TowerManagerBuildDel(int id);
+    public static TowerManagerBuildDel BuildDel;
+
+    //Member Variable//
+    //타워 id
+    [SerializeField] int id;
+
+    //지속 시간
+    [SerializeField] float lifeTime;
+
+    // 레이어 마스크
+    [SerializeField] LayerMask enemyMask;
+
+    // 타겟 변수
+    Transform target;
+    float direction;
+    float range;
+    float rotSpeed;
 }

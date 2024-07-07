@@ -1,25 +1,31 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ArrowHoming : MonoBehaviour
+public class HomingObject : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 0f;
+    void Awake()
+    {
+        InitVariable();
+    }
 
-    [SerializeField] LayerMask enemyMask = 0;
-    Rigidbody2D rb;
-    Transform target = null;
 
-    float range = 500f;
-    float rotSpeed = 1000f;
-
-    void Start()
+    // º¯¼ö ÃÊ±âÈ­ ÇÔ¼ö
+    void InitVariable()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        InvokeRepeating("Homing", 0f, 0.05f);
+        range = 500f;
+        rotSpeed = 1000f;
     }
+
+
+    void FixedUpdate()
+    {
+        Homing();
+    }
+
 
     void Homing()
     {
@@ -40,6 +46,7 @@ public class ArrowHoming : MonoBehaviour
         }
     }
 
+
     void SearchTarget()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
@@ -49,4 +56,15 @@ public class ArrowHoming : MonoBehaviour
             target = cols[Random.Range(0, cols.Length)].transform;
         }
     }
+
+
+    //Member Variable//
+    [SerializeField] float moveSpeed;
+
+    [SerializeField] LayerMask enemyMask;
+    Rigidbody2D rb;
+    Transform target;
+
+    float range;
+    float rotSpeed;
 }

@@ -5,30 +5,27 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    // 잔상 파티클 오브젝트
-    [SerializeField] GameObject particle;
-
-    // 공격 & 스킬 함수 델리게이트
-    public delegate void WeaponManagerInputKeyDel();
-    public static WeaponManagerInputKeyDel AttackDel;
-    public static WeaponManagerInputKeyDel SkillDel;
-
-    Rigidbody2D rb;
-    Vector2 forward;
-
-    float moveSpeed = 25f;
-    float stopDistance = 0.5f;
-
-    bool dashState = true;
-    float dashSpeed = 40f;
-    float dashTime = 0.25f;
-    float dashDelay = 0.25f;
-
-    private void OnEnable()
+    private void Awake()
     {
+        InitVariable();
+    }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
+    {
+        // 멤버 변수 초기화
         rb = GetComponent<Rigidbody2D>();
         particle.SetActive(false);
+
+        moveSpeed = 25f;        // 이동 속도
+        stopDistance = 0.5f;    // 정지 거리
+        dashSpeed = 40f;        // 대쉬 속도
+        dashTime = 0.25f;       // 대쉬 시간
+        dashDelay = 0.25f;      // 대쉬 쿨타임
+        dashState = true;       // 대쉬 가능 여부
     }
+
 
     void Update()
     {
@@ -57,10 +54,12 @@ public class Player : MonoBehaviour
         }
     }
 
+
     void FixedUpdate()
     {
         Move();
     }
+
 
     void Move()
     {
@@ -84,25 +83,47 @@ public class Player : MonoBehaviour
         }
     }
 
+
     IEnumerator DashRoutine()
     {
-        // 대시 코루틴
-        // 일정 시간동안 이동 속도를 대시 속도만큼 증가
+        // 대쉬 코루틴
+        // 일정 시간동안 이동 속도를 대쉬 속도만큼 증가
         moveSpeed += dashSpeed;
         particle.SetActive(true);
 
-        // 대시 지속 시간
+        // 대쉬 지속 시간
         yield return new WaitForSeconds(dashTime);
 
         // 지속 시간 이후 다시 원래 속도로 복구
         moveSpeed -= dashSpeed;
         dashState = false;
 
-        // 대시 쿨타임
+        // 대쉬 쿨타임
         yield return new WaitForSeconds(dashDelay);
 
-        // 대시 쿨타임 이후 다시 대시가 사용 가능하도록 설정
+        // 대쉬 쿨타임 이후 다시 대쉬가 사용 가능하도록 설정
         dashState = true;
         particle.SetActive(false);
     }
+
+
+    //Delegate//
+    // 공격 & 스킬 함수 델리게이트
+    public delegate void WeaponManagerInputKeyDel();
+    public static WeaponManagerInputKeyDel AttackDel;
+    public static WeaponManagerInputKeyDel SkillDel;
+
+    //Member Variable//
+    // 잔상 파티클 오브젝트
+    [SerializeField] GameObject particle; 
+
+    Rigidbody2D rb;
+    Vector2 forward;
+
+    float moveSpeed;    // 이동 속도
+    float stopDistance; // 정지 거리
+    float dashSpeed;    // 대쉬 속도
+    float dashTime;     // 대쉬 시간
+    float dashDelay;    // 대쉬 쿨타임
+    bool dashState;     // 대쉬 가능 여부
 }

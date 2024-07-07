@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 7294455589688809329}
   - component: {fileID: 3813676592186414564}
   - component: {fileID: 7466984282475807562}
-  - component: {fileID: 873334629164313348}
+  - component: {fileID: -7064019449799591024}
   - component: {fileID: 7694869593276343002}
   m_Layer: 0
   m_Name: Arrow_AttackPierceable
@@ -231,7 +231,7 @@ MonoBehaviour:
   damage: 15
   knockBackRatio: 2
   pierceable: 1
---- !u!114 &873334629164313348
+--- !u!114 &-7064019449799591024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5928521833062057103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d98dd487091b4a4ba5bd74757a12948, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d7ef02810c758b4ab38dc903e21ccee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 75

@@ -4,40 +4,38 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] LineRenderer lineRenderer = null;
-    [SerializeField] Transform laserPoint = null;
-    [SerializeField] GameObject laserHit = null;
-
-    [SerializeField] float attackDelay = 0.25f;
-
-    //오디오
-    [SerializeField] AudioClip laserSound = null;
-    [SerializeField] AudioSource laserAudio = null;
-
-    float delDistance = 2000f;
-    bool hitState = true;
-    int layerMask = 0;
-
-    Transform tm;
-
-    private void Start()
+    private void Awake()
     {
-        tm = GetComponent<Transform>();
-        laserAudio = GetComponent<AudioSource>();
-
-        laserAudio.clip = laserSound;
+        InitVariable();
         laserAudio.Play();
-
-        InvokeRepeating("ShootLaser", 0f, 0.02f);
     }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
+    {
+        laserAudio = GetComponent<AudioSource>();
+        laserAudio.clip = laserSound;
+
+        layerMask = 0;
+        delDistance = 2000f;
+        hitState = true;
+    }
+
+
+    void Update()
+    {
+        ShootLaser();
+    }
+
 
     void ShootLaser()
     {
         layerMask = 1 << LayerMask.NameToLayer("Enemy");
 
-        if (Physics2D.Raycast(tm.position, transform.right, delDistance, layerMask))
+        if (Physics2D.Raycast(transform.position, transform.right, delDistance, layerMask))
         {
-            RaycastHit2D hit = Physics2D.Raycast(tm.position, transform.right, delDistance, layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, delDistance, layerMask);
             DrawRay(laserPoint.position, hit.point);
 
             if (hit.transform.tag == "Enemy" && hitState)
@@ -51,11 +49,13 @@ public class Laser : MonoBehaviour
         }
     }
 
+
     void DrawRay(Vector2 startPos, Vector2 endPos)
     {
         lineRenderer.SetPosition(0, startPos);
         lineRenderer.SetPosition(1, endPos);
     }
+
 
     IEnumerator Hit(Vector2 pos)
     {
@@ -67,4 +67,18 @@ public class Laser : MonoBehaviour
 
         hitState = true;
     }
+
+
+    //Member Variable//
+    [SerializeField] LineRenderer lineRenderer ;
+    [SerializeField] Transform laserPoint;
+    [SerializeField] GameObject laserHit;
+    [SerializeField] AudioClip laserSound;
+    [SerializeField] AudioSource laserAudio;
+
+    [SerializeField] float attackDelay;
+
+    int layerMask;
+    float delDistance;
+    bool hitState;
 }

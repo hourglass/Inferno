@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8834173156048100535}
   - component: {fileID: 7260221565247068359}
   - component: {fileID: -2807963602118785922}
-  - component: {fileID: 3119435666064829327}
   - component: {fileID: 5891004696877602782}
   m_Layer: 0
   m_Name: Sword_Slash
@@ -155,22 +154,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
-  damage: 15
-  knockBackRatio: 2.5
-  pierceable: 1
---- !u!114 &3119435666064829327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3992790129238727309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ee1e3ad61abbb0439d0888a991a1685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}

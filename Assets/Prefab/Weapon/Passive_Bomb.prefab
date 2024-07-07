@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3859025057588794131}
   - component: {fileID: 3859025057588794220}
   - component: {fileID: 3859025057588794129}
-  - component: {fileID: 3859025057588794221}
   - component: {fileID: -7462106273814421716}
+  - component: {fileID: 2493059928971105941}
   m_Layer: 0
   m_Name: Passive_Bomb
   m_TagString: Weapon
@@ -150,22 +150,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
---- !u!114 &3859025057588794221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3859025057588794222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a42fc4604b1a2445a4efc0ea0c85c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 25
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &-7462106273814421716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +166,19 @@ MonoBehaviour:
   damage: 0
   knockBackRatio: 0
   pierceable: 0
+--- !u!114 &2493059928971105941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3859025057588794222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a77e522e5d54e418e2c5d5bd2312b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 25
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 1024

@@ -4,40 +4,17 @@ using UnityEngine;
 
 public class WeaponArrow : Weapon
 {
-    // 공격 & 스킬 생성위치
-    [SerializeField] private Transform spawnPoint = null;
-
-    // 공격 & 스킬의 프리팹
-    [SerializeField] GameObject attackObj;
-    [SerializeField] GameObject skillObj;
-
-    // 관통 공격 & 스킬의 프리팹
-    [SerializeField] GameObject pierceableAttackObj;
-    [SerializeField] GameObject pierceableSkillObj;
-
-    // 패시브 능력 프리팹
-    [SerializeField] GameObject homingObj;
-    [SerializeField] GameObject bombObj;
-
-    // 오디오
-    [SerializeField] AudioClip[] arrowSound;
-    [SerializeField] AudioSource arrowAudio;
-
-    // 현재 공격 & 스킬을 저장할 변수
-    GameObject currentAttackObj;
-    GameObject currenSkillObj;
-
-
     protected override void InitWeapon()
     {
-        // 기본 공격 & 스킬 프리팹 등록
-        currentAttackObj = attackObj;
-        currenSkillObj = skillObj;
-
         // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
+
+        // 공격 & 스킬 프리팹 설정
+        currentAttackObj = attackObj;
+        currenSkillObj = skillObj;
     }
+
 
     protected override void InitChoiceDatas()
     {
@@ -76,6 +53,7 @@ public class WeaponArrow : Weapon
         Create(currentAttackObj, spawnPoint, 0);
     }
 
+
     // 기본 스킬 함수
     void DefaultSkill()
     {
@@ -88,13 +66,13 @@ public class WeaponArrow : Weapon
     }
 
 
-    // 공격 3연속 수행 함수
+    // 3연속 공격 함수
     void TripleAttack()
     {
-        StartCoroutine(TripleBurst());
+        StartCoroutine(TripleRountine());
     }
 
-    IEnumerator TripleBurst()
+    IEnumerator TripleRountine()
     {
         WaitForSeconds delay = new WaitForSeconds(0.1f);
 
@@ -105,18 +83,22 @@ public class WeaponArrow : Weapon
         }
     }
 
-    // 기본 공격 & 스킬 프리팹 변경 함수
+
+    // 공격 프리팹 변경 함수
     void SetAttackPierceable()
     {
         currentAttackObj = pierceableAttackObj;
     }
 
+
+    // 스킬 프리팹 변경 함수
     void SetSkillPierceable()
     {
         currenSkillObj = pierceableSkillObj;
     }
 
-    // 패시브 오브젝트 생성 함수
+
+    // 유도 화살 생성 함수
     void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
@@ -125,16 +107,44 @@ public class WeaponArrow : Weapon
         Create(homingObj, transform, -135);
     }
 
+
+    // 자폭병 생성 함수
     void SummonBomb()
     {
         Create(bombObj, transform, 0);
     }
 
-    // 소리 재생 함수
+
+    // 오디오 재생 함수
     void PlaySound()
     {
         int index = Random.Range(0, arrowSound.Length);
         arrowAudio.clip = arrowSound[index];
         arrowAudio.Play();
     }
+
+
+    //Member Variable//
+    // 공격 & 스킬 생성위치
+    [SerializeField] private Transform spawnPoint = null;
+
+    // 공격 & 스킬의 프리팹
+    [SerializeField] GameObject attackObj;
+    [SerializeField] GameObject skillObj;
+
+    // 관통 공격 & 스킬의 프리팹
+    [SerializeField] GameObject pierceableAttackObj;
+    [SerializeField] GameObject pierceableSkillObj;
+
+    // 패시브 능력 프리팹
+    [SerializeField] GameObject homingObj;
+    [SerializeField] GameObject bombObj;
+
+    // 오디오
+    [SerializeField] AudioClip[] arrowSound;
+    [SerializeField] AudioSource arrowAudio;
+
+    // 현재 공격 & 스킬을 저장할 변수
+    GameObject currentAttackObj;
+    GameObject currenSkillObj;
 }

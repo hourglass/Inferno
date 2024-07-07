@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SecneKeyInfo : MonoBehaviour
 {
-    [SerializeField] Button BackButton = null;
-
-    // Start is called before the first frame update
     void Start()
     {
         BackButton.onClick.AddListener(delegate { BackToMenu(); });
@@ -18,4 +15,8 @@ public class SecneKeyInfo : MonoBehaviour
     {
         SceneManager.LoadScene("0.Menu");
     }
+
+
+    //Member Variable//
+    [SerializeField] Button BackButton = null;
 }

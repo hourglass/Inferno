@@ -5,12 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationEnd : MonoBehaviour
 {
-    void Start()
-    {
-        InvokeRepeating("SelfDestroy", 0f, 0.1f);
-    }
-
-    void SelfDestroy()
+    void Update()
     {
         Animator animator = GetComponent<Animator>();
 

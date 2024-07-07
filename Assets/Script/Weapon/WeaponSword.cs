@@ -4,31 +4,12 @@ using UnityEngine;
 
 public class WeaponSword : Weapon
 {
-    //칼 모션을 받아올 함수
-    public delegate void SwordMotionDel();
-    public static SwordMotionDel MotionDel;
-
-    // 공격 & 스킬 생성위치
-    [SerializeField] private Transform spawnPoint = null;
-
-    //공격 & 스킬의 프리팹
-    [SerializeField] GameObject slashObj;
-    [SerializeField] GameObject skillObj;
-    [SerializeField] GameObject waveObj;
-
-    [SerializeField] GameObject homingObj;
-    [SerializeField] GameObject bombObj;
-
-    //오디오
-    [SerializeField] AudioClip[] swordSound;
-    [SerializeField] AudioSource swordAudio;
-    int audioIndex = 0;
-
-
     void Awake()
     {
         swordAudio = GetComponent<AudioSource>();
+        audioIndex = 0;
     }
+
 
     protected override void InitWeapon()
     {
@@ -38,6 +19,7 @@ public class WeaponSword : Weapon
 
         Debug.Log("Called");
     }
+
 
     protected override void InitChoiceDatas()
     {
@@ -55,7 +37,7 @@ public class WeaponSword : Weapon
         InputChoiceInfos("스킬 연속 3회 시전");
         InputChoiceDatas(ActionType.Skill,
                          ExecutionType.AddChain,
-                         delegate { BurstSkill(); });
+                         delegate { TripleSkill(); });
 
         InputChoiceInfos("주기마다 유도화살 4개 발사");
         InputChoiceDatas(ActionType.Passive,
@@ -75,7 +57,7 @@ public class WeaponSword : Weapon
         MotionDel();
         PlaySound();
 
-        Create(slashObj, spawnPoint, 0);
+        Create(slashObj, spawnPoint, 0, transform);
     }
 
 
@@ -95,13 +77,13 @@ public class WeaponSword : Weapon
     }
 
 
-    // 스킬 3연속 수행 함수
-    void BurstSkill()
+    // 스킬 3연속 시전 함수
+    void TripleSkill()
     {
-        StartCoroutine(TripleBurst());
+        StartCoroutine(TripleRountine());
     }
 
-    IEnumerator TripleBurst()
+    IEnumerator TripleRountine()
     {
         WaitForSeconds delay = new WaitForSeconds(0.1f);
 
@@ -119,12 +101,14 @@ public class WeaponSword : Weapon
         Create(waveObj, spawnPoint, 0);
     }
 
+
     // 유도 화살 생성 함수
     void HomingArrowAttack()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
     }
+
 
     // 패시브 오브젝트 생성 함수
     void HomingArrowPassive()
@@ -135,12 +119,14 @@ public class WeaponSword : Weapon
         Create(homingObj, transform, -135);
     }
 
+
     void SummonBomb()
     {
         Create(bombObj, transform, 0);
     }
 
-    // 소리 재생 함수
+
+    // 오디오 재생 함수
     void PlaySound()
     {
         swordAudio.clip = swordSound[audioIndex];
@@ -151,4 +137,27 @@ public class WeaponSword : Weapon
         }
         swordAudio.Play();
     }
+
+
+    //Member Variable//
+    //칼 모션을 받아올 함수
+    public delegate void SwordMotionDel();
+    public static SwordMotionDel MotionDel;
+
+    // 공격 & 스킬 생성위치
+    [SerializeField] private Transform spawnPoint = null;
+
+    //공격 & 스킬의 프리팹
+    [SerializeField] GameObject slashObj;
+    [SerializeField] GameObject skillObj;
+    [SerializeField] GameObject waveObj;
+
+    [SerializeField] GameObject homingObj;
+    [SerializeField] GameObject bombObj;
+
+    //오디오
+    [SerializeField] AudioClip[] swordSound;
+    [SerializeField] AudioSource swordAudio;
+
+    int audioIndex;
 }

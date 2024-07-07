@@ -4,28 +4,14 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    // 방향 전환이 가능한 상태인지 받아올 델리게이트
-    public delegate bool WeaponManagerCanLookAtDel();
-    public static WeaponManagerCanLookAtDel CanLookAtDel;
+    void Awake()
+    {
+        InitVariable();
+    }
 
-    // 무기 선택 창에서 선택된 인덱스를 받아올 델리게이트
-    public delegate int SceneSelectGetIndexDel();
-    public static SceneSelectGetIndexDel GetIndexDel;
 
-    //무기 프리팹
-    [SerializeField] List<GameObject> WeaponList = new List<GameObject>();
-    [SerializeField] int weaponIndex = 0;
-
-    //타겟 변수
-    [SerializeField] LayerMask enemyMask = 0;
-    Transform target = null;
-    float direction = 0f;
-    float rotSpeed = 100f;
-
-    // 탐색 범위
-    float range = 5000f;
-
-    private void Start()
+    // 변수 초기화 함수
+    void InitVariable()
     {
         // 현재 플레이어의 방향을 넘겨주는 델리게이트
         Weapon.GetDirectionDel = getDirection;
@@ -36,7 +22,12 @@ public class PlayerManager : MonoBehaviour
         // 선택된 인덱스에 해당하는 무기 생성
         GameObject weapon = Instantiate(WeaponList[weaponIndex], transform.position, Quaternion.identity);
         weapon.transform.parent = gameObject.transform;
+
+        direction = 0f;
+        rotSpeed = 100f;
+        range = 5000f;
     }
+
 
     void Update()
     {
@@ -54,11 +45,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    float getDirection()
-    {
-        return direction;
-    }
 
+    // 적군 탐색 함수
     void SearchTarget()
     {
         // 원형으로 충돌체크
@@ -86,6 +74,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+
+    // 방향 전환 함수
     void LookAtTarget()
     {
         Vector2 playerPos = transform.parent.position;
@@ -111,4 +101,36 @@ public class PlayerManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.AngleAxis(direction, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
     }
+
+
+    // 방향을 넘겨주는 함수
+    float getDirection()
+    {
+        return direction;
+    }
+
+
+    //Delegate//
+    // 방향 전환이 가능한 상태인지 받아올 델리게이트
+    public delegate bool WeaponManagerCanLookAtDel();
+    public static WeaponManagerCanLookAtDel CanLookAtDel;
+
+    // 무기 선택 창에서 선택된 인덱스를 받아올 델리게이트
+    public delegate int SceneSelectGetIndexDel();
+    public static SceneSelectGetIndexDel GetIndexDel;
+
+
+    //Member Variable//
+    //무기 프리팹
+    [SerializeField] List<GameObject> WeaponList = new List<GameObject>();
+    [SerializeField] int weaponIndex;
+
+    //타겟 변수
+    [SerializeField] LayerMask enemyMask;
+    Transform target;
+    float direction;
+    float rotSpeed;
+
+    // 탐색 범위
+    float range;
 }

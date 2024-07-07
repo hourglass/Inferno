@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class ChoiceManager : MonoBehaviour
 {
-    // 선택지 설명 텍스트 적용 함수
-    public delegate void ChoiceButtonSetTextDel();
-    public static ChoiceButtonSetTextDel SetTextDel;
-
-    // 랜덤으로 뽑힌 선택지 Id를 가져오는 함수
-    public delegate void WeaponManagerGetChoiceDel();
-    public static WeaponManagerGetChoiceDel GetChoiceDel;
-
-    // UI 게임 오브젝트
-    [SerializeField] GameObject EscapeUI = null;
-    [SerializeField] GameObject ChoiceUI = null;
-
-    // 일시 정지 상태 값
-    public static bool gameIsPaused = false;
-
-
     void Awake()
+    {
+        InitVariable();
+    }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
     {
         EscapeButton.ResumeDel = EscapeResume;  // 일시 정지 해제 함수
         ChoiceButton.ResumeDel = ChoiceResume;  // 선택지 설명 텍스트 적용 함수
@@ -28,7 +19,10 @@ public class ChoiceManager : MonoBehaviour
 
         EscapeUI.SetActive(false);
         ChoiceUI.SetActive(false);
+
+        gameIsPaused = false;
     }
+
 
     void Update()
     {
@@ -50,6 +44,7 @@ public class ChoiceManager : MonoBehaviour
         }
     }
 
+
     // ESC 일시 정지 해제
     void EscapeResume()
     {
@@ -58,6 +53,7 @@ public class ChoiceManager : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
+
 
     // 선택지 출력 일시정지 해제
     void ChoiceResume()
@@ -68,6 +64,8 @@ public class ChoiceManager : MonoBehaviour
         gameIsPaused = false;
     }
 
+
+    // 선택지 출력 일시정지
     void ChoicePause()
     {
         // 선택지 UI 활성화
@@ -82,4 +80,23 @@ public class ChoiceManager : MonoBehaviour
         Time.timeScale = 0f;
         gameIsPaused = true;
     }
+
+
+    //Delegate//
+    // 선택지 설명 텍스트 적용 함수
+    public delegate void ChoiceButtonSetTextDel();
+    public static ChoiceButtonSetTextDel SetTextDel;
+
+    // 랜덤으로 뽑힌 선택지 Id를 가져오는 함수
+    public delegate void WeaponManagerGetChoiceDel();
+    public static WeaponManagerGetChoiceDel GetChoiceDel;
+
+
+    //Member Variable//
+    // UI 게임 오브젝트
+    [SerializeField] GameObject EscapeUI;
+    [SerializeField] GameObject ChoiceUI;
+
+    // 일시 정지 상태 값
+    public static bool gameIsPaused;
 }

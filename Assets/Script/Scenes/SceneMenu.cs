@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneMenu : MonoBehaviour
 {
-    [SerializeField] Button StartBtn = null;
-    [SerializeField] Button KeyInfoBtn = null;
-    [SerializeField] Button EndBtn = null;
-
-    // Start is called before the first frame update
     void Start()
     {
         StartBtn.onClick.AddListener(delegate { StartGame(); });
@@ -31,4 +26,9 @@ public class SceneMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    //Member Variable//
+    [SerializeField] Button StartBtn;
+    [SerializeField] Button KeyInfoBtn;
+    [SerializeField] Button EndBtn;
 }

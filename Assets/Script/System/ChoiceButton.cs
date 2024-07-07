@@ -5,31 +5,14 @@ using UnityEngine.UI;
 
 public class ChoiceButton : MonoBehaviour
 {
-    // 선택지를 고른 후 일시 정지 해제 함수
-    public delegate void ChoiceManagerResumeDel();
-    public static ChoiceManagerResumeDel ResumeDel;
-
-    // 고른 선택지의 id를 가져오는 함수
-    public delegate int WeaponManagerGetSelectedIdDel();
-    public static WeaponManagerGetSelectedIdDel GetSelectedIdDel;
-
-    // 선택지들의 설명 텍스트를 가져오는 함수
-    public delegate string WeaponManagerGetExplainTextDel(int id);
-    public static WeaponManagerGetExplainTextDel GetExplainTextDel;
-
-    // 고른 선택지의 id를 넘겨주는 함수
-    public delegate void WeaponManagerApplyChoiceDel(int id);
-    public static WeaponManagerApplyChoiceDel ApplyChoiceDel;
-
-    // UI 오브젝트
-    [SerializeField] Button[] ChoiceBtn = new Button[3];
-    [SerializeField] Text[] explainText = new Text[3];
-
-    // Id를 저장할 배열
-    int[] selectId = new int[3];
+    void Awake()
+    {
+        InitVariable();
+    }
 
 
-    void Start()
+    // 변수 초기화 함수
+    void InitVariable()
     {
         // 선택지 설명 적용 함수
         ChoiceManager.SetTextDel = SetText;
@@ -39,6 +22,7 @@ public class ChoiceButton : MonoBehaviour
         ChoiceBtn[1].onClick.AddListener(delegate { Selected(selectId[1]); });
         ChoiceBtn[2].onClick.AddListener(delegate { Selected(selectId[2]); });
     }
+
 
     void SetText()
     {
@@ -55,6 +39,7 @@ public class ChoiceButton : MonoBehaviour
         }
     }
 
+
     void Selected(int id)
     {
         // 고른 선택지의 Id 넘겨주기
@@ -63,4 +48,31 @@ public class ChoiceButton : MonoBehaviour
         // 일시 정지 해제
         ResumeDel();
     }
+
+
+    //Delegate//
+    // 선택지를 고른 후 일시 정지 해제 함수
+    public delegate void ChoiceManagerResumeDel();
+    public static ChoiceManagerResumeDel ResumeDel;
+
+    // 고른 선택지의 id를 가져오는 함수
+    public delegate int WeaponManagerGetSelectedIdDel();
+    public static WeaponManagerGetSelectedIdDel GetSelectedIdDel;
+
+    // 선택지들의 설명 텍스트를 가져오는 함수
+    public delegate string WeaponManagerGetExplainTextDel(int id);
+    public static WeaponManagerGetExplainTextDel GetExplainTextDel;
+
+    // 고른 선택지의 id를 넘겨주는 함수
+    public delegate void WeaponManagerApplyChoiceDel(int id);
+    public static WeaponManagerApplyChoiceDel ApplyChoiceDel;
+
+
+    //Member Variable//
+    // UI 오브젝트
+    [SerializeField] Button[] ChoiceBtn = new Button[3];
+    [SerializeField] Text[] explainText = new Text[3];
+
+    // Id를 저장할 배열
+    int[] selectId = new int[3];
 }

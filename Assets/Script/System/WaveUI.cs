@@ -5,11 +5,7 @@ using UnityEngine.UI;
 
 public class WaveUI : MonoBehaviour
 {
-    [SerializeField] GameObject StartText = null;
-    [SerializeField] Text StartNumber = null;
-    [SerializeField] Text WaveNumber = null;
-
-    void Start()
+    void Awake()
     {
         EnemyManager.StartTextDel = StarTextOn;
         EnemyManager.WaveNumberDel = SetWaveNumber;
@@ -17,20 +13,38 @@ public class WaveUI : MonoBehaviour
         StartText.SetActive(false);
     }
 
+
     void StarTextOn()
     {
         StartText.SetActive(true);
-        Invoke("StarTextOff", 1f);
+        StartCoroutine(TextOffDelay());
     }
 
-    void StarTextOff()
+
+    void StartTextOff()
     {
         StartText.SetActive(false);
     }
+
+
+    IEnumerator TextOffDelay()
+    {
+        WaitForSeconds delay = new WaitForSeconds(1);
+        yield return delay;
+
+        StartTextOff();
+    }
+
 
     void SetWaveNumber(int number)
     {
         StartNumber.text = number.ToString();
         WaveNumber.text = number.ToString();
     }
+
+
+    //Member Variable//
+    [SerializeField] GameObject StartText;
+    [SerializeField] Text StartNumber;
+    [SerializeField] Text WaveNumber;
 }

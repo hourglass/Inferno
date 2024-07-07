@@ -2,51 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
-    //플레이어의 각도를 받아올 델리게이트
-    public delegate float PlayerManagerGetDirectionDel();
-    public static PlayerManagerGetDirectionDel GetDirectionDel;
-
-    // 공격 & 스킬 딜레이
-    private float attackDelay = 0.4f; 
-    private float skillDelay = 2f;
-
-    // 공격 & 스킬 사용 가능 여부
-    bool attckEnabled = true;
-    bool skillEnabled = true;
-
-    // 공격 & 스킬 & 패시브를 수행할 delegate
-    public delegate void ActionDelegate();
-    protected ActionDelegate attackDel;
-    protected ActionDelegate skillDel;
-    protected ActionDelegate passiveDel;
-
-    // 선택지의 설명 텍스트를 저장할 Dictionary (Id로 식별)
-    private Dictionary<int, string> choiceInfos = new Dictionary<int, string>();
-
-    // 선택지의 객체 정보를 저장할 Dictionary (Id로 식별)
-    private Dictionary<int, ChoiceData> choiceDatas = new Dictionary<int, ChoiceData>();
-
-    private int currentId; // 선택지 추가 시 증가 시킬 id 변수
-    private List<int> idList = new List<int>(); // id를 저장할 List
-    private Queue<int> selectedIdQueue = new Queue<int>(); // 랜덤으로 선택된 id를 저장할 Queue
-
-    // 함수의 종류를 구분할 enum
-    protected enum ActionType
-    {
-        Attack,
-        Skill,
-        Passive
-    }
-
-    // 함수의 실행 타입을 구분할 enum
-    protected enum ExecutionType
-    {
-        Immediate,
-        AddChain
-    }
-
     // 선택지 정보를 저장할 객체 클래스
     private class ChoiceData
     {
@@ -60,11 +17,11 @@ public class Weapon : MonoBehaviour
                           string _explainText,
                           float _passiveDelay = 0f)
         {
-            actionType = _actionType;       // 함수의 종류
-            executionType = _executionType; // 함수의 실행타입
-            actionDel = _action;            // 실행할 함수
-            explainText = _explainText;     // 선택지 설명 텍스트
-            passiveDelay = _passiveDelay;   // 패시브 함수 주기
+            actionType = _actionType;
+            executionType = _executionType;
+            actionDel = _action;
+            explainText = _explainText;
+            passiveDelay = _passiveDelay;
         }
 
         // 함수의 종류
@@ -88,8 +45,41 @@ public class Weapon : MonoBehaviour
         public float passiveDelayP { get { return passiveDelay; } }
     }
 
+    // 함수의 종류를 구분할 enum
+    protected enum ActionType
+    {
+        Attack,
+        Skill,
+        Passive
+    }
 
+    // 함수의 실행 타입을 구분할 enum
+    protected enum ExecutionType
+    {
+        Immediate,
+        AddChain
+    }
+
+
+    // 무기가 생성 된 다음에 호출 Awake -> Start
     void Start()
+    {
+        // 변수 초기화 함수
+        InitVariable();
+
+        // 무기 초기화 함수
+        InitWeapon();
+
+        // 선택지 정보 입력 함수
+        InitChoiceDatas();
+
+        // id 리스트 셔플 함수
+        ShuffleIdList();
+    }
+
+
+    // 변수 초기화 함수
+    void InitVariable()
     {
         // 델리게이트 등록
         PlayerManager.CanLookAtDel = CanLookAt;              // 방향 전환이 가능한지 확인하는 함수
@@ -100,11 +90,22 @@ public class Weapon : MonoBehaviour
         ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수
         ChoiceButton.ApplyChoiceDel = ChoiceSelected;        // 선택지를 골랐을 때 처리하는 함수
 
-        InitWeapon();       // 무기 초기화 함수
-        InitChoiceDatas();  // 선택지 정보 입력 함수
-        ShuffleIdList();    // id 리스트 셔플 함수
+        // 멤버 변수 초기화
+        attackDelay = 0.4f;
+        skillDelay = 2f;
+        attckEnabled = true;
+        skillEnabled = true;
     }
 
+
+    // 무기 초기화 함수
+    protected abstract void InitWeapon();
+
+    // 선택지 정보 입력 함수
+    protected abstract void InitChoiceDatas();
+
+
+    // 공격 함수
     void Attack()
     {
         if (attckEnabled)
@@ -113,22 +114,14 @@ public class Weapon : MonoBehaviour
         }  
     }
 
+
+    // 스킬 함수
     void Skill()
     {
         if (skillEnabled)
         {
             StartCoroutine(SkillRoutine());
         }      
-    }
-
-    protected virtual void InitWeapon()
-    {
-        //이 함수는 재정의 될 것임.
-    }
-
-    protected virtual void InitChoiceDatas()
-    {
-        //이 함수는 재정의 될 것임.
     }
 
 
@@ -148,6 +141,7 @@ public class Weapon : MonoBehaviour
     {
         if (choiceInfos.Count > 0)
         {
+            // 선택지 정보 입력
             choiceDatas[currentId]
                  = new ChoiceData(actionType,             // 함수의 종류
                                   executionType,          // 함수의 실행타입
@@ -277,13 +271,15 @@ public class Weapon : MonoBehaviour
         return canLookAt;
     }
 
+
     // 특정 위치에 게임오브젝트를 생성하는 함수
-    protected void Create(GameObject obj, Transform spawn, float degree)
+    protected void Create(GameObject obj, Transform spawn, float degree, Transform parent = null)
     {
-        Instantiate(obj, spawn.position, Quaternion.Euler(0f, 0f, (degree - 90) + GetDirectionDel()));
+        Instantiate(obj, spawn.position, Quaternion.Euler(0f, 0f, (degree - 90) + GetDirectionDel()), parent);
     }
 
-    // 공격 주기 코루틴
+
+    // 공격 코루틴
     IEnumerator AttackRoutine()
     {
         attackDel();
@@ -292,7 +288,8 @@ public class Weapon : MonoBehaviour
         attckEnabled = true;
     }
 
-    // 스킬 주기 코루틴
+
+    // 스킬 코루틴
     IEnumerator SkillRoutine()
     {
         skillDel();
@@ -301,7 +298,8 @@ public class Weapon : MonoBehaviour
         skillEnabled = true;
     }
 
-    // 패시브 주기 코루틴
+
+    // 패시브 코루틴
     IEnumerator PassiveRoutine(ActionDelegate action, float delay)
     {
         var passiveDelay = new WaitForSeconds(delay);
@@ -319,4 +317,36 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+
+
+    //Delegate//
+    //플레이어의 각도를 받아올 델리게이트
+    public delegate float PlayerManagerGetDirectionDel();
+    public static PlayerManagerGetDirectionDel GetDirectionDel;
+
+    // 공격 & 스킬 & 패시브를 수행할 델리게이트
+    public delegate void ActionDelegate();
+    protected ActionDelegate attackDel;
+    protected ActionDelegate skillDel;
+    protected ActionDelegate passiveDel;
+
+
+    //Member Variable//
+    // 선택지의 설명 텍스트를 저장할 Dictionary (Id로 식별)
+    private Dictionary<int, string> choiceInfos = new Dictionary<int, string>();
+
+    // 선택지의 객체 정보를 저장할 Dictionary (Id로 식별)
+    private Dictionary<int, ChoiceData> choiceDatas = new Dictionary<int, ChoiceData>();
+
+    private int currentId; // 선택지 추가 시 증가 시킬 id 변수
+    private List<int> idList = new List<int>(); // id를 저장할 List
+    private Queue<int> selectedIdQueue = new Queue<int>(); // 랜덤으로 선택된 id를 저장할 Queue
+
+    // 공격 & 스킬 딜레이
+    private float attackDelay;
+    private float skillDelay;
+
+    // 공격 & 스킬 사용 가능 여부
+    bool attckEnabled;
+    bool skillEnabled;
 }

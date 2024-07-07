@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5808501809188744430}
   - component: {fileID: 4151766583317883708}
   m_Layer: 0
-  m_Name: Weapon_Hit
+  m_Name: Effect_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

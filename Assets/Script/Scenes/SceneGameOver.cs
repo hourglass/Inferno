@@ -6,15 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneGameOver : MonoBehaviour
 {
-    [SerializeField] Button BackButton = null;
-    [SerializeField] Text EndMessage = null;
-
-    static string endText = "Game Over";
-
     void Start()
     {
         EndMessage.text = endText;
-
         BackButton.onClick.AddListener(delegate { BackToMenu(); });
     }
 
@@ -27,4 +21,10 @@ public class SceneGameOver : MonoBehaviour
     {
         SceneManager.LoadScene("0.Menu");
     }
+
+    //Member Variable//
+    [SerializeField] Button BackButton = null;
+    [SerializeField] Text EndMessage = null;
+
+    static string endText = "Game Over";
 }
