@@ -6,9 +6,9 @@ Unity 프로젝트
 - 아래의 무기 컴포넌트에서 함수를 delegate로 넘겨받아 공격, 스킬, 패시브 함수를 수행합니다.  
 - 선택지의 정보를 저장하는 객체를 관리하고 선택지와 관련된 기능들을 처리합니다.  
 ---
-[SwordManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/SwordManager.cs)  
-[ArrowManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/ArrowManager.cs)  
-[TowerManager](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/TowerManager.cs)  
+[WeaponSword](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponSword.cs)  
+[WeaponArrow](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponArrow.cs)  
+[WeaponTower](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Weapon/WeaponTower.cs)  
 - 무기별 공격, 스킬, 패시브 함수가 작성된 컴포넌트입니다.  
 - 부모 클래스인 WeaponManager의 객체에 선택지 정보와 함께 작성된 함수를 넘겨줍니다.  
 ---
