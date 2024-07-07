@@ -21,7 +21,7 @@ Unity 프로젝트
 - WeaponManager로부터 선택지의 설명 텍스트를 받아와 버튼에 적용합니다.  
 - onClick 이벤트로 선택된 항목의 Id를 WeaponManager에게 넘겨줍니다.
 ## Player
-[PlayerController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/PlayerController.cs)  
+[PlayerController](https://github.com/hourglass/Inferno/blob/main/Assets/Script/Player/Player.cs)  
 - 플레이어의 조작 담당하는 컴포넌트입니다.  
 - 마우스 방향으로 플레이어를 이동 시키고 대시 함수를 수행합니다.  
 - WeaponManager에게 공격, 스킬 함수를 넘겨받아 입력 시 함수를 수행합니다.  
