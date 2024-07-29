@@ -5,14 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class HomingObject : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -21,13 +21,13 @@ public class HomingObject : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Homing();
     }
 
 
-    void Homing()
+    private void Homing()
     {
         if (target == null)
         {
@@ -47,7 +47,7 @@ public class HomingObject : MonoBehaviour
     }
 
 
-    void SearchTarget()
+    private void SearchTarget()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
 
@@ -58,13 +58,16 @@ public class HomingObject : MonoBehaviour
     }
 
 
-    //Member Variable//
-    [SerializeField] float moveSpeed;
+    // Member Variable //
+    [SerializeField]
+    private float moveSpeed;
 
-    [SerializeField] LayerMask enemyMask;
-    Rigidbody2D rb;
-    Transform target;
+    [SerializeField]
+    private LayerMask enemyMask;
 
-    float range;
-    float rotSpeed;
+    private Rigidbody2D rb;
+    private Transform target;
+
+    private float range;
+    private float rotSpeed;
 }

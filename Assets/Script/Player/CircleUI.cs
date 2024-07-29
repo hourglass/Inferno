@@ -3,14 +3,14 @@
 [RequireComponent(typeof(LineRenderer))]
 public class CircleUI : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 멤버 변수 초기화
         lineRenderer = GetComponent<LineRenderer>();
@@ -20,7 +20,7 @@ public class CircleUI : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         if (!ChoiceManager.gameIsPaused)
         {
@@ -30,7 +30,7 @@ public class CircleUI : MonoBehaviour
     }
 
 
-    void DrawCircle()
+    private void DrawCircle()
     {
         // 라인 선 굵기 설정
         lineRenderer.widthMultiplier = LineWidth;
@@ -49,7 +49,7 @@ public class CircleUI : MonoBehaviour
     }
 
 
-    void PlaceOnCircle()
+    private void PlaceOnCircle()
     {
         // 플레이어에서 마우스를 향하는 벡터 얻기                    56      
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -71,13 +71,13 @@ public class CircleUI : MonoBehaviour
     }
 
 
-    //Member Variable//
+    // Member Variable //
     public Transform playerTm;
     public GameObject point;
 
-    LineRenderer lineRenderer;
+    private LineRenderer lineRenderer;
 
-    int drawCount;
-    float LineWidth;
-    float radius;
+    private int drawCount;
+    private float LineWidth;
+    private float radius;
 }

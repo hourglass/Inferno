@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponTower : Weapon
 {
-    void Awake()
+    private void Awake()
     {
         // 변수 초기화 함수
         InitVariable();
@@ -15,11 +15,18 @@ public class WeaponTower : Weapon
     }
 
 
+    private void OnDestroy()
+    {
+        Tower.BuildDel -= ChargeBuild;
+    }
+
+
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 델리게이트 등록
-        Tower.BuildDel += ChargeBuild;
+        Tower.BuildDel = ChargeBuild;
+
         towerAudio.clip = buildSound;
 
         maxAttackCount = 3;
@@ -66,7 +73,7 @@ public class WeaponTower : Weapon
 
 
     // 기본 공격 함수
-    void DefaultAttack()
+    private void DefaultAttack()
     {
         if (currAttackCount < maxAttackCount)
         {
@@ -78,7 +85,7 @@ public class WeaponTower : Weapon
 
 
     // 기본 스킬 함수
-    void DefaultSkill()
+    private void DefaultSkill()
     {
         if (currSkillCount < maxSkillCount)
         {
@@ -89,7 +96,7 @@ public class WeaponTower : Weapon
 
 
     // 공격 설치 횟수 증가 함수
-    void increaseAttackCount()
+    private void increaseAttackCount()
     {
         int value = 2;
         maxAttackCount = increaseBuildCount(maxAttackCount, value);
@@ -97,7 +104,7 @@ public class WeaponTower : Weapon
 
 
     // 스킬 설치 횟수 증가 함수
-    void increaseSkillCount()
+    private void increaseSkillCount()
     {
         int value = 1;
         maxSkillCount = increaseBuildCount(maxSkillCount, value);
@@ -105,7 +112,7 @@ public class WeaponTower : Weapon
 
 
     // 건축물 설치 횟수 증가 함수
-    int increaseBuildCount(int count, int value)
+    private int increaseBuildCount(int count, int value)
     {
         count += value;
         return count;
@@ -113,7 +120,7 @@ public class WeaponTower : Weapon
 
 
     // 유도 화살 생성 함수
-    void HomingArrowPassive()
+    private void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
@@ -123,14 +130,14 @@ public class WeaponTower : Weapon
 
 
     // 자폭병 생성 함수
-    void SummonBomb()
+    private void SummonBomb()
     {
         Create(bombObj, transform, 0);
     }
 
 
     // 16 방향 화살 생성 함수
-    void ManyDirectionsArrow()
+    private void ManyDirectionsArrow()
     {
         int direction = 16;
         float degree = 360f / direction;
@@ -143,7 +150,7 @@ public class WeaponTower : Weapon
 
 
     // 건축물 설치 횟수 충전 함수
-    void ChargeBuild(int id)
+    private void ChargeBuild(int id)
     {
         switch (id)
         {
@@ -153,21 +160,36 @@ public class WeaponTower : Weapon
     }
 
 
-    //Member Variable//
-    [SerializeField] GameObject attackObj;
-    [SerializeField] GameObject skillObj;
+    // Member Variable //
+    // 마우스 오브젝트를 캐싱할 변수
+    private GameObject point;
 
-    [SerializeField] GameObject homingObj;
-    [SerializeField] GameObject bombObj;
-    [SerializeField] GameObject arrowObj;
+    // 공격 & 스킬의 프리팹 //
+    [SerializeField]
+    private GameObject attackObj;
+    
+    [SerializeField]
+    private GameObject skillObj;
 
-    [SerializeField] AudioSource towerAudio;
-    [SerializeField] AudioClip buildSound;
+    [SerializeField]
+    private GameObject homingObj;
+    
+    [SerializeField]
+    private GameObject bombObj;
+    
+    [SerializeField]
+    private GameObject arrowObj;
 
-    GameObject point;
+    // 오디오 변수 //
+    [SerializeField]
+    private AudioSource towerAudio;
 
-    int maxAttackCount;
-    int currAttackCount;
-    int maxSkillCount;
-    int currSkillCount;
+    [SerializeField]
+    private AudioClip buildSound;
+
+    // 타워 관련 변수 //
+    private int maxAttackCount;
+    private int currAttackCount;
+    private int maxSkillCount;
+    private int currSkillCount;
 }

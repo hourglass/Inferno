@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
         StartCoroutine(WaveStart());
     }
 
 
+    private void OnDestroy()
+    {
+        EnemyStat.RemoveDel -= RemoveEnemy;
+    }
+
+
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 적 개체 제거 델리게이트
         EnemyStat.RemoveDel = RemoveEnemy;
 
         // 적군을 생성할 위치정보를 위한 스크린 정보
         cam = Camera.main;
-        screen = cam.gameObject.GetComponent<CameraController>();
 
         // 웨이브 당 생성할 적군 개수 세팅
         for (int i = 0; i < 10; i++)
@@ -36,7 +41,7 @@ public class EnemyManager : MonoBehaviour
 
 
     // 웨이브 시작 함수
-    IEnumerator WaveStart()
+    private IEnumerator WaveStart()
     {
         yield return waveStartDelay;
 
@@ -57,7 +62,7 @@ public class EnemyManager : MonoBehaviour
 
 
     // 적군 생성 함수
-    IEnumerator EnemySpwan()
+    private IEnumerator EnemySpwan()
     {
         WaitForSeconds delay = new WaitForSeconds(spwanDelay);
 
@@ -82,7 +87,7 @@ public class EnemyManager : MonoBehaviour
 
 
     // 적군 관리 리스트에서 적군을 제거하는 함수
-    void RemoveEnemy(Transform tm)
+    private void RemoveEnemy(Transform tm)
     {
         enemyList.Remove(tm);
 
@@ -99,7 +104,7 @@ public class EnemyManager : MonoBehaviour
 
 
     // 적군 생성 위치 설정 함수
-    Vector2 SpwanPoint()
+    private Vector2 SpwanPoint()
     {
         // 카메라의 위치 가져오기
         Vector2 camPos = cam.transform.position;
@@ -139,8 +144,8 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    //Delegate//
-    //게임 클리어 함수
+    // Delegate //
+    // 게임 클리어 함수
     public delegate void SceneGameClearDel();
     public static SceneGameClearDel GameClearDel;
 
@@ -157,23 +162,25 @@ public class EnemyManager : MonoBehaviour
     public static WaveUIDelegateNumber WaveNumberDel;
 
 
-    //Member Variable//
-    //적군 프리팹
-    [SerializeField] List<Transform> enemyList = new List<Transform>();
-    [SerializeField] GameObject enemy = null;
+    // Member Variable //
+    // 적군 프리팹
+    [SerializeField]
+    private List<Transform> enemyList = new List<Transform>();
 
-    //카메라 변수
-    Camera cam = null;
-    CameraController screen = null;
+    [SerializeField] 
+    private GameObject enemy = null;
+
+    // 카메라 변수
+    private Camera cam = null;
 
     // 구역 구분 변수
-    int area = 0;
+    private int area = 0;
 
-    //웨이브 변수
-    int[] enemyCount = new int[10]; //웨이브 당 적군 수
-    int waveNumber; // 현재 웨이브
-    int maxWave;    // 최대 웨이브
+    // 웨이브 변수
+    private int[] enemyCount = new int[10]; // 웨이브 당 적군 수
+    private int waveNumber; // 현재 웨이브
+    private int maxWave;    // 최대 웨이브
 
-    float waveStartDelay;  // 웨이브 시작 시 딜레이
-    float spwanDelay;      // 적 생성마다의 딜레이
+    private float waveStartDelay;  // 웨이브 시작 시 딜레이
+    private float spwanDelay;      // 적 생성마다의 딜레이
 }

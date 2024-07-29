@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class ChoiceButton : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
+    private void OnDestroy()
+    {
+        ChoiceManager.SetTextDel -= SetText;
+    }
+
+
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 선택지 설명 적용 함수
         ChoiceManager.SetTextDel = SetText;
@@ -24,7 +30,7 @@ public class ChoiceButton : MonoBehaviour
     }
 
 
-    void SetText()
+    private void SetText()
     {
         // 랜덤으로 뽑힌 Id 저장
         for (int i = 0; i < selectId.Length; i++)
@@ -40,7 +46,7 @@ public class ChoiceButton : MonoBehaviour
     }
 
 
-    void Selected(int id)
+    private void Selected(int id)
     {
         // 고른 선택지의 Id 넘겨주기
         ApplyChoiceDel(id);
@@ -50,7 +56,7 @@ public class ChoiceButton : MonoBehaviour
     }
 
 
-    //Delegate//
+    // Delegate //
     // 선택지를 고른 후 일시 정지 해제 함수
     public delegate void ChoiceManagerResumeDel();
     public static ChoiceManagerResumeDel ResumeDel;
@@ -68,11 +74,14 @@ public class ChoiceButton : MonoBehaviour
     public static WeaponManagerApplyChoiceDel ApplyChoiceDel;
 
 
-    //Member Variable//
+    // Member Variable //
     // UI 오브젝트
-    [SerializeField] Button[] ChoiceBtn = new Button[3];
-    [SerializeField] Text[] explainText = new Text[3];
+    [SerializeField]
+    private Button[] ChoiceBtn = new Button[3];
+    
+    [SerializeField]
+    private Text[] explainText = new Text[3];
 
     // Id를 저장할 배열
-    int[] selectId = new int[3];
+    private int[] selectId = new int[3];
 }

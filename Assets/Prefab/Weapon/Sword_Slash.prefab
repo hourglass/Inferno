@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
   damage: 15
-  knockBackRatio: 2.5
+  knockBackRatio: 5
   pierceable: 1
 --- !u!114 &5891004696877602782
 MonoBehaviour:

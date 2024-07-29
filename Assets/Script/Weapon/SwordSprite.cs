@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class SwordSprite : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         Sword.ChangeSpriteDel = ChangeSprite;
     }
 
-    void ChangeSprite(int index)
+    private void ChangeSprite(int index)
     {
         spriteRenderer.sprite = spArray[index];
     }
 
 
-    //Member Variable//
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Sprite[] spArray;
+    // Member Variable //
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    
+    [SerializeField]
+    private Sprite[] spArray;
 }

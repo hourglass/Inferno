@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class ChoiceManager : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
+    private void OnDestroy()
+    {
+        EscapeButton.ResumeDel -= EscapeResume;
+        ChoiceButton.ResumeDel -= ChoiceResume;
+        PlayerStat.ShowChoiceDel -= ChoicePause;
+    }
+
+
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         EscapeButton.ResumeDel = EscapeResume;  // 일시 정지 해제 함수
         ChoiceButton.ResumeDel = ChoiceResume;  // 선택지 설명 텍스트 적용 함수
@@ -24,7 +32,7 @@ public class ChoiceManager : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         // ESC 키가 눌리면 일시정지 UI 생성
         // 한번 더 눌리면 게임 재개
@@ -46,7 +54,7 @@ public class ChoiceManager : MonoBehaviour
 
 
     // ESC 일시 정지 해제
-    void EscapeResume()
+    private void EscapeResume()
     {
         EscapeUI.SetActive(false);
 
@@ -56,7 +64,7 @@ public class ChoiceManager : MonoBehaviour
 
 
     // 선택지 출력 일시정지 해제
-    void ChoiceResume()
+    private void ChoiceResume()
     {
         ChoiceUI.SetActive(false);
 
@@ -66,7 +74,7 @@ public class ChoiceManager : MonoBehaviour
 
 
     // 선택지 출력 일시정지
-    void ChoicePause()
+    private void ChoicePause()
     {
         // 선택지 UI 활성화
         ChoiceUI.SetActive(true);
@@ -93,10 +101,13 @@ public class ChoiceManager : MonoBehaviour
 
 
     //Member Variable//
-    // UI 게임 오브젝트
-    [SerializeField] GameObject EscapeUI;
-    [SerializeField] GameObject ChoiceUI;
-
     // 일시 정지 상태 값
     public static bool gameIsPaused;
+
+    // UI 게임 오브젝트
+    [SerializeField]
+    private GameObject EscapeUI;
+    
+    [SerializeField]
+    private GameObject ChoiceUI;
 }

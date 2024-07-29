@@ -27,8 +27,14 @@ public class SceneMenu : MonoBehaviour
         Application.Quit();
     }
 
-    //Member Variable//
-    [SerializeField] Button StartBtn;
-    [SerializeField] Button KeyInfoBtn;
-    [SerializeField] Button EndBtn;
+
+    // Member Variable //
+    [SerializeField] 
+    private Button StartBtn;
+
+    [SerializeField] 
+    private Button KeyInfoBtn;
+    
+    [SerializeField] 
+    private Button EndBtn;
 }

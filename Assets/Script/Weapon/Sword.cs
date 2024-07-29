@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         WeaponSword.MotionDel = ToggleSwitch;
 
@@ -20,7 +20,7 @@ public class Sword : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         if (!ChoiceManager.gameIsPaused)
         {
@@ -32,7 +32,7 @@ public class Sword : MonoBehaviour
     }
 
 
-    void Swing()
+    private void Swing()
     {
         Quaternion targetRotation;
 
@@ -59,7 +59,7 @@ public class Sword : MonoBehaviour
     }
 
 
-    void ToggleSwitch()
+    private void ToggleSwitch()
     {
         isSwing = true;
 
@@ -76,11 +76,11 @@ public class Sword : MonoBehaviour
     }
 
 
-    //Member Variable//
-    //스프라이트 이미지 변경할 델리게이트
+    // Member Variable //
+    // 스프라이트 이미지 변경할 델리게이트
     public delegate void SwordSpriteChangeSpriteDel(int index);
     public static SwordSpriteChangeSpriteDel ChangeSpriteDel;
 
-    int toggleCount;
-    bool isSwing;
+    private int toggleCount;
+    private bool isSwing;
 }

@@ -47,7 +47,7 @@ public class WeaponArrow : Weapon
 
 
     // 기본 공격 함수
-    void DefaultAttack()
+    private void DefaultAttack()
     {
         PlaySound();
         Create(currentAttackObj, spawnPoint, 0);
@@ -55,7 +55,7 @@ public class WeaponArrow : Weapon
 
 
     // 기본 스킬 함수
-    void DefaultSkill()
+    private void DefaultSkill()
     {
         PlaySound();
 
@@ -67,12 +67,12 @@ public class WeaponArrow : Weapon
 
 
     // 3연속 공격 함수
-    void TripleAttack()
+    private void TripleAttack()
     {
         StartCoroutine(TripleRountine());
     }
 
-    IEnumerator TripleRountine()
+    private IEnumerator TripleRountine()
     {
         WaitForSeconds delay = new WaitForSeconds(0.1f);
 
@@ -85,21 +85,21 @@ public class WeaponArrow : Weapon
 
 
     // 공격 프리팹 변경 함수
-    void SetAttackPierceable()
+    private void SetAttackPierceable()
     {
         currentAttackObj = pierceableAttackObj;
     }
 
 
     // 스킬 프리팹 변경 함수
-    void SetSkillPierceable()
+    private void SetSkillPierceable()
     {
         currenSkillObj = pierceableSkillObj;
     }
 
 
     // 유도 화살 생성 함수
-    void HomingArrowPassive()
+    private void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
@@ -109,14 +109,14 @@ public class WeaponArrow : Weapon
 
 
     // 자폭병 생성 함수
-    void SummonBomb()
+    private void SummonBomb()
     {
         Create(bombObj, transform, 0);
     }
 
 
     // 오디오 재생 함수
-    void PlaySound()
+    private void PlaySound()
     {
         int index = Random.Range(0, arrowSound.Length);
         arrowAudio.clip = arrowSound[index];
@@ -124,27 +124,35 @@ public class WeaponArrow : Weapon
     }
 
 
-    //Member Variable//
+    // Member Variable //
     // 공격 & 스킬 생성위치
-    [SerializeField] private Transform spawnPoint = null;
+    [SerializeField] 
+    private Transform spawnPoint = null;
 
-    // 공격 & 스킬의 프리팹
-    [SerializeField] GameObject attackObj;
-    [SerializeField] GameObject skillObj;
+    // 공격 & 스킬의 프리팹 //
+    [SerializeField]
+    private GameObject attackObj;
+    
+    [SerializeField]
+    private GameObject skillObj;
 
-    // 관통 공격 & 스킬의 프리팹
-    [SerializeField] GameObject pierceableAttackObj;
-    [SerializeField] GameObject pierceableSkillObj;
+    [SerializeField] 
+    private GameObject pierceableAttackObj;
+    
+    [SerializeField] 
+    private GameObject pierceableSkillObj;
 
-    // 패시브 능력 프리팹
-    [SerializeField] GameObject homingObj;
-    [SerializeField] GameObject bombObj;
-
-    // 오디오
-    [SerializeField] AudioClip[] arrowSound;
-    [SerializeField] AudioSource arrowAudio;
+    [SerializeField] 
+    private GameObject homingObj;
+    
+    [SerializeField] 
+    private GameObject bombObj;
 
     // 현재 공격 & 스킬을 저장할 변수
-    GameObject currentAttackObj;
-    GameObject currenSkillObj;
+    private GameObject currentAttackObj;
+    private GameObject currenSkillObj;
+
+    // 오디오 변수 // 
+    [SerializeField] AudioClip[] arrowSound;
+    [SerializeField] AudioSource arrowAudio;
 }

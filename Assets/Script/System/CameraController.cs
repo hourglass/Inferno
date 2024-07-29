@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         player = GameObject.Find("Player");
 
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         Vector3 playerPos = player.transform.position;
 
@@ -40,11 +40,11 @@ public class CameraController : MonoBehaviour
     }
 
 
-    //Member Variable//
-    GameObject player;
+    // Member Variable //
+    private GameObject player;
 
-    float ScreenX;
-    float ScreenY;
-    float currentX;
-    float currentY;
+    private float ScreenX;
+    private float ScreenY;
+    private float currentX;
+    private float currentY;
 }

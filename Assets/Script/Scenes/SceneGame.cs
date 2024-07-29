@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneGame : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         PlayerStat.GameOverDel = GameOver;
         EnemyManager.GameClearDel = GameClear;
     }
 
-    void GameOver()
+    private void GameOver()
     {
         SceneGameOver.setEndText("Game Over!");
         SceneManager.LoadScene("4.GameOver");
     }
 
-    void GameClear()
+    private void GameClear()
     {
         SceneGameOver.setEndText("Clear!");
         SceneManager.LoadScene("4.GameOver");

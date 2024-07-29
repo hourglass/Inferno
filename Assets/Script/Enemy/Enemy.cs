@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         // static 변수이므로 1번만 플레이어를 탐색하도록 설정
         if (player == null)
@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 멤버 변수 초기화
         rb = GetComponent<Rigidbody2D>();
@@ -36,13 +36,13 @@ public class Enemy : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Chase();
     }
 
 
-    void Chase()
+    private void Chase()
     {
         // 플레이어 null 체크 후 플레이어 위치 저장 
         var playerPos = player.transform.position;
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
 
 
     // 돌진 주기 코루틴
-    IEnumerator Rush()
+    private IEnumerator Rush()
     {
         WaitForSeconds delay = new WaitForSeconds(rushDelay);
         WaitForSeconds duration = new WaitForSeconds(rushDuration);
@@ -92,19 +92,20 @@ public class Enemy : MonoBehaviour
     }
 
 
-    //Member Variable//
+    // Member Variable //
     // 잔상 파티클 오브젝트
-    [SerializeField] GameObject afterImageEffect = null;
+    [SerializeField]
+    private GameObject afterImageEffect = null;
 
     // 추적할 플레이어 변수
-    static GameObject player = null;
+    private static GameObject player = null;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
-    float rotSpeed;  // 회전 속도
-    float moveSpeed; // 이동 속도
-    float rushSpeed; // 돌진 속도
-    float rushDelay;    // 돌진 딜레이
-    float rushDuration; // 돌진 지속시간
+    private float rotSpeed;  // 회전 속도
+    private float moveSpeed; // 이동 속도
+    private float rushSpeed; // 돌진 속도
+    private float rushDelay;    // 돌진 딜레이
+    private float rushDuration; // 돌진 지속시간
 }
 

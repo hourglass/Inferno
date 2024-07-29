@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EnemyStat : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
     }
 
+    private void OnDestroy()
+    {
+        EnemyUI.MaxHeathDel -= getMaxHealth;
+    }
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // UI의 체력바 설정 델리게이트
         EnemyUI.MaxHeathDel = getMaxHealth;
@@ -21,7 +25,7 @@ public class EnemyStat : MonoBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // 플레이어에 충돌 시 피해를 주는 함수 실행
         if (other.tag == "Player")
@@ -39,7 +43,7 @@ public class EnemyStat : MonoBehaviour
 
 
     // 대미지 전달 함수
-    void GiveToDamage(GameObject obj)
+    private void GiveToDamage(GameObject obj)
     {
         var playerStat = obj.GetComponent<PlayerStat>();
         if (playerStat != null) 
@@ -50,7 +54,7 @@ public class EnemyStat : MonoBehaviour
 
 
     // 대미지 큐에 넣어진 피해를 차례로 받는 함수
-    void TakeAllDamage()
+    private void TakeAllDamage()
     {
         if (WeaponStat.damageQueue.Count > 0)
         {
@@ -68,7 +72,7 @@ public class EnemyStat : MonoBehaviour
 
 
     // 대미지 처리 함수
-    void TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
         //체력 감소
         currentHealth -= damage;
@@ -86,7 +90,7 @@ public class EnemyStat : MonoBehaviour
 
 
     // 적군 사망 함수
-    void Die()
+    private void Die()
     {
         Instantiate(dieEffect, transform.position, Quaternion.identity);
 
@@ -95,39 +99,47 @@ public class EnemyStat : MonoBehaviour
         Destroy(gameObject);
     }
 
-    float getMaxHealth()
+
+    private float getMaxHealth()
     {
         return maxHealth;
     }
 
-    float getBodyDamage()
+
+    private float getBodyDamage()
     {
         return bodyDamage;
     }
 
 
-    //Delegate//
-    //리스트 제거 함수
+    // Delegate //
+    // 리스트 제거 함수
     public delegate void EnemyStatRemoveDel(Transform tm);
     public static EnemyStatRemoveDel RemoveDel;
 
-    //경험치 증가 함수
+    // 경험치 증가 함수
     public delegate void PlayerStatExpPointDel(float expPoint);
     public static PlayerStatExpPointDel ExpPointDel;
 
-    //UI 체력 감소 함수
+    // UI 체력 감소 함수
     public delegate void EnemyUIHpDel(Transform enemyTm, float health);
     public static EnemyUIHpDel HpDel;
 
 
-    //Member Variable//
-    //처치 애니메이션
-    [SerializeField] GameObject dieEffect;
+    // Member Variable //
+    // 처치 애니메이션
+    [SerializeField]
+    private GameObject dieEffect;
 
-    //능력치 변수
-    [SerializeField] float maxHealth;
-    [SerializeField] float bodyDamage;
-    [SerializeField] float expPoint;
+    // 능력치 변수 //
+    [SerializeField]
+    private float maxHealth;
+    
+    [SerializeField]
+    private float bodyDamage;
+    
+    [SerializeField]
+    private float expPoint;
 
-    float currentHealth;
+    private float currentHealth;
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         ps = GetComponent<ParticleSystem>();
     }
 
 
-    void Update()
+    private void Update()
     {
         if (ps != null)
         {
@@ -24,6 +24,7 @@ public class Particle : MonoBehaviour
     }
 
 
-    //Member Variable//
-    [SerializeField] ParticleSystem ps = null;
+    // Member Variable //
+    [SerializeField]
+    private ParticleSystem ps;
 }

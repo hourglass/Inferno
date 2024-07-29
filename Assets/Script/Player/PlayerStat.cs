@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
-{    
-    void Awake()
+{
+    private void Awake()
     {
         InitVariable();
         UISetting();
     }
 
 
+    private void OnDestroy()
+    {
+        EnemyStat.ExpPointDel -= GainExp;
+    }
+
+
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 경험치를 받아올 델리게이트
         EnemyStat.ExpPointDel = GainExp;
@@ -28,44 +34,15 @@ public class PlayerStat : MonoBehaviour
     }
 
 
-    void UISetting()
+    private void UISetting()
     {
         healthBar.maxValue = maxHealth;
         expBar.maxValue = maxExp;
         LevelText.text = currentlevel.ToString();
     }
 
-    public void TakeDamage(float damage)
-    {
-        //현재 체력 감소
-        currentHealth -= damage;
-
-        //UI 적용
-        healthBar.value = currentHealth;
-
-        //사망
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void GainExp(float expPoint)
-    {
-        //경험치 증가
-        currentexp += expPoint;
-
-        //레벨 업
-        if (currentlevel < maxLevel && currentexp >= maxExp)
-        {
-            LevelUp();
-        }
-
-        //UI 적용
-        expBar.value = currentexp;
-    }
-
-    void LevelUp()
+    
+    private void LevelUp()
     {
         //경험치 초기화 & 최대 경험치 증가
         currentexp = 0;
@@ -94,31 +71,71 @@ public class PlayerStat : MonoBehaviour
         ShowChoiceDel();
     }
 
-    void Die()
+
+    private void Die()
     {
         GameOverDel();
     }
 
 
-    //Member Variable//
-    //게임오버 함수
+    public void TakeDamage(float damage)
+    {
+        //현재 체력 감소
+        currentHealth -= damage;
+
+        //UI 적용
+        healthBar.value = currentHealth;
+
+        //사망
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+
+    public void GainExp(float expPoint)
+    {
+        //경험치 증가
+        currentexp += expPoint;
+
+        //레벨 업
+        if (currentlevel < maxLevel && currentexp >= maxExp)
+        {
+            LevelUp();
+        }
+
+        //UI 적용
+        expBar.value = currentexp;
+    }
+
+
+    // Member Variable //
+    // 게임 오버 함수
     public delegate void SceneGameOverDel();
     public static SceneGameOverDel GameOverDel;
 
-    //선택지 함수
+    // 선택지 함수
     public delegate void ChoiceManagerShowChoiceDel();
     public static ChoiceManagerShowChoiceDel ShowChoiceDel;
 
-    //UI 변수
-    [SerializeField] Slider healthBar = null;
-    [SerializeField] Slider expBar = null;
-    [SerializeField] Text LevelText = null;
+    // UI 변수
+    [SerializeField]
+    private Slider healthBar = null;
 
-    //능력치 변수
-    [SerializeField] float maxHealth;
-    float currentHealth;
-    float maxExp;
-    float currentexp;
-    float maxLevel;
-    float currentlevel;
+    [SerializeField]
+    private Slider expBar = null;
+
+    [SerializeField]
+    private Text LevelText = null;
+
+    // 능력치 변수 //
+    [SerializeField]
+    private float maxHealth;
+
+    private float currentHealth;
+    private float maxExp;
+    private float currentexp;
+    private float maxLevel;
+    private float currentlevel;
 }

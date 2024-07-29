@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerAttack : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         InitVariable();
         StartCoroutine(AttackRoutine());
@@ -12,13 +12,13 @@ public class TowerAttack : MonoBehaviour
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         attackDelay = 1f;
     }
 
 
-    IEnumerator AttackRoutine()
+    private IEnumerator AttackRoutine()
     {
         WaitForSeconds delay = new WaitForSeconds(attackDelay);
 
@@ -31,10 +31,11 @@ public class TowerAttack : MonoBehaviour
     }
 
 
-    //Member Variable//
-    //공격 오브젝트
-    [SerializeField] GameObject missle;
+    // Member Variable //
+    // 공격 오브젝트
+    [SerializeField]
+    private GameObject missle;
 
-    //공격 주기
+    // 공격 주기
     protected float attackDelay;
 }

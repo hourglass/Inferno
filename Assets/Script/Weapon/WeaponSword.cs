@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponSword : Weapon
 {
-    void Awake()
+    private void Awake()
     {
         swordAudio = GetComponent<AudioSource>();
         audioIndex = 0;
@@ -52,7 +52,7 @@ public class WeaponSword : Weapon
 
 
     // 기본 공격 함수
-    void DefaultAttack()
+    private void DefaultAttack()
     {
         MotionDel();
         PlaySound();
@@ -62,7 +62,7 @@ public class WeaponSword : Weapon
 
 
     // 기본 스킬 함수
-    void DefaultSkill()
+    private void DefaultSkill()
     {
         swordAudio.clip = swordSound[0];
         swordAudio.Play();
@@ -78,7 +78,7 @@ public class WeaponSword : Weapon
 
 
     // 스킬 3연속 시전 함수
-    void TripleSkill()
+    private void TripleSkill()
     {
         StartCoroutine(TripleRountine());
     }
@@ -96,14 +96,14 @@ public class WeaponSword : Weapon
 
 
     // 검기 생성 함수
-    void WaveSlash()
+    private void WaveSlash()
     {
         Create(waveObj, spawnPoint, 0);
     }
 
 
     // 유도 화살 생성 함수
-    void HomingArrowAttack()
+    private void HomingArrowAttack()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
@@ -111,7 +111,7 @@ public class WeaponSword : Weapon
 
 
     // 패시브 오브젝트 생성 함수
-    void HomingArrowPassive()
+    private void HomingArrowPassive()
     {
         Create(homingObj, transform, 90);
         Create(homingObj, transform, -90);
@@ -120,14 +120,14 @@ public class WeaponSword : Weapon
     }
 
 
-    void SummonBomb()
+    private void SummonBomb()
     {
         Create(bombObj, transform, 0);
     }
 
 
     // 오디오 재생 함수
-    void PlaySound()
+    private void PlaySound()
     {
         swordAudio.clip = swordSound[audioIndex];
         audioIndex++;
@@ -139,25 +139,37 @@ public class WeaponSword : Weapon
     }
 
 
-    //Member Variable//
-    //칼 모션을 받아올 함수
+    // Member Variable //
+    // 칼 모션을 받아올 함수
     public delegate void SwordMotionDel();
     public static SwordMotionDel MotionDel;
 
     // 공격 & 스킬 생성위치
-    [SerializeField] private Transform spawnPoint = null;
+    [SerializeField]
+    private Transform spawnPoint = null;
 
-    //공격 & 스킬의 프리팹
-    [SerializeField] GameObject slashObj;
-    [SerializeField] GameObject skillObj;
-    [SerializeField] GameObject waveObj;
+    // 공격 & 스킬의 프리팹 //
+    [SerializeField] 
+    private GameObject slashObj;
+    
+    [SerializeField] 
+    private GameObject skillObj;
 
-    [SerializeField] GameObject homingObj;
-    [SerializeField] GameObject bombObj;
+    [SerializeField] 
+    private GameObject waveObj;
 
-    //오디오
-    [SerializeField] AudioClip[] swordSound;
-    [SerializeField] AudioSource swordAudio;
+    [SerializeField] 
+    private GameObject homingObj;
 
-    int audioIndex;
+    [SerializeField] 
+    private GameObject bombObj;
+
+    // 오디오 //
+    [SerializeField]
+    private AudioClip[] swordSound;
+    
+    [SerializeField] 
+    private AudioSource swordAudio;
+
+    private int audioIndex;
 }

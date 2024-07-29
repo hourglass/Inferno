@@ -12,14 +12,14 @@ public class Tower : MonoBehaviour
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         range = 2500f;
         rotSpeed = 2500f;
     }
 
 
-    void Update()
+    private void Update()
     {
         SearchTarget();
         LookAtTarget();
@@ -33,7 +33,7 @@ public class Tower : MonoBehaviour
 
 
     // 적군 탐지 함수
-    void SearchTarget()
+    private void SearchTarget()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
         Transform closeTarget = null;
@@ -56,7 +56,7 @@ public class Tower : MonoBehaviour
 
 
     // 방향 전환 함수
-    void LookAtTarget()
+    private void LookAtTarget()
     {
         if (target != null)
         {
@@ -71,23 +71,26 @@ public class Tower : MonoBehaviour
     }
 
 
-    //Delegate//
+    // Delegate //
     public delegate void TowerManagerBuildDel(int id);
     public static TowerManagerBuildDel BuildDel;
 
-    //Member Variable//
-    //타워 id
-    [SerializeField] int id;
+    // Member Variable //
+    // 타워 id
+    [SerializeField]
+    private int id;
 
-    //지속 시간
-    [SerializeField] float lifeTime;
+    // 지속 시간
+    [SerializeField]
+    private float lifeTime;
 
     // 레이어 마스크
-    [SerializeField] LayerMask enemyMask;
+    [SerializeField]
+    private LayerMask enemyMask;
 
     // 타겟 변수
-    Transform target;
-    float direction;
-    float range;
-    float rotSpeed;
+    private Transform target;
+    private float direction;
+    private float range;
+    private float rotSpeed;
 }

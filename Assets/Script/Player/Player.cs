@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         // 멤버 변수 초기화
         rb = GetComponent<Rigidbody2D>();
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         if (!ChoiceManager.gameIsPaused)
         {
@@ -55,13 +55,13 @@ public class Player : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
     }
 
 
-    void Move()
+    private void Move()
     {
         // 마우스 커서의 위치를 받아오기
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     }
 
 
-    IEnumerator DashRoutine()
+    private IEnumerator DashRoutine()
     {
         // 대쉬 코루틴
         // 일정 시간동안 이동 속도를 대쉬 속도만큼 증가
@@ -107,23 +107,24 @@ public class Player : MonoBehaviour
     }
 
 
-    //Delegate//
+    // Delegate //
     // 공격 & 스킬 함수 델리게이트
     public delegate void WeaponManagerInputKeyDel();
     public static WeaponManagerInputKeyDel AttackDel;
     public static WeaponManagerInputKeyDel SkillDel;
 
-    //Member Variable//
+    // Member Variable //
     // 잔상 파티클 오브젝트
-    [SerializeField] GameObject particle; 
+    [SerializeField]
+    private GameObject particle;
 
-    Rigidbody2D rb;
-    Vector2 forward;
+    private Rigidbody2D rb;
+    private Vector2 forward;
 
-    float moveSpeed;    // 이동 속도
-    float stopDistance; // 정지 거리
-    float dashSpeed;    // 대쉬 속도
-    float dashTime;     // 대쉬 시간
-    float dashDelay;    // 대쉬 쿨타임
-    bool dashState;     // 대쉬 가능 여부
+    private float moveSpeed;    // 이동 속도
+    private float stopDistance; // 정지 거리
+    private float dashSpeed;    // 대쉬 속도
+    private float dashTime;     // 대쉬 시간
+    private float dashDelay;    // 대쉬 쿨타임
+    private bool dashState;     // 대쉬 가능 여부
 }

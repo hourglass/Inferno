@@ -12,7 +12,7 @@ public class Laser : MonoBehaviour
 
 
     // 변수 초기화 함수
-    void InitVariable()
+    private void InitVariable()
     {
         laserAudio = GetComponent<AudioSource>();
         laserAudio.clip = laserSound;
@@ -23,13 +23,13 @@ public class Laser : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         ShootLaser();
     }
 
 
-    void ShootLaser()
+    private void ShootLaser()
     {
         layerMask = 1 << LayerMask.NameToLayer("Enemy");
 
@@ -50,14 +50,14 @@ public class Laser : MonoBehaviour
     }
 
 
-    void DrawRay(Vector2 startPos, Vector2 endPos)
+    private void DrawRay(Vector2 startPos, Vector2 endPos)
     {
         lineRenderer.SetPosition(0, startPos);
         lineRenderer.SetPosition(1, endPos);
     }
 
 
-    IEnumerator Hit(Vector2 pos)
+    private IEnumerator Hit(Vector2 pos)
     {
         hitState = false;
 
@@ -69,16 +69,26 @@ public class Laser : MonoBehaviour
     }
 
 
-    //Member Variable//
-    [SerializeField] LineRenderer lineRenderer ;
-    [SerializeField] Transform laserPoint;
-    [SerializeField] GameObject laserHit;
-    [SerializeField] AudioClip laserSound;
-    [SerializeField] AudioSource laserAudio;
+    // Member Variable //
+    [SerializeField]
+    private LineRenderer lineRenderer ;
+    
+    [SerializeField]
+    private Transform laserPoint;
+    
+    [SerializeField]
+    private GameObject laserHit;
+    
+    [SerializeField]
+    private AudioClip laserSound;
+    
+    [SerializeField]
+    private AudioSource laserAudio;
 
-    [SerializeField] float attackDelay;
+    [SerializeField]
+    private float attackDelay;
 
-    int layerMask;
-    float delDistance;
-    bool hitState;
+    private int layerMask;
+    private float delDistance;
+    private bool hitState;
 }

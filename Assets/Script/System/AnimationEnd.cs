@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationEnd : MonoBehaviour
 {
-    void Update()
+    private void Update()
     {
         Animator animator = GetComponent<Animator>();
 

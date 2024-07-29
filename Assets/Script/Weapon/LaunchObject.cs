@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaunchObject : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * moveSpeed;
@@ -12,5 +12,6 @@ public class LaunchObject : MonoBehaviour
 
 
     //Member Variable//
-    [SerializeField] float moveSpeed = 0f;
+    [SerializeField]
+    private float moveSpeed = 0f;
 }

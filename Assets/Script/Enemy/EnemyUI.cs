@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyUI : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         // 체력바 생성 델리게이트
         EnemyManager.CreateHPDel = CreateHp;
@@ -15,7 +15,14 @@ public class EnemyUI : MonoBehaviour
     }
 
 
-    void Update()
+    private void OnDestroy()
+    {
+        EnemyManager.CreateHPDel -= CreateHp;
+        EnemyStat.HpDel -= DecreaseHP;
+    }
+
+
+    private void Update()
     {
         Camera cam = Camera.main;
 
@@ -32,7 +39,7 @@ public class EnemyUI : MonoBehaviour
 
 
     // Hp바 생성 함수
-    void CreateHp(Transform enemyTm)
+    private void CreateHp(Transform enemyTm)
     {
         Slider hp = Instantiate(hpBar) as Slider;
         hp.transform.SetParent(enemyCanvas.transform);
@@ -46,7 +53,7 @@ public class EnemyUI : MonoBehaviour
 
 
     // Hp바 갱신 함수
-    void DecreaseHP(Transform enemyTm, float health)
+    private void DecreaseHP(Transform enemyTm, float health)
     {
         int index = enemyList.IndexOf(enemyTm);
 
@@ -61,15 +68,18 @@ public class EnemyUI : MonoBehaviour
     }
 
 
-    //Delegate//
+    // Delegate //
     //최대 체력을 받아올 함수
     public delegate float EnemyStatMaxHeathDel();
     public static EnemyStatMaxHeathDel MaxHeathDel;
 
-    //Member Variable//
-    [SerializeField] Canvas enemyCanvas;
-    [SerializeField] Slider hpBar;
+    // Member Variable //
+    [SerializeField]
+    private Canvas enemyCanvas;
+    
+    [SerializeField]
+    private Slider hpBar;
 
-    List<Transform> enemyList = new List<Transform>();
-    List<Slider> hpList = new List<Slider>();
+    private List<Transform> enemyList = new List<Transform>();
+    private List<Slider> hpList = new List<Slider>();
 }
