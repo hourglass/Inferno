@@ -14,5 +14,4 @@ public class ObjectPoolData : MonoBehaviour
     public int maxObjectCount = MAX_COUNT;
 
     public KeyType key;
-    public GameObject prefab;
 }

@@ -11,7 +11,15 @@ public class ObjectPoolManager : MonoBehaviour
     // 오브젝트 풀 관리 싱글톤
     public static ObjectPoolManager instance;
 
+
     private void Awake()
+    {
+        SetSingleton();
+        InitVariable();
+    }
+
+
+    private void SetSingleton()
     {
         if (instance == null)
         {
@@ -24,63 +32,15 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
 
-    private void Start()
+    private void InitVariable()
     {
-        Init();
-    }
-
-
-    private void Init()
-    {
-        int len = poolObjectDataList.Count;
-        if (len == 0) return;
-
         // Dictionary 생성
-        sampleDict = new Dictionary<KeyType, GameObject>(len);
-        dataDict = new Dictionary<KeyType, ObjectPoolData>(len);
-        poolDict = new Dictionary<KeyType, Stack<GameObject>>(len);
-        clonePoolDict = new Dictionary<GameObject, Stack<GameObject>>(len * ObjectPoolData.INITIAL_COUNT);
-
-        // Data로 새로운 Pool 오브젝트 정보 생성
-        foreach (var data in poolObjectDataList)
-        {
-            RegisterInternal(data);
-        }
+        sampleDict = new Dictionary<KeyType, GameObject>();
+        poolDict = new Dictionary<KeyType, Stack<GameObject>>();
+        clonePoolDict = new Dictionary<GameObject, Stack<GameObject>>();
     }
 
-
-    private void RegisterInternal(ObjectPoolData data)
-    {
-        // 중복 키 확인
-        if (poolDict.ContainsKey(data.key))
-        {
-            return;
-        }
-
-        // 샘플 게임오브젝트 생성
-        GameObject sample = Instantiate(data.prefab);
-        sample.name = data.prefab.name;
-        sample.SetActive(false);
-
-        // Pool Dictionary에 풀 생성 + 풀에 오브젝트 생성
-        Stack<GameObject> pool = new Stack<GameObject>(data.maxObjectCount);
-        for (int i = 0; i < data.initialObjectCount; i++)
-        {
-            GameObject clone = Instantiate(data.prefab);
-            clone.SetActive(false);
-            pool.Push(clone);
-
-            // Clone Stack 캐싱
-            clonePoolDict.Add(clone, pool); 
-        }
-
-        // 딕셔너리에 추가
-        sampleDict.Add(data.key, sample);
-        dataDict.Add(data.key, data);
-        poolDict.Add(data.key, pool);
-    }
-
-
+  
     // 샘플 오브젝트 복제
     private GameObject GetSampleClone(KeyType key)
     {
@@ -90,6 +50,30 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
         return Instantiate(sample);
+    }
+
+
+    public void CreatePool(KeyType key, GameObject prefab, int initialObjectCount, int maxObjectCount)
+    {
+        // 샘플 게임오브젝트 생성
+        GameObject sample = Instantiate(prefab);
+        sample.name = key;
+        sample.SetActive(false);
+
+        // Pool Dictionary에 풀 생성 + 풀에 오브젝트 생성
+        Stack<GameObject> pool = new Stack<GameObject>(maxObjectCount);
+        for (int i = 0; i < initialObjectCount; i++)
+        {
+            GameObject clone = Instantiate(prefab);
+            clone.SetActive(false);
+            pool.Push(clone);
+
+            // Clone Stack 캐싱
+            clonePoolDict.Add(clone, pool);
+        }
+
+        sampleDict.Add(key, sample);
+        poolDict.Add(key, pool);
     }
 
 
@@ -139,13 +123,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
 
-    // 인스펙터에서 오브젝트 풀링 대상 추가
-    [SerializeField]
-    private List<ObjectPoolData> poolObjectDataList = new List<ObjectPoolData>();
-
-    // 풀링 정보 딕셔너리
-    private Dictionary<KeyType, ObjectPoolData> dataDict;
-
+    // Member Variable //
     // 복제될 오브젝트의 원본 딕셔너리
     private Dictionary<KeyType, GameObject> sampleDict;
 

@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     {
         // 멤버 변수 초기화
         rb = GetComponent<Rigidbody2D>();
-        afterImageEffect.SetActive(false);
+        afterImage.SetActive(false);
         rotSpeed = 500f;
         moveSpeed = 10f;
         rushSpeed = 35f;
@@ -91,12 +91,12 @@ public class Enemy : MonoBehaviour
         {
             yield return delay;
 
-            afterImageEffect.SetActive(true);
+            afterImage.SetActive(true);
             moveSpeed += rushSpeed;
 
             yield return duration;
 
-            afterImageEffect.SetActive(false);
+            afterImage.SetActive(false);
             moveSpeed -= rushSpeed;
         }
     }
@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
     // Member Variable //
     // 잔상 파티클 오브젝트
     [SerializeField]
-    private GameObject afterImageEffect = null;
+    private GameObject afterImage = null;
 
     // 추적할 플레이어 변수
     private static GameObject player = null;

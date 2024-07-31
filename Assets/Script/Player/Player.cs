@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         // 멤버 변수 초기화
         rb = GetComponent<Rigidbody2D>();
-        particle.SetActive(false);
+        afterImage.SetActive(false);
 
         moveSpeed = 25f;        // 이동 속도
         stopDistance = 0.5f;    // 정지 거리
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         // 대쉬 코루틴
         // 일정 시간동안 이동 속도를 대쉬 속도만큼 증가
         moveSpeed += dashSpeed;
-        particle.SetActive(true);
+        afterImage.SetActive(true);
 
         // 대쉬 지속 시간
         yield return new WaitForSeconds(dashTime);
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
 
         // 대쉬 쿨타임 이후 다시 대쉬가 사용 가능하도록 설정
         dashState = true;
-        particle.SetActive(false);
+        afterImage.SetActive(false);
     }
 
 
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     // Member Variable //
     // 잔상 파티클 오브젝트
     [SerializeField]
-    private GameObject particle;
+    private GameObject afterImage;
 
     private Rigidbody2D rb;
     private Vector2 forward;

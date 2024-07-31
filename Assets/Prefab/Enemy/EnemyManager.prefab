@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1226428514358327558}
   - component: {fileID: 1226428514358327557}
   - component: {fileID: -206023328730812036}
+  - component: {fileID: -329365012380409702}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -59,7 +60,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCanvas: {fileID: 7709497635155459667}
-  hpBar: {fileID: 2946189186608808911, guid: 1182370535ba9e242b03c3d447f6e220, type: 3}
+--- !u!114 &-329365012380409702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226428514358327559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88acb6c6437035439fda09b67e0cbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1943317080959114069, guid: 52144d7f517c9794596671d93aa1bfa8, type: 3}
+  - {fileID: 2946189186608808909, guid: 1182370535ba9e242b03c3d447f6e220, type: 3}
 --- !u!1 &4353513199886550088
 GameObject:
   m_ObjectHideFlags: 0
