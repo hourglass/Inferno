@@ -38,7 +38,7 @@ public class Laser : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, delDistance, layerMask);
             DrawRay(laserPoint.position, hit.point);
 
-            if (hit.transform.tag == "Enemy" && hitState)
+            if (hit.transform.CompareTag("Enemy") && hitState)
             {
                 StartCoroutine(Hit(hit.point));
             }

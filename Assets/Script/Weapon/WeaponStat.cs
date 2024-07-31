@@ -20,7 +20,8 @@ public class WeaponStat : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D target)
     {
         // 무기 타입에 충돌 시 피해를 주는 함수 실행
-        if (target.tag == "Enemy")
+
+        if (target.CompareTag("Enemy"))
         {
             if (target.gameObject != null)
             {
@@ -37,7 +38,7 @@ public class WeaponStat : MonoBehaviour
     }
 
 
-    // 대미지 큐에 피해량을 저장하는 함수
+    // 대미지 처리 함수
     protected void GiveToDamage(GameObject obj)
     {
         if (obj.TryGetComponent(out EnemyStat eStat))

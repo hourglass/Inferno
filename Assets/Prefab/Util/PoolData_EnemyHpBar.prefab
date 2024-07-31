@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4399272838091545654}
   - component: {fileID: -6309018093301700020}
   m_Layer: 0
-  m_Name: Enemy_PoolData
+  m_Name: PoolData_EnemyHpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 3
-  prefab: {fileID: 1943317080959114069, guid: 52144d7f517c9794596671d93aa1bfa8, type: 3}
   initialObjectCount: 15
   maxObjectCount: 50
+  key: Enemy_Imp
+  prefab: {fileID: 1943317080959114069, guid: 52144d7f517c9794596671d93aa1bfa8, type: 3}

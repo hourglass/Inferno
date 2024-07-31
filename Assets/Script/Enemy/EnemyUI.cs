@@ -41,7 +41,7 @@ public class EnemyUI : MonoBehaviour
     // Hp바 생성 함수
     private void CreateHp(GameObject enemy)
     {
-        GameObject hpObj = ObjectPoolManager.instance.Spawn(KeyType.EnemyHp);
+        GameObject hpObj = ObjectPoolManager.instance.Spawn("Enemy_HpBar");
         if (hpObj.TryGetComponent(out Slider hp))
         {
             hp.transform.SetParent(enemyCanvas.transform);
@@ -85,9 +85,6 @@ public class EnemyUI : MonoBehaviour
     // Member Variable //
     [SerializeField]
     private Canvas enemyCanvas;
-    
-    [SerializeField]
-    private Slider hpBar;
 
     private Dictionary<GameObject, Slider> hpBarDict =  new Dictionary<GameObject, Slider>();
 }

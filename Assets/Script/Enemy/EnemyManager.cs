@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
         {
             GameClearDel();
         }
-        else 
+        else
         {
             yield return delay;
 
@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
             Vector2 point = SpwanPoint();
 
             // 적군 생성
-            GameObject enemyObj = ObjectPoolManager.instance.Spawn(KeyType.Enemy);
+            GameObject enemyObj = ObjectPoolManager.instance.Spawn("Enemy_Imp");
             enemyObj.transform.position = point;
 
             // 체력바 생성 델리게이트 수행
@@ -123,7 +123,7 @@ public class EnemyManager : MonoBehaviour
 
         // cam.aspect(종횡비) = 너비 / 높이 
         // cam.aspect * 높이 = 너비
-        float camWidth = camHeight * cam.aspect; 
+        float camWidth = camHeight * cam.aspect;
 
         // 화면의 추가 여유 공간 크기
         float margin = 10f;
@@ -138,7 +138,7 @@ public class EnemyManager : MonoBehaviour
         // area 변수가 0과 1를 번갈아 가며 카메라 바깥 상하좌우로 적군 생성
         switch (area)
         {
-            case 0:          
+            case 0:
                 spwanX = Random.Range(sign * camWidth, sign * (camWidth + margin));
                 spwanY = Random.Range(-camHeight, camHeight) + (-Mathf.Sign(camPos.y) * margin);
                 area = 1;
@@ -183,7 +183,7 @@ public class EnemyManager : MonoBehaviour
     private int killCount;  // 처치한 적군 수
     private int maxWave;    // 최대 웨이브
     private int waveNumber; // 현재 웨이브
+    private bool waveClear; // 클리어 확인 변수 
     private float waveStartDelay;  // 웨이브 시작 시 딜레이
     private float spwanDelay;      // 적 생성마다의 딜레이
-    private bool waveClear; // 클리어 확인 변수 
 }

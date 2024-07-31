@@ -32,12 +32,12 @@ public class EnemyStat : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D target)
     {
         // 플레이어에 충돌 시 피해를 주는 함수 실행
-        if (other.tag == "Player")
+        if (target.CompareTag("Player"))
         {
-            GiveDamage(other.gameObject);
+            GiveDamage(target.gameObject);
         }
     }
 

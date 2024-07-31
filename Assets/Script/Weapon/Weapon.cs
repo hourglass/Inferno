@@ -7,42 +7,38 @@ public abstract class Weapon : MonoBehaviour
     // 선택지 정보를 저장할 객체 클래스
     private class ChoiceData
     {
-        public ChoiceData()
+        public ChoiceData(ActionType actionType,
+                          ExecutionType executionType,
+                          ActionDelegate action,
+                          string explainText,
+                          float passiveDelay = 0f)
         {
-        }
-
-        public ChoiceData(ActionType _actionType,
-                          ExecutionType _executionType,
-                          ActionDelegate _action,
-                          string _explainText,
-                          float _passiveDelay = 0f)
-        {
-            actionType = _actionType;
-            executionType = _executionType;
-            actionDel = _action;
-            explainText = _explainText;
-            passiveDelay = _passiveDelay;
+            _actionType = actionType;
+            _executionType = executionType;
+            _actionDel = action;
+            _explainText = explainText;
+            _passiveDelay = passiveDelay;
         }
 
         // 함수의 종류
-        private ActionType actionType;
-        public ActionType actionTypeP { get { return actionType; } set { actionType = value; } }
+        private ActionType _actionType;
+        public ActionType actionType { get { return _actionType; } }
 
         // 함수의 실행타입
-        private ExecutionType executionType;
-        public ExecutionType executionTypeP { get { return executionType; } set { executionType = value; } }
+        private ExecutionType _executionType;
+        public ExecutionType executionType { get { return _executionType; } }
 
         // 실행할 함수
-        private ActionDelegate actionDel;
-        public ActionDelegate actionDelP { get { return actionDel; } set { actionDel = value; } }
+        private ActionDelegate _actionDel;
+        public ActionDelegate actionDel { get { return _actionDel; } }
 
         // 선택지 설명 텍스트
-        private string explainText;
-        public string explainTextP { get { return explainText; } }
+        private string _explainText;
+        public string explainText { get { return _explainText; } }
 
         // 패시브 함수 주기
-        private float passiveDelay = 0f;
-        public float passiveDelayP { get { return passiveDelay; } }
+        private float _passiveDelay = 0f;
+        public float passiveDelay { get { return _passiveDelay; } }
     }
 
 
@@ -228,7 +224,7 @@ public abstract class Weapon : MonoBehaviour
     // 저장된 객체에서 선택지 설명을 넘겨주는 함수
     private string GetExplainTextById(int id)
     {
-        return choiceDatas[id].explainTextP;
+        return choiceDatas[id].explainText;
     }
 
 
@@ -236,14 +232,14 @@ public abstract class Weapon : MonoBehaviour
     private void ChoiceSelected(int id)
     {
         // 함수의 종류 & 실행 타입 가져오기
-        var actionType = choiceDatas[id].actionTypeP;
-        var executionType = choiceDatas[id].executionTypeP;
+        var actionType = choiceDatas[id].actionType;
+        var executionType = choiceDatas[id].executionType;
 
         // 함수의 실행 타입 확인
         if (executionType == ExecutionType.Immediate)
         {
             // Immediate 타입이면 바로 수행
-            choiceDatas[id].actionDelP();
+            choiceDatas[id].actionDel();
         }
         else if (executionType == ExecutionType.AddChain)
         {
@@ -254,20 +250,20 @@ public abstract class Weapon : MonoBehaviour
                 case ActionType.Attack:
                     {                   
                         // 공격
-                        attackDel += choiceDatas[id].actionDelP;
+                        attackDel += choiceDatas[id].actionDel;
                     }
                     break;
                 case ActionType.Skill:
                     {
                         // 스킬
-                        skillDel += choiceDatas[id].actionDelP;
+                        skillDel += choiceDatas[id].actionDel;
                     }
                     break;
                 case ActionType.Passive:
                     {
                         // 패시브
-                        var action = choiceDatas[id].actionDelP;    // 수행할 함수
-                        var delay = choiceDatas[id].passiveDelayP;  // 패시브 수행 주기
+                        var action = choiceDatas[id].actionDel;    // 수행할 함수
+                        var delay = choiceDatas[id].passiveDelay;  // 패시브 수행 주기
 
                         // delay가 0보다 클 때만 수행
                         if (delay > 0)
