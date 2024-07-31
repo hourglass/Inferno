@@ -26,24 +26,25 @@ public class EnemyManager : MonoBehaviour
         // 적군을 생성할 위치정보를 위한 스크린 정보
         cam = Camera.main;
 
+        // 멤버 변수 초기화
+        maxWave = 5;
+        waveNumber = 0;
+        killCount = 0;
+        waveStartDelay = 1.5f;
+        spwanDelay = 0.5f;
+
         // 웨이브 당 생성할 적군 개수 세팅
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < maxWave; i++)
         {
             enemyCount[i] = (i + 15);
         }
-
-        // 멤버 변수 초기화
-        waveNumber = 0;
-        maxWave = 5;
-        waveStartDelay = 2f;
-        spwanDelay = 0.25f;
     }
 
 
     // 웨이브 시작 함수
     private IEnumerator WaveStart()
     {
-        yield return waveStartDelay;
+        WaitForSeconds delay = new WaitForSeconds(waveStartDelay);
 
         if (waveNumber >= maxWave)
         {
@@ -51,9 +52,14 @@ public class EnemyManager : MonoBehaviour
         }
         else 
         {
+            yield return delay;
+
             // 웨이브 텍스트 적용
             StartTextDel();
             WaveNumberDel(waveNumber + 1);
+
+            // 클리어 변수 초기화
+            waveClear = false;
 
             //적군 생성 실행
             StartCoroutine(EnemySpwan());
@@ -66,20 +72,17 @@ public class EnemyManager : MonoBehaviour
     {
         WaitForSeconds delay = new WaitForSeconds(spwanDelay);
 
-        while (enemyCount[waveNumber] > 0)
+        for (int i = 0; i < enemyCount[waveNumber]; ++i)
         {
             // 소환 지점 가져오기
             Vector2 point = SpwanPoint();
 
             // 적군 생성
-            GameObject enemyObj = Instantiate(enemy, point, Quaternion.identity);
-
-            // 적군 관리 리스트에 추가
-            enemyList.Add(enemyObj.transform);
-            --enemyCount[waveNumber];
+            GameObject enemyObj = ObjectPoolManager.instance.Spawn(KeyType.Enemy);
+            enemyObj.transform.position = point;
 
             // 체력바 생성 델리게이트 수행
-            CreateHPDel(enemyObj.transform);
+            CreateHPDel(enemyObj);
 
             yield return delay;
         }
@@ -87,13 +90,19 @@ public class EnemyManager : MonoBehaviour
 
 
     // 적군 관리 리스트에서 적군을 제거하는 함수
-    private void RemoveEnemy(Transform tm)
+    private void RemoveEnemy()
     {
-        enemyList.Remove(tm);
+        if (waveClear) { return; }
 
-        //모든 적을 처치 했는지 확인
-        if (enemyList.Count <= 0)
+        killCount++;
+
+        if (killCount >= enemyCount[waveNumber])
         {
+            waveClear = true;
+
+            // 처치 수 초기화
+            killCount = 0;
+
             // 웨이브 숫자 증가
             waveNumber++;
 
@@ -150,7 +159,7 @@ public class EnemyManager : MonoBehaviour
     public static SceneGameClearDel GameClearDel;
 
     //HP바 생성 함수
-    public delegate void EnemyUICreateHPDel(Transform enemyTm);
+    public delegate void EnemyUICreateHPDel(GameObject enemy);
     public static EnemyUICreateHPDel CreateHPDel;
 
     //Wave UI 텍스트 함수
@@ -163,24 +172,18 @@ public class EnemyManager : MonoBehaviour
 
 
     // Member Variable //
-    // 적군 프리팹
-    [SerializeField]
-    private List<Transform> enemyList = new List<Transform>();
-
-    [SerializeField] 
-    private GameObject enemy = null;
-
     // 카메라 변수
     private Camera cam = null;
 
     // 구역 구분 변수
     private int area = 0;
 
-    // 웨이브 변수
+    // 웨이브 변수 //
     private int[] enemyCount = new int[10]; // 웨이브 당 적군 수
-    private int waveNumber; // 현재 웨이브
+    private int killCount;  // 처치한 적군 수
     private int maxWave;    // 최대 웨이브
-
+    private int waveNumber; // 현재 웨이브
     private float waveStartDelay;  // 웨이브 시작 시 딜레이
     private float spwanDelay;      // 적 생성마다의 딜레이
+    private bool waveClear; // 클리어 확인 변수 
 }

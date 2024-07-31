@@ -13,7 +13,17 @@ public class Enemy : MonoBehaviour
             // 플레이어를 탐색해 저장
             player = GameObject.FindWithTag("Player");
         }
+    }
 
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+
+    private void OnEnable()
+    {
         // 변수 초기화 함수 호출
         InitVariable();
 

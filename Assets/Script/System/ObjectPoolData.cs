@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using KeyType = System.String;
+
+public enum KeyType
+{
+    Attack,
+    Skill,
+    Passive,
+    Enemy,
+    EnemyHp
+}
 
 [System.Serializable]
-public class PoolObjectData : MonoBehaviour
+public class ObjectPoolData : MonoBehaviour
 {
     // Member Variable //
     public const int INITIAL_COUNT = 10;

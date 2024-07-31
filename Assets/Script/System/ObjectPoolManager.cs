@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using KeyType = System.String;
 
 [DisallowMultipleComponent]
 public class ObjectPoolManager : MonoBehaviour
@@ -35,9 +34,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         // Dictionary 생성
         sampleDict = new Dictionary<KeyType, GameObject>(length);
-        dataDict = new Dictionary<KeyType, PoolObjectData>(length);
+        dataDict = new Dictionary<KeyType, ObjectPoolData>(length);
         poolDict = new Dictionary<KeyType, Stack<GameObject>>(length);
-        clonePoolDict = new Dictionary<GameObject, Stack<GameObject>>(length * PoolObjectData.INITIAL_COUNT);
+        clonePoolDict = new Dictionary<GameObject, Stack<GameObject>>(length * ObjectPoolData.INITIAL_COUNT);
 
         // Data로 새로운 Pool 오브젝트 정보 생성
         foreach (var data in poolObjectDataList)
@@ -47,7 +46,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
 
-    private void RegisterInternal(PoolObjectData data)
+    private void RegisterInternal(ObjectPoolData data)
     {
         // 중복 키 체크
         if (poolDict.ContainsKey(data.key))
@@ -57,7 +56,6 @@ public class ObjectPoolManager : MonoBehaviour
 
         // 샘플 게임오브젝트 생성
         GameObject sample = Instantiate(data.prefab);
-        sample.name = data.prefab.name;
         sample.SetActive(false);
 
         // Pool Dictionary에 생성 + 오브젝트 담기
@@ -115,6 +113,7 @@ public class ObjectPoolManager : MonoBehaviour
             // Clone Stack에 캐싱
             clonePoolDict.Add(poolObj, pool); 
         }
+        poolObj.SetActive(true);
 
         return poolObj;
     }
@@ -138,13 +137,13 @@ public class ObjectPoolManager : MonoBehaviour
 
     // 인스펙터에서 오브젝트 풀링 대상 추가
     [SerializeField]
-    private List<PoolObjectData> poolObjectDataList = new List<PoolObjectData>();
+    private List<ObjectPoolData> poolObjectDataList = new List<ObjectPoolData>();
 
     // 복제될 오브젝트의 원본 딕셔너리
     private Dictionary<KeyType, GameObject> sampleDict;
 
     // 풀링 정보 딕셔너리
-    private Dictionary<KeyType, PoolObjectData> dataDict;
+    private Dictionary<KeyType, ObjectPoolData> dataDict;
 
     // 풀 딕셔너리
     private Dictionary<KeyType, Stack<GameObject>> poolDict;

@@ -17,15 +17,15 @@ public class WeaponStat : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D target)
     {
         // 무기 타입에 충돌 시 피해를 주는 함수 실행
-        if (other.tag == "Enemy")
+        if (target.tag == "Enemy")
         {
-            if (other.gameObject != null)
+            if (target.gameObject != null)
             {
-                GiveToDamage(other.gameObject);
-                KnockBack(other.gameObject);
+                GiveToDamage(target.gameObject);
+                KnockBack(target.gameObject);
             }
 
             // 무기의 관통 타입 체크 후 파괴 실행 
@@ -40,10 +40,14 @@ public class WeaponStat : MonoBehaviour
     // 대미지 큐에 피해량을 저장하는 함수
     protected void GiveToDamage(GameObject obj)
     {
-        damageQueue.Enqueue(damage);
-        if (weaponHit != null)
+        if (obj.TryGetComponent(out EnemyStat eStat))
         {
-            Instantiate(weaponHit, obj.transform.position, Quaternion.identity);
+            eStat.TakeDamage(damage);
+
+            if (weaponHit != null)
+            {
+                Instantiate(weaponHit, obj.transform.position, Quaternion.identity);
+            }
         }
     }
 

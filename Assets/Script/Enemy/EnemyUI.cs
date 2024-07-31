@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,14 +12,14 @@ public class EnemyUI : MonoBehaviour
         EnemyManager.CreateHPDel = CreateHp;
 
         // 체력 감소 델리게이트
-        EnemyStat.HpDel = DecreaseHP;        
+        EnemyStat.DecreaseHpDel = DecreaseHP;
     }
 
 
     private void OnDestroy()
     {
-        EnemyManager.CreateHPDel -= CreateHp;
-        EnemyStat.HpDel -= DecreaseHP;
+        //EnemyManager.CreateHPDel -= CreateHp;
+        //EnemyStat.HpDel -= DecreaseHP;
     }
 
 
@@ -26,44 +27,52 @@ public class EnemyUI : MonoBehaviour
     {
         Camera cam = Camera.main;
 
-        // Enemy List를 순회하면서 Hp바 위치를 갱신
-        for (int i = 0; i < hpList.Count; i++)
+        // hpBarDict를 순회하면서 Hp바 위치를 갱신
+        foreach (KeyValuePair<GameObject,Slider> item in hpBarDict)
         {
-            if (hpList[i] != null && enemyList[i] != null)
+            if (item.Key != null && item.Value != null)
             {
-                hpList[i].transform.position
-                    = cam.WorldToScreenPoint(enemyList[i].transform.position + new Vector3(0f, -4f, 0f));
+                item.Value.transform.position = cam.WorldToScreenPoint(item.Key.transform.position + new Vector3(0f, -4f, 0f));
             }
         }
     }
 
 
     // Hp바 생성 함수
-    private void CreateHp(Transform enemyTm)
+    private void CreateHp(GameObject enemy)
     {
-        Slider hp = Instantiate(hpBar) as Slider;
-        hp.transform.SetParent(enemyCanvas.transform);
-        hp.minValue = 0;
-        hp.maxValue = MaxHeathDel();
-        hp.value = MaxHeathDel();
+        GameObject hpObj = ObjectPoolManager.instance.Spawn(KeyType.EnemyHp);
+        if (hpObj.TryGetComponent(out Slider hp))
+        {
+            hp.transform.SetParent(enemyCanvas.transform);
+            hp.minValue = 0;
+            hp.maxValue = MaxHeathDel();
+            hp.value = hp.maxValue;
 
-        hpList.Add(hp);
-        enemyList.Add(enemyTm);
+            if (!hpBarDict.ContainsKey(enemy))
+            {
+                hpBarDict.Add(enemy, hp);
+            }
+        }
     }
 
 
     // Hp바 갱신 함수
-    private void DecreaseHP(Transform enemyTm, float health)
+    private void DecreaseHP(GameObject enemy, float health)
     {
-        int index = enemyList.IndexOf(enemyTm);
-
-        hpList[index].value = health;
-
-        if (hpList[index].value <= 0)
+        if (!hpBarDict.ContainsKey(enemy))
         {
-            Destroy(hpList[index].gameObject);
-            hpList.RemoveAt(index);
-            enemyList.RemoveAt(index);
+            return;
+        }
+
+        lock (this)
+        {
+            hpBarDict[enemy].value = health;
+            if (hpBarDict[enemy].value <= 0)
+            {
+                ObjectPoolManager.instance.Despawn(hpBarDict[enemy].gameObject);
+                hpBarDict.Remove(enemy);
+            }
         }
     }
 
@@ -80,6 +89,5 @@ public class EnemyUI : MonoBehaviour
     [SerializeField]
     private Slider hpBar;
 
-    private List<Transform> enemyList = new List<Transform>();
-    private List<Slider> hpList = new List<Slider>();
+    private Dictionary<GameObject, Slider> hpBarDict =  new Dictionary<GameObject, Slider>();
 }

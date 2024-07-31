@@ -16,8 +16,6 @@ public class WeaponSword : Weapon
         // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
-
-        Debug.Log("Called");
     }
 
 
