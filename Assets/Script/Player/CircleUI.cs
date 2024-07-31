@@ -51,7 +51,7 @@ public class CircleUI : MonoBehaviour
 
     private void PlaceOnCircle()
     {
-        // 플레이어에서 마우스를 향하는 벡터 얻기                    56      
+        // 플레이어에서 마우스를 향하는 벡터 얻기    
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 pos = mousePos - (Vector2)playerTm.position;
 

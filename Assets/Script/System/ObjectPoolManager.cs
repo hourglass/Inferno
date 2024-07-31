@@ -27,7 +27,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

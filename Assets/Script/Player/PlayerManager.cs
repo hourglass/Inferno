@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!ChoiceManager.gameIsPaused)
         {
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
         {
             // 감지 범위를 최대 거리로 설정
             float targetDistance = range;
-            
+
             // 배열을 순회하며 가장 가까운 적을 탐색
             foreach (Collider2D colTarget in cols)
             {
