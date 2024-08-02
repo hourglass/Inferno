@@ -24,8 +24,8 @@ public class ObjectPoolRegister : MonoBehaviour
                 ObjectPoolManager.instance?.CreatePool(
                     poolObj.key,
                     prefabs[i],
-                     poolObj.initialObjectCount,
-                     poolObj.maxObjectCount
+                    poolObj.initialObjectCount,
+                    poolObj.maxObjectCount
                     );
             }
         }

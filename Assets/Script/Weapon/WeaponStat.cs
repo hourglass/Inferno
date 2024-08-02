@@ -41,9 +41,9 @@ public class WeaponStat : MonoBehaviour
     // 대미지 처리 함수
     protected void GiveToDamage(GameObject obj)
     {
-        if (obj.TryGetComponent(out EnemyStat eStat))
+        if (obj.TryGetComponent(out EnemyStat stat))
         {
-            eStat.TakeDamage(damage);
+            stat.TakeDamage(damage);
 
             if (weaponHit != null)
             {

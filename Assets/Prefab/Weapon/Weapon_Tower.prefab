@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1472858533075935614}
   - component: {fileID: -625136171483282770}
   - component: {fileID: 7617091683301319917}
+  - component: {fileID: -3204931470456388695}
   m_Layer: 0
   m_Name: Weapon_Tower
   m_TagString: Untagged
@@ -141,11 +142,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf86a1e236e039f4db6c624d1aa9f6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  attackObj: {fileID: 6841014344927178164, guid: 40b378c974d9f1b49a7a408138292cb0, type: 3}
-  skillObj: {fileID: 6055767282899273626, guid: 9795ce072a8dd244bbcfa0b2aba22c66, type: 3}
-  homingObj: {fileID: 30409993167699532, guid: a908557d597f1ed4885bcf13e9cf75f0, type: 3}
-  bombObj: {fileID: 3859025057588794222, guid: a1713c23cc4dc1148851af663d278f19, type: 3}
-  arrowObj: {fileID: 5928521833062057103, guid: a878ebef03256da48b4bfa9df453f155, type: 3}
   towerAudio: {fileID: -625136171483282770}
   buildSound: {fileID: 8300000, guid: c88f941f0652e8048be78e94b6879648, type: 3}
+--- !u!114 &-3204931470456388695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114152641088284820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88acb6c6437035439fda09b67e0cbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 6841014344927178164, guid: 40b378c974d9f1b49a7a408138292cb0, type: 3}
+  - {fileID: 6055767282899273626, guid: 9795ce072a8dd244bbcfa0b2aba22c66, type: 3}
+  - {fileID: 30409993167699532, guid: a908557d597f1ed4885bcf13e9cf75f0, type: 3}
+  - {fileID: 3859025057588794222, guid: a1713c23cc4dc1148851af663d278f19, type: 3}
+  - {fileID: 5928521833062057103, guid: a878ebef03256da48b4bfa9df453f155, type: 3}

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3859025057588794129}
   - component: {fileID: -7462106273814421716}
   - component: {fileID: 2493059928971105941}
+  - component: {fileID: 283013324479447061}
   m_Layer: 0
   m_Name: Passive_Bomb
   m_TagString: Weapon
@@ -182,3 +183,18 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &283013324479447061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3859025057588794222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 10
+  maxObjectCount: 20
+  key: Passive_Bomb

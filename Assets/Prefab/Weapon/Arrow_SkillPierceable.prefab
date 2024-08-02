@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: -2412290546340975494}
   - component: {fileID: 5388943735532336853}
   - component: {fileID: 2989536830107147953}
+  - component: {fileID: 8323422916074965589}
   m_Layer: 0
   m_Name: Arrow_SkillPierceable
   m_TagString: Untagged
@@ -175,6 +176,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1.8
+--- !u!114 &8323422916074965589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457917311145515481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 15
+  maxObjectCount: 20
+  key: Arrow_SkillPierceable
 --- !u!1 &4215175710990061825
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,8 +78,7 @@ public class EnemyManager : MonoBehaviour
             Vector2 point = SpwanPoint();
 
             // 적군 생성
-            GameObject enemyObj = ObjectPoolManager.instance.Spawn("Enemy_Imp");
-            enemyObj.transform.position = point;
+            GameObject enemyObj = ObjectPoolManager.instance.Spawn("Enemy_Imp", point, Quaternion.identity);
 
             // 체력바 생성 델리게이트 수행
             CreateHPDel(enemyObj);

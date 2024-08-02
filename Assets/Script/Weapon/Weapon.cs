@@ -58,21 +58,6 @@ public abstract class Weapon : MonoBehaviour
     }
 
 
-    // 무기 초기화 함수
-    protected abstract void InitWeapon();
-
-
-    // 선택지 정보 입력 함수
-    protected abstract void InitChoiceDatas();
-
-
-    // 선택지 텍스트를 입력하는 함수
-    protected void InputChoiceInfos(string explainText)
-    {
-        choiceInfos[currentId] = explainText;
-    }
-
-
     // 선택지 객체 정보를 입력하는 함수
     protected void InputChoiceDatas(ActionType actionType,
                                     ExecutionType executionType,
@@ -83,11 +68,13 @@ public abstract class Weapon : MonoBehaviour
         {
             // 선택지 정보 입력
             choiceDatas[currentId]
-                 = new ChoiceData(actionType,             // 함수의 종류
-                                  executionType,          // 함수의 실행타입
-                                  action,                 // 실행할 함수
-                                  choiceInfos[currentId], // 선택지 설명 텍스트
-                                  passiveDelay);          // 패시브 함수 주기
+                = new ChoiceData(
+                     actionType,             // 함수의 종류
+                     executionType,          // 함수의 실행타입
+                     action,                 // 실행할 함수
+                     choiceInfos[currentId], // 선택지 설명 텍스트
+                     passiveDelay            // 패시브 함수 주기
+                     );
 
             idList.Add(currentId); // Id 리스트에 Id 추가
             currentId++;           // 현재 Id 증가
@@ -95,24 +82,27 @@ public abstract class Weapon : MonoBehaviour
     }
 
 
-    // 특정 위치에 게임오브젝트를 생성하는 함수
-    protected void Create(GameObject obj, Transform spawn, float degree, Transform parent = null)
+    // 선택지 텍스트를 입력하는 함수
+    protected void InputChoiceInfos(string explainText)
     {
-        Instantiate(obj, spawn.position, Quaternion.Euler(0f, 0f, (degree - 90f) + GetDirectionDel()), parent);
+        choiceInfos[currentId] = explainText;
     }
 
 
-    private void OnDestroy()
+    // 오브젝트를 생성하는 함수
+    protected void Create(string key, Transform spawn, float degree = 0f, Transform parent = null)
     {
-        // 델리게이트 해제
-        PlayerManager.CanLookAtDel -= CanLookAt;
-        Player.AttackDel -= Attack;
-        Player.SkillDel -= Skill;
-        ChoiceManager.GetChoiceDel -= SelectRandomId;
-        ChoiceButton.GetSelectedIdDel -= GetSelectedId;
-        ChoiceButton.GetExplainTextDel -= GetExplainTextById;
-        ChoiceButton.ApplyChoiceDel -= ChoiceSelected;
+        Quaternion direction = Quaternion.Euler(0f, 0f, GetDirectionDel() + (degree - 90f));
+        ObjectPoolManager.instance.Spawn(key, spawn.position, direction, parent); ;
     }
+    
+
+    // 무기 초기화 함수
+    protected abstract void InitWeapon();
+
+
+    // 선택지 정보 입력 함수
+    protected abstract void InitChoiceDatas();
 
 
     // 무기가 생성 된 다음에 호출 Awake -> Start
@@ -129,6 +119,19 @@ public abstract class Weapon : MonoBehaviour
 
         // id 리스트 셔플 함수
         ShuffleIdList();
+    }
+
+
+    private void OnDestroy()
+    {
+        // 델리게이트 해제
+        PlayerManager.CanLookAtDel -= CanLookAt;
+        Player.AttackDel -= Attack;
+        Player.SkillDel -= Skill;
+        ChoiceManager.GetChoiceDel -= SelectRandomId;
+        ChoiceButton.GetSelectedIdDel -= GetSelectedId;
+        ChoiceButton.GetExplainTextDel -= GetExplainTextById;
+        ChoiceButton.ApplyChoiceDel -= ChoiceSelected;
     }
 
 
@@ -340,6 +343,8 @@ public abstract class Weapon : MonoBehaviour
     protected ActionDelegate skillDel;
     protected ActionDelegate passiveDel;
 
+    protected string currentAttackKey;
+    protected string currentSkillKey;
 
     // Member Variable //
     // 선택지의 설명 텍스트를 저장할 Dictionary (Id로 식별)

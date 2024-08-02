@@ -16,6 +16,10 @@ public class WeaponSword : Weapon
         // 기본 공격 & 스킬 함수 등록
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
+
+        // 기본 공격 & 스킬 키 등록
+        currentAttackKey = "Sword_Slash";
+        currentSkillKey = "Sword_Wave";
     }
 
 
@@ -55,7 +59,7 @@ public class WeaponSword : Weapon
         MotionDel();
         PlaySound();
 
-        Create(slashObj, spawnPoint, 0, transform);
+        Create(currentAttackKey, spawnPoint, 0f, transform);
     }
 
 
@@ -70,7 +74,7 @@ public class WeaponSword : Weapon
         int degree = -45;
         for (int i = 0; i < 3; i++)
         {
-            Create(skillObj, spawnPoint, degree + (45 * i));
+            Create(currentSkillKey, spawnPoint, degree + (45f * i));
         }
     }
 
@@ -96,31 +100,31 @@ public class WeaponSword : Weapon
     // 검기 생성 함수
     private void WaveSlash()
     {
-        Create(waveObj, spawnPoint, 0);
+        Create("Sword_Wave", spawnPoint);
     }
 
 
     // 유도 화살 생성 함수
     private void HomingArrowAttack()
     {
-        Create(homingObj, transform, 90);
-        Create(homingObj, transform, -90);
+        Create("Passive_Arrow", transform, 90f);
+        Create("Passive_Arrow", transform, -90f);
     }
 
 
     // 패시브 오브젝트 생성 함수
     private void HomingArrowPassive()
     {
-        Create(homingObj, transform, 90);
-        Create(homingObj, transform, -90);
-        Create(homingObj, transform, 135);
-        Create(homingObj, transform, -135);
+        Create("Passive_Arrow", transform, 90f);
+        Create("Passive_Arrow", transform, -90f);
+        Create("Passive_Arrow", transform, 135f);
+        Create("Passive_Arrow", transform, -135f);
     }
 
 
     private void SummonBomb()
     {
-        Create(bombObj, transform, 0);
+        Create("Passive_Bomb", spawnPoint);
     }
 
 
@@ -146,28 +150,12 @@ public class WeaponSword : Weapon
     [SerializeField]
     private Transform spawnPoint = null;
 
-    // 공격 & 스킬의 프리팹 //
-    [SerializeField] 
-    private GameObject slashObj;
-    
-    [SerializeField] 
-    private GameObject skillObj;
-
-    [SerializeField] 
-    private GameObject waveObj;
-
-    [SerializeField] 
-    private GameObject homingObj;
-
-    [SerializeField] 
-    private GameObject bombObj;
-
     // 오디오 //
-    [SerializeField]
-    private AudioClip[] swordSound;
-    
     [SerializeField] 
     private AudioSource swordAudio;
 
+    [SerializeField]
+    private AudioClip[] swordSound;
+   
     private int audioIndex;
 }

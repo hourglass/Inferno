@@ -10,9 +10,9 @@ public class WeaponArrow : Weapon
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
 
-        // 공격 & 스킬 프리팹 설정
-        currentAttackObj = attackObj;
-        currenSkillObj = skillObj;
+        // 기본 공격 & 스킬 키 등록
+        currentAttackKey = "Arrow_Attack";
+        currentSkillKey = "Arrow_Skill";
     }
 
 
@@ -50,7 +50,7 @@ public class WeaponArrow : Weapon
     private void DefaultAttack()
     {
         PlaySound();
-        Create(currentAttackObj, spawnPoint, 0);
+        Create(currentAttackKey, spawnPoint);
     }
 
 
@@ -61,7 +61,7 @@ public class WeaponArrow : Weapon
 
         for (int i = 0; i < 12; i++)
         {
-            Create(currenSkillObj, spawnPoint, 30 * i);
+            Create(currentSkillKey, spawnPoint, 30f * i);
         }
     }
 
@@ -87,31 +87,31 @@ public class WeaponArrow : Weapon
     // 공격 프리팹 변경 함수
     private void SetAttackPierceable()
     {
-        currentAttackObj = pierceableAttackObj;
+        currentAttackKey = "Arrow_AttackPierceable";
     }
 
 
     // 스킬 프리팹 변경 함수
     private void SetSkillPierceable()
     {
-        currenSkillObj = pierceableSkillObj;
+        currentSkillKey = "Arrow_SkillPierceable";
     }
 
 
     // 유도 화살 생성 함수
     private void HomingArrowPassive()
     {
-        Create(homingObj, transform, 90);
-        Create(homingObj, transform, -90);
-        Create(homingObj, transform, 135);
-        Create(homingObj, transform, -135);
+        Create("Passive_Arrow", transform, 90f);
+        Create("Passive_Arrow", transform, -90f);
+        Create("Passive_Arrow", transform, 135f);
+        Create("Passive_Arrow", transform, -135f);
     }
 
 
     // 자폭병 생성 함수
     private void SummonBomb()
     {
-        Create(bombObj, transform, 0);
+        Create("Passive_Bomb", spawnPoint);
     }
 
 
@@ -127,32 +127,9 @@ public class WeaponArrow : Weapon
     // Member Variable //
     // 공격 & 스킬 생성위치
     [SerializeField] 
-    private Transform spawnPoint = null;
+    private Transform spawnPoint;
 
-    // 공격 & 스킬의 프리팹 //
-    [SerializeField]
-    private GameObject attackObj;
-    
-    [SerializeField]
-    private GameObject skillObj;
-
-    [SerializeField] 
-    private GameObject pierceableAttackObj;
-    
-    [SerializeField] 
-    private GameObject pierceableSkillObj;
-
-    [SerializeField] 
-    private GameObject homingObj;
-    
-    [SerializeField] 
-    private GameObject bombObj;
-
-    // 현재 공격 & 스킬을 저장할 변수
-    private GameObject currentAttackObj;
-    private GameObject currenSkillObj;
-
-    // 오디오 변수 // 
-    [SerializeField] AudioClip[] arrowSound;
+    // 오디오 변수 //  
     [SerializeField] AudioSource arrowAudio;
+    [SerializeField] AudioClip[] arrowSound;
 }

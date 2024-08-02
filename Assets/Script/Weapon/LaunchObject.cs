@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class LaunchObject : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.up * moveSpeed;
+        rb = GetComponent<Rigidbody2D>();
     }
 
 
+    private void OnEnable()
+    {
+        rb.velocity = transform.up * moveSpeed;
+    }
+
+     
     //Member Variable//
     [SerializeField]
-    private float moveSpeed = 0f;
+    private float moveSpeed;
+
+    private Rigidbody2D rb;
 }

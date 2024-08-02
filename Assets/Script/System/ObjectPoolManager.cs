@@ -55,6 +55,8 @@ public class ObjectPoolManager : MonoBehaviour
 
     public void CreatePool(KeyType key, GameObject prefab, int initialObjectCount, int maxObjectCount)
     {
+        if (sampleDict.ContainsKey(key)) { return; }
+
         // 샘플 게임오브젝트 생성
         GameObject sample = Instantiate(prefab);
         sample.name = key;
@@ -99,8 +101,43 @@ public class ObjectPoolManager : MonoBehaviour
             poolObj = GetSampleClone(key);
 
             // Clone Stack에 캐싱
-            clonePoolDict.Add(poolObj, pool); 
+            clonePoolDict.Add(poolObj, pool);
         }
+
+        poolObj.SetActive(true);
+
+        return poolObj;
+    }
+
+
+    // 풀에서 꺼내오기 (트랜스폼 오버로딩)
+    public GameObject Spawn(KeyType key, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        // 키가 존재하지 않으면 null 반환
+        if (!poolDict.TryGetValue(key, out var pool))
+        {
+            return null;
+        }
+
+        GameObject poolObj;
+
+        // 풀에 재고가 있는 경우 : 꺼내오기
+        if (pool.Count > 0)
+        {
+            poolObj = pool.Pop();
+        }
+        // 재고가 없는 경우 : 샘플을 복제
+        else
+        {
+            poolObj = GetSampleClone(key);
+
+            // Clone Stack에 캐싱
+            clonePoolDict.Add(poolObj, pool);
+        }
+
+        poolObj.transform.SetParent(parent);
+        poolObj.transform.position = position;
+        poolObj.transform.rotation = rotation;
         poolObj.SetActive(true);
 
         return poolObj;

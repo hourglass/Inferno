@@ -11,7 +11,14 @@ public class AnimationEnd : MonoBehaviour
 
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
-            Destroy(gameObject);
+            if (gameObject.TryGetComponent(out ObjectPoolData data))
+            {
+                ObjectPoolManager.instance.Despawn(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }            
         }
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2346413236659978910}
   - component: {fileID: 8382468924077122784}
   - component: {fileID: -3436700822283960619}
+  - component: {fileID: 128055925428984541}
   m_Layer: 0
   m_Name: Sword_Wave
   m_TagString: Weapon
@@ -214,3 +215,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895bfa367a1ac4d47ba4eeaf91915db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &128055925428984541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867635419985171683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 10
+  maxObjectCount: 15
+  key: Sword_Wave

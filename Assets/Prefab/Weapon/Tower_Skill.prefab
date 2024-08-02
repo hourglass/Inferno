@@ -194,8 +194,10 @@ GameObject:
   - component: {fileID: 6055767282899273624}
   - component: {fileID: 6055767282899273627}
   - component: {fileID: 4721880487237016853}
-  - component: {fileID: 6055767282899273630}
   - component: {fileID: 6078005362974751901}
+  - component: {fileID: -8441964808286403216}
+  - component: {fileID: 6055767282899273630}
+  - component: {fileID: 2186678082581991223}
   m_Layer: 0
   m_Name: Tower_Skill
   m_TagString: Weapon
@@ -420,6 +422,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6078005362974751901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055767282899273626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7bf63b23ad3cfd4e9227e6774ca1e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!114 &-8441964808286403216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055767282899273626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f38e1a591150fb42a03e02616702368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 10
 --- !u!114 &6055767282899273630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,10 +466,10 @@ MonoBehaviour:
   lineRenderer: {fileID: 6055767282899273627}
   laserPoint: {fileID: 6055767282623672971}
   laserHit: {fileID: 30409993167699532, guid: a908557d597f1ed4885bcf13e9cf75f0, type: 3}
-  attackDelay: 0.25
   laserSound: {fileID: 8300000, guid: 4a14985fcced5674bb9a3ec19845dc96, type: 3}
   laserAudio: {fileID: 4721880487237016853}
---- !u!114 &6078005362974751901
+  attackDelay: 0.25
+--- !u!114 &2186678082581991223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,11 +478,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6055767282899273626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7bf63b23ad3cfd4e9227e6774ca1e7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
-  lifeTime: 10
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 1024
+  initialObjectCount: 2
+  maxObjectCount: 5
+  key: Tower_Skill

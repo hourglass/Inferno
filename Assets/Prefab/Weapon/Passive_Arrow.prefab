@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -1762666111462887091}
   - component: {fileID: 6964181859160209714}
   - component: {fileID: -1179977574408492549}
+  - component: {fileID: -8499458337827164423}
   m_Layer: 0
   m_Name: Passive_Arrow
   m_TagString: Untagged
@@ -108,6 +109,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1.8
+--- !u!114 &-8499458337827164423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30409993167699532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 5
+  maxObjectCount: 10
+  key: Passive_Arrow
 --- !u!1 &1911528316374878988
 GameObject:
   m_ObjectHideFlags: 0

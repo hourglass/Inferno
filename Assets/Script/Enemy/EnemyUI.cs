@@ -41,6 +41,8 @@ public class EnemyUI : MonoBehaviour
     // Hp바 생성 함수
     private void CreateHp(GameObject enemy)
     {
+        if(enemy == null) { return; }
+
         GameObject hpObj = ObjectPoolManager.instance.Spawn("Enemy_HpBar");
         if (hpObj.TryGetComponent(out Slider hp))
         {

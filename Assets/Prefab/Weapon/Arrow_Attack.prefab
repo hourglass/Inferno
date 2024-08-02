@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: -9157565193593905060}
   - component: {fileID: -5950759379386406033}
   - component: {fileID: 7694869593276343002}
+  - component: {fileID: -522416329364903585}
   m_Layer: 0
   m_Name: Arrow_Attack
   m_TagString: Untagged
@@ -257,3 +258,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 2
+--- !u!114 &-522416329364903585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928521833062057103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 5
+  maxObjectCount: 10
+  key: Arrow_Attack

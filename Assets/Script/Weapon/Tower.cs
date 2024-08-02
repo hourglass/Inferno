@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    private void Awake()
+    public enum TowerType
+    { 
+        Bullet,
+        Laser,
+    }
+
+    private void OnEnable()
     {
         InitVariable();
-        Destroy(gameObject, lifeTime);
+    }
+
+
+    private void OnDisable()
+    {
+        ChargeCountDel(type);
     }
 
 
@@ -19,18 +30,11 @@ public class Tower : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         SearchTarget();
         LookAtTarget();
     }
-
-
-    private void OnDestroy()
-    {
-        BuildDel(id);
-    }
-
 
     // 적군 탐지 함수
     private void SearchTarget()
@@ -72,21 +76,17 @@ public class Tower : MonoBehaviour
 
 
     // Delegate //
-    public delegate void TowerManagerBuildDel(int id);
-    public static TowerManagerBuildDel BuildDel;
+    public delegate void WeaponTowerBuildDel(TowerType type);
+    public static WeaponTowerBuildDel ChargeCountDel;
 
     // Member Variable //
-    // 타워 id
-    [SerializeField]
-    private int id;
-
-    // 지속 시간
-    [SerializeField]
-    private float lifeTime;
-
     // 레이어 마스크
     [SerializeField]
     private LayerMask enemyMask;
+
+    // 타워 id
+    [SerializeField]
+    private TowerType type;
 
     // 타겟 변수
     private Transform target;

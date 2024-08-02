@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using static Tower;
 
 public class WeaponTower : Weapon
 {
     private void Awake()
     {
-        // 변수 초기화 함수
-        InitVariable();
-
         // 마우스 오브젝트 캐싱
         point = GameObject.Find("point");
     }
 
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        Tower.BuildDel -= ChargeBuild;
+        // 변수 초기화 함수
+        InitVariable();
     }
 
 
@@ -25,14 +24,16 @@ public class WeaponTower : Weapon
     private void InitVariable()
     {
         // 델리게이트 등록
-        Tower.BuildDel = ChargeBuild;
+        Tower.ChargeCountDel = ChargeCount;
 
+        // 오디오 클립 설정
         towerAudio.clip = buildSound;
 
+        // 타워 관련 변수 설정
         maxAttackCount = 3;
-        currAttackCount = 0;
+        attackCount = 0;
         maxSkillCount = 1;
-        currSkillCount = 0;
+        skillCount = 0;
     }
 
 
@@ -40,6 +41,10 @@ public class WeaponTower : Weapon
     {
         attackDel += delegate { DefaultAttack(); };
         skillDel += delegate { DefaultSkill(); };
+
+        // 기본 공격 & 스킬 키 등록
+        currentAttackKey = "Tower_Attack";
+        currentSkillKey = "Tower_Skill";
     }
 
 
@@ -75,64 +80,53 @@ public class WeaponTower : Weapon
     // 기본 공격 함수
     private void DefaultAttack()
     {
-        if (currAttackCount < maxAttackCount)
-        {
-            towerAudio.Play();
-            Instantiate(attackObj, point.transform.position, Quaternion.identity);
-            currAttackCount++;
-        }
+        if (attackCount >= maxAttackCount) { return; }
+        
+        attackCount++;
+        Create(currentAttackKey, point.transform);
+        towerAudio.Play();
     }
 
 
     // 기본 스킬 함수
     private void DefaultSkill()
     {
-        if (currSkillCount < maxSkillCount)
-        {
-            Instantiate(skillObj, point.transform.position, Quaternion.identity);
-            currSkillCount++;
-        }
+        if (skillCount >= maxSkillCount) { return;  }
+
+        skillCount++;
+        Create(currentSkillKey, point.transform);
+        towerAudio.Play();
     }
 
 
     // 공격 설치 횟수 증가 함수
     private void increaseAttackCount()
     {
-        int value = 2;
-        maxAttackCount = increaseBuildCount(maxAttackCount, value);
+        maxAttackCount += 2;
     }
 
 
     // 스킬 설치 횟수 증가 함수
     private void increaseSkillCount()
     {
-        int value = 1;
-        maxSkillCount = increaseBuildCount(maxSkillCount, value);
-    }
-
-
-    // 건축물 설치 횟수 증가 함수
-    private int increaseBuildCount(int count, int value)
-    {
-        count += value;
-        return count;
+        maxSkillCount += 1 ;
     }
 
 
     // 유도 화살 생성 함수
     private void HomingArrowPassive()
     {
-        Create(homingObj, transform, 90);
-        Create(homingObj, transform, -90);
-        Create(homingObj, transform, 135);
-        Create(homingObj, transform, -135);
+        Create("Passive_Arrow", transform, 90f);
+        Create("Passive_Arrow", transform, -90f);
+        Create("Passive_Arrow", transform, 135f);
+        Create("Passive_Arrow", transform, -135f);
     }
 
 
     // 자폭병 생성 함수
     private void SummonBomb()
     {
-        Create(bombObj, transform, 0);
+        Create("Passive_Bomb", transform);
     }
 
 
@@ -144,18 +138,24 @@ public class WeaponTower : Weapon
 
         for (int i = 0; i < direction; i++)
         {
-            Create(arrowObj, transform, i * degree);
+            Create("Arrow_AttackPierceable", transform, i * degree);
         }
     }
 
 
     // 건축물 설치 횟수 충전 함수
-    private void ChargeBuild(int id)
+    private void ChargeCount(Tower.TowerType type)
     {
-        switch (id)
+        switch (type)
         {
-            case 0: currAttackCount--; break;
-            case 1: currSkillCount--; break;
+            case TowerType.Bullet:
+                if (attackCount <= 0) { return;  }
+                attackCount--;
+                break;
+            case TowerType.Laser:
+                if (skillCount <= 0) { return; }
+                skillCount--;
+                break;
         }
     }
 
@@ -163,22 +163,6 @@ public class WeaponTower : Weapon
     // Member Variable //
     // 마우스 오브젝트를 캐싱할 변수
     private GameObject point;
-
-    // 공격 & 스킬의 프리팹 //
-    [SerializeField]
-    private GameObject attackObj;
-    
-    [SerializeField]
-    private GameObject skillObj;
-
-    [SerializeField]
-    private GameObject homingObj;
-    
-    [SerializeField]
-    private GameObject bombObj;
-    
-    [SerializeField]
-    private GameObject arrowObj;
 
     // 오디오 변수 //
     [SerializeField]
@@ -189,7 +173,7 @@ public class WeaponTower : Weapon
 
     // 타워 관련 변수 //
     private int maxAttackCount;
-    private int currAttackCount;
+    private int attackCount;
     private int maxSkillCount;
-    private int currSkillCount;
+    private int skillCount;
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7260221565247068359}
   - component: {fileID: -2807963602118785922}
   - component: {fileID: 5891004696877602782}
+  - component: {fileID: 5106397293200565028}
   m_Layer: 0
   m_Name: Sword_Slash
   m_TagString: Weapon
@@ -172,3 +173,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895bfa367a1ac4d47ba4eeaf91915db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5106397293200565028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992790129238727309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 1
+  maxObjectCount: 5
+  key: Sword_Slash

@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class TowerAttack : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         InitVariable();
         StartCoroutine(AttackRoutine());
+    }
+
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
 
@@ -26,16 +32,12 @@ public class TowerAttack : MonoBehaviour
         {
             yield return delay;
 
-            Instantiate(missle, transform.position, Quaternion.identity);
+            ObjectPoolManager.instance.Spawn("Tower_Bullet");
         }      
     }
 
 
     // Member Variable //
-    // 공격 오브젝트
-    [SerializeField]
-    private GameObject missle;
-
     // 공격 주기
-    protected float attackDelay;
+    private float attackDelay;
 }

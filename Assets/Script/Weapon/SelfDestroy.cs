@@ -4,9 +4,31 @@ using UnityEngine;
 
 public class SelfDestroy : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
-        Destroy(gameObject, lifeTime);
+        StartCoroutine(DestroyInLifeTime());
+    }
+
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+
+    IEnumerator DestroyInLifeTime()
+    {
+        WaitForSeconds delay = new WaitForSeconds(lifeTime);
+        yield return delay;
+
+        if (gameObject.TryGetComponent(out ObjectPoolData data))
+        {
+            ObjectPoolManager.instance.Despawn(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 

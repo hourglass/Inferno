@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 4165545107050046806}
   - component: {fileID: -4226036378898507540}
   - component: {fileID: 3743494858133254609}
+  - component: {fileID: -3158988205398982280}
   m_Layer: 0
   m_Name: Tower_Bullet
   m_TagString: Untagged
@@ -175,6 +176,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1.8
+--- !u!114 &-3158988205398982280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6629432391529997926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 5
+  maxObjectCount: 25
+  key: Tower_Bullet
 --- !u!1 &8233888859026321086
 GameObject:
   m_ObjectHideFlags: 0

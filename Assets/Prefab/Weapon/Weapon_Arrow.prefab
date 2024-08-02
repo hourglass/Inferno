@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 343956775407770262}
   - component: {fileID: 6712102457122574410}
   - component: {fileID: 343956775407770263}
+  - component: {fileID: 422024292506060679}
   m_Layer: 0
   m_Name: Weapon_Arrow
   m_TagString: Untagged
@@ -145,17 +146,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1604238710913217056}
-  attackObj: {fileID: 5928521833062057103, guid: 0896a22504aabff4abf6fc8b90d691ec, type: 3}
-  skillObj: {fileID: 1457917311145515481, guid: fa2de326b1fd8da4097231fa700d1aaf, type: 3}
-  pierceableAttackObj: {fileID: 5928521833062057103, guid: a878ebef03256da48b4bfa9df453f155, type: 3}
-  pierceableSkillObj: {fileID: 1457917311145515481, guid: 874d1ab8c68352d40824bb4df42c9d08, type: 3}
-  homingObj: {fileID: 30409993167699532, guid: a908557d597f1ed4885bcf13e9cf75f0, type: 3}
-  bombObj: {fileID: 3859025057588794222, guid: a1713c23cc4dc1148851af663d278f19, type: 3}
+  arrowAudio: {fileID: 6712102457122574410}
   arrowSound:
   - {fileID: 8300000, guid: 139cdb326f1d2c746818cfc166aa9571, type: 3}
   - {fileID: 8300000, guid: 903fe38128ab7954cbc37a647437f3a9, type: 3}
   - {fileID: 8300000, guid: e541dc13526805b46b0875b483590b70, type: 3}
-  arrowAudio: {fileID: 6712102457122574410}
+--- !u!114 &422024292506060679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343956775407770248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88acb6c6437035439fda09b67e0cbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 5928521833062057103, guid: 0896a22504aabff4abf6fc8b90d691ec, type: 3}
+  - {fileID: 1457917311145515481, guid: fa2de326b1fd8da4097231fa700d1aaf, type: 3}
+  - {fileID: 5928521833062057103, guid: a878ebef03256da48b4bfa9df453f155, type: 3}
+  - {fileID: 1457917311145515481, guid: 874d1ab8c68352d40824bb4df42c9d08, type: 3}
+  - {fileID: 30409993167699532, guid: a908557d597f1ed4885bcf13e9cf75f0, type: 3}
+  - {fileID: 3859025057588794222, guid: a1713c23cc4dc1148851af663d278f19, type: 3}
 --- !u!1 &2107287020812092955
 GameObject:
   m_ObjectHideFlags: 0
