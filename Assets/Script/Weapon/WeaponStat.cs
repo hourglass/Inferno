@@ -44,11 +44,7 @@ public class WeaponStat : MonoBehaviour
         if (obj.TryGetComponent(out EnemyStat stat))
         {
             stat.TakeDamage(damage);
-
-            if (weaponHit != null)
-            {
-                Instantiate(weaponHit, obj.transform.position, Quaternion.identity);
-            }
+            ObjectPoolManager.instance.Spawn("Effect_Hit");
         }
     }
 

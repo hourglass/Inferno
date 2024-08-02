@@ -68,11 +68,11 @@ public class EnemyStat : MonoBehaviour
     // 적군 사망 함수
     private void Die()
     {
-        Instantiate(dieEffect, transform.position, Quaternion.identity);
+        isDead = true;
         ExpPointDel(expPoint);
         RemoveDel();
 
-        isDead = true;
+        ObjectPoolManager.instance.Spawn("Enemy_Die");
         ObjectPoolManager.instance.Despawn(gameObject);
     }
 
@@ -112,10 +112,6 @@ public class EnemyStat : MonoBehaviour
 
 
     // Member Variable //
-    // 처치 애니메이션
-    [SerializeField]
-    private GameObject dieEffect;
-
     // 능력치 변수 //
     [SerializeField]
     private float maxHealth;
