@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
+  HitEffectKey: Effect_Hit
   damage: 10
   knockBackRatio: 2
   pierceable: 1

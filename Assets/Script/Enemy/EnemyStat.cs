@@ -72,7 +72,7 @@ public class EnemyStat : MonoBehaviour
         ExpPointDel(expPoint);
         RemoveDel();
 
-        ObjectPoolManager.instance.Spawn("Enemy_Die");
+        ObjectPoolManager.instance.Spawn("Enemy_Die", transform.position, Quaternion.identity);
         ObjectPoolManager.instance.Despawn(gameObject);
     }
 

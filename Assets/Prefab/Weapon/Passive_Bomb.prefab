@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 9129553955517723635, guid: 3eb20db8d6a0f3a4da70749759703189, type: 3}
+  HitEffectKey: Passive_Explosion
   damage: 0
   knockBackRatio: 0
   pierceable: 0

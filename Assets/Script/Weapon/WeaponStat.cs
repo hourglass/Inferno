@@ -23,11 +23,8 @@ public class WeaponStat : MonoBehaviour
 
         if (target.CompareTag("Enemy"))
         {
-            if (target.gameObject != null)
-            {
-                GiveToDamage(target.gameObject);
-                KnockBack(target.gameObject);
-            }
+            GiveToDamage(target.gameObject);
+            KnockBack(target.gameObject);
 
             // 무기의 관통 타입 체크 후 파괴 실행 
             if (!pierceable)
@@ -43,21 +40,20 @@ public class WeaponStat : MonoBehaviour
     {
         if (obj.TryGetComponent(out EnemyStat stat))
         {
+            ObjectPoolManager.instance.Spawn(HitEffectKey, obj.transform.position, Quaternion.identity);
             stat.TakeDamage(damage);
-            ObjectPoolManager.instance.Spawn("Effect_Hit");
         }
     }
 
     // 넉백 수치 만큼 적을 뒤로 밀어내는 함수
     private void KnockBack(GameObject target)
     {
-        var rigidbody = target.GetComponent<Rigidbody2D>();
-        if (rigidbody != null)
+        if (target.TryGetComponent(out Rigidbody2D rb))
         {
-            var forward = target.transform.position - transform.position;
+            Vector3 forward = target.transform.position - transform.position;
             forward.Normalize();
 
-            rigidbody.AddForce(forward * knockBackRatio * knockBackForce);
+            rb.AddForce(forward * knockBackRatio * knockBackForce);
         }
     }
 
@@ -66,7 +62,7 @@ public class WeaponStat : MonoBehaviour
     public static Queue<float> damageQueue = new Queue<float>();
 
     [SerializeField]
-    private GameObject weaponHit;
+    private string HitEffectKey;
     
     [SerializeField]
     private float damage;

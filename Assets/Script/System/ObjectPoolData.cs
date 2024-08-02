@@ -10,8 +10,7 @@ public class ObjectPoolData : MonoBehaviour
     public const int INITIAL_COUNT = 10;
     public const int MAX_COUNT = 50;
 
+    public KeyType key;
     public int initialObjectCount = INITIAL_COUNT;
     public int maxObjectCount = MAX_COUNT;
-
-    public KeyType key;
 }

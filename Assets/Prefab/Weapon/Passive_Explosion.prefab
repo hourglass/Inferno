@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3326261737699532551}
   - component: {fileID: 1708914679338906686}
   - component: {fileID: 1375219226543905388}
+  - component: {fileID: -204596438429778629}
   m_Layer: 0
   m_Name: Passive_Explosion
   m_TagString: Weapon
@@ -168,7 +169,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aad27ef1ccf86648beddb5d51a7fb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHit: {fileID: 5808501809188744433, guid: 6ba081dab7c37da409d8c3cce39c7308, type: 3}
+  HitEffectKey: Effect_Hit
   damage: 25
   knockBackRatio: 2
   pierceable: 1
+--- !u!114 &-204596438429778629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129553955517723635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3820825dcc0f7564990a6a23574d0dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjectCount: 10
+  maxObjectCount: 20
+  key: Passive_Explosion
