@@ -31,7 +31,7 @@ public class HomingObject : MonoBehaviour
     {
         if (target == null)
         {
-            rb.velocity = transform.up * moveSpeed;
+            rb.velocity = rb.transform.up * moveSpeed;
             SearchTarget();
         }
         else
@@ -39,7 +39,7 @@ public class HomingObject : MonoBehaviour
             Vector2 direction = (Vector2)target.position - rb.position;
             direction.Normalize();
 
-            float rotAmount = Vector3.Cross(direction, transform.up).z;
+            float rotAmount = Vector3.Cross(direction, rb.transform.up).z;
 
             rb.angularVelocity = -rotAmount * rotSpeed;
             rb.velocity = transform.up * moveSpeed;
@@ -49,7 +49,7 @@ public class HomingObject : MonoBehaviour
 
     private void SearchTarget()
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(rb.position, range, enemyMask);
 
         if (cols.Length > 0)
         {

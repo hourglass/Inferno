@@ -9,7 +9,7 @@ public class EnemyUI : MonoBehaviour
     private void Awake()
     {
         // 체력바 생성 델리게이트
-        EnemyManager.CreateHPDel = CreateHp;
+        EnemySpawner.CreateHPDel = CreateHp;
 
         // 체력 감소 델리게이트
         EnemyStat.DecreaseHpDel = DecreaseHP;

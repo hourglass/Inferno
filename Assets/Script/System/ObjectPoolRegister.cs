@@ -34,5 +34,5 @@ public class ObjectPoolRegister : MonoBehaviour
 
     // Member Variable //
     [SerializeField]
-    private List<GameObject> prefabs = new List<GameObject>();
+    private List<GameObject> prefabs = new();
 }

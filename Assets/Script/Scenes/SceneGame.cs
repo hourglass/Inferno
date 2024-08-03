@@ -9,7 +9,7 @@ public class SceneGame : MonoBehaviour
     private void Start()
     {
         PlayerStat.GameOverDel = GameOver;
-        EnemyManager.GameClearDel = GameClear;
+        EnemySpawner.GameClearDel = GameClear;
     }
 
     private void GameOver()

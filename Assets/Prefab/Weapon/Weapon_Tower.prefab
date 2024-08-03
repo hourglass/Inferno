@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf86a1e236e039f4db6c624d1aa9f6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDelay: 0.4
+  skillDelay: 2
   towerAudio: {fileID: -625136171483282770}
   buildSound: {fileID: 8300000, guid: c88f941f0652e8048be78e94b6879648, type: 3}
 --- !u!114 &-3204931470456388695

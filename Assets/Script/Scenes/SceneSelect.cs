@@ -8,7 +8,7 @@ public class SceneSelect : MonoBehaviour
 {
     private void Awake()
     {
-        PlayerManager.GetIndexDel = getGroupIndex;
+        WeaponSpawner.GetweaponIdDel = getGroupIndex;
 
         for (int i = 0; i < selectToggles.Length; i++)
         {

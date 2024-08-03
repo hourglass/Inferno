@@ -92,8 +92,8 @@ public abstract class Weapon : MonoBehaviour
     // 오브젝트를 생성하는 함수
     protected void Create(string key, Transform spawn, float degree = 0f, Transform parent = null)
     {
-        Quaternion direction = Quaternion.Euler(0f, 0f, GetDirectionDel() + (degree - 90f));
-        ObjectPoolManager.instance.Spawn(key, spawn.position, direction, parent); ;
+        Quaternion rotation = Quaternion.Euler(0f, 0f, GetDirectionDel() + (degree - 90f));
+        ObjectPoolManager.instance.Spawn(key, spawn.position, rotation, parent);
     }
     
 
@@ -125,9 +125,8 @@ public abstract class Weapon : MonoBehaviour
     private void OnDestroy()
     {
         // 델리게이트 해제
-        PlayerManager.CanLookAtDel -= CanLookAt;
-        Player.AttackDel -= Attack;
-        Player.SkillDel -= Skill;
+        PlayerInput.AttackDel -= Attack;
+        PlayerInput.SkillDel -= Skill;
         ChoiceManager.GetChoiceDel -= SelectRandomId;
         ChoiceButton.GetSelectedIdDel -= GetSelectedId;
         ChoiceButton.GetExplainTextDel -= GetExplainTextById;
@@ -139,39 +138,26 @@ public abstract class Weapon : MonoBehaviour
     private void InitVariable()
     {
         // 델리게이트 등록
-        PlayerManager.CanLookAtDel = CanLookAt;              // 방향 전환이 가능한지 확인하는 함수
-        Player.AttackDel = Attack;                           // 키 입력 시 실행할 공격 함수
-        Player.SkillDel = Skill;                             // 키 입력 시 실행할 스킬 함수
+        PlayerInput.AttackDel = Attack;                      // 키 입력 시 실행할 공격 함수
+        PlayerInput.SkillDel = Skill;                        // 키 입력 시 실행할 스킬 함수
         ChoiceManager.GetChoiceDel = SelectRandomId;         // 랜덤한 Id를 뽑는 함수
         ChoiceButton.GetSelectedIdDel = GetSelectedId;       // 선택된 Id를 전달하는 함수
         ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수
         ChoiceButton.ApplyChoiceDel = ChoiceSelected;        // 선택지를 골랐을 때 처리하는 함수
-
-        // 멤버 변수 초기화
-        attackDelay = 0.4f;
-        skillDelay = 2f;
-        attckEnabled = true;
-        skillEnabled = true;
     }
 
 
     // 공격 함수
     private void Attack()
     {
-        if (attckEnabled)
-        {
-            StartCoroutine(AttackRoutine());
-        }
+        attackDel();
     }
 
 
     // 스킬 함수
     private void Skill()
     {
-        if (skillEnabled)
-        {
-            StartCoroutine(SkillRoutine());
-        }
+        skillDel();
     }
 
 
@@ -284,34 +270,6 @@ public abstract class Weapon : MonoBehaviour
     }
 
 
-    // 방향 전환 가능 상태를 넘겨주는 함수
-    private bool CanLookAt()
-    {
-        bool canLookAt = attckEnabled;
-        return canLookAt;
-    }
-
-
-    // 공격 코루틴
-    private IEnumerator AttackRoutine()
-    {
-        attackDel();
-        attckEnabled = false;
-        yield return new WaitForSeconds(attackDelay);
-        attckEnabled = true;
-    }
-
-
-    // 스킬 코루틴
-    private IEnumerator SkillRoutine()
-    {
-        skillDel();
-        skillEnabled = false;
-        yield return new WaitForSeconds(skillDelay);
-        skillEnabled = true;
-    }
-
-
     // 패시브 코루틴
     private IEnumerator PassiveRoutine(ActionDelegate action, float delay)
     {
@@ -333,9 +291,9 @@ public abstract class Weapon : MonoBehaviour
 
 
     // Delegate //
-    // 플레이어의 각도를 받아올 델리게이트
-    public delegate float PlayerManagerGetDirectionDel();
-    public static PlayerManagerGetDirectionDel GetDirectionDel;
+    // 플레이어의 방향을 받아올 델리게이트
+    public delegate float PlayerInputGetDirectionDel();
+    public static PlayerInputGetDirectionDel GetDirectionDel;
 
     // 공격 & 스킬 & 패시브를 수행할 델리게이트
     public delegate void ActionDelegate();
@@ -343,25 +301,28 @@ public abstract class Weapon : MonoBehaviour
     protected ActionDelegate skillDel;
     protected ActionDelegate passiveDel;
 
+
+    // Member Variable //
+    // 공격 & 스킬 기본 키
     protected string currentAttackKey;
     protected string currentSkillKey;
 
-    // Member Variable //
+    // 공격 & 스킬 딜레이
+    public float attackDelay;
+    public float skillDelay;
+
     // 선택지의 설명 텍스트를 저장할 Dictionary (Id로 식별)
-    private Dictionary<int, string> choiceInfos = new Dictionary<int, string>();
+    private Dictionary<int, string> choiceInfos = new();
 
     // 선택지의 객체 정보를 저장할 Dictionary (Id로 식별)
-    private Dictionary<int, ChoiceData> choiceDatas = new Dictionary<int, ChoiceData>();
+    private Dictionary<int, ChoiceData> choiceDatas = new();
 
-    private int currentId; // 선택지 추가 시 증가 시킬 id 변수
-    private List<int> idList = new List<int>(); // id를 저장할 List
-    private Queue<int> selectedIdQueue = new Queue<int>(); // 랜덤으로 선택된 id를 저장할 Queue
+    // 랜덤으로 선택된 id를 저장할 Queue
+    private Queue<int> selectedIdQueue = new();
 
-    // 공격 & 스킬 딜레이
-    private float attackDelay;
-    private float skillDelay;
+    // id를 저장할 List
+    private List<int> idList = new();
 
-    // 공격 & 스킬 사용 가능 여부
-    private bool attckEnabled;
-    private bool skillEnabled;
+    // 선택지 id 변수
+    private int currentId; 
 }

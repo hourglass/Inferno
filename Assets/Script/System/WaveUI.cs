@@ -7,16 +7,16 @@ public class WaveUI : MonoBehaviour
 {
     private void Awake()
     {
-        EnemyManager.StartTextDel = StarTextOn;
-        EnemyManager.WaveNumberDel = SetWaveNumber;
+        EnemySpawner.StartTextDel = StarTextOn;
+        EnemySpawner.WaveNumberDel = SetWaveNumber;
 
         StartText.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        EnemyManager.StartTextDel -= StarTextOn;
-        EnemyManager.WaveNumberDel -= SetWaveNumber;
+        EnemySpawner.StartTextDel -= StarTextOn;
+        EnemySpawner.WaveNumberDel -= SetWaveNumber;
     }
 
 

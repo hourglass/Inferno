@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107cbd95844107a4ca1e206e7c43dd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1226428514358327559}
 --- !u!114 &-206023328730812036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCanvas: {fileID: 7709497635155459667}
-  hpBarPrefab: {fileID: 2946189186608808909, guid: 1182370535ba9e242b03c3d447f6e220, type: 3}
 --- !u!114 &-329365012380409702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +75,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 1943317080959114069, guid: 52144d7f517c9794596671d93aa1bfa8, type: 3}
   - {fileID: 2946189186608808909, guid: 1182370535ba9e242b03c3d447f6e220, type: 3}
+  - {fileID: 5756734961213713251, guid: c084ae2f50542c0429e890f2f4412814, type: 3}
 --- !u!1 &4353513199886550088
 GameObject:
   m_ObjectHideFlags: 0
