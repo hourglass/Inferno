@@ -19,7 +19,7 @@ public class WeaponSpawner : MonoBehaviour
         // 선택된 인덱스에 해당하는 무기 생성
         GameObject weapon = Instantiate(WeaponList[weaponId], transform.position, Quaternion.identity);
 
-        if (!player.TryGetComponent(out PlayerInput input))
+        if (!player.TryGetComponent(out PlayerController controller))
         {
             return;    
         }
@@ -29,7 +29,7 @@ public class WeaponSpawner : MonoBehaviour
             return;
         }
 
-        input.SetCurrentWeapon(weaponObj);        
+        controller.SetCurrentWeapon(weaponObj);        
     }
 
 

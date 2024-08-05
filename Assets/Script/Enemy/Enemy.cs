@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         afterImage.SetActive(false);
         rotSpeed = 500f;
         moveSpeed = 10f;
-        rushSpeed = 35f;
+        rushSpeed = 25f;
         rushDelay = 2f;
         rushDuration = 2f;
     }

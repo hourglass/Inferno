@@ -4,7 +4,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerInput : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
         afterImage.SetActive(false);
 
         moveSpeed = 25f;        // 이동 속도
-        stopDistance = 0.5f;    // 정지 거리
+        stopDistance = 5f;    // 정지 거리
         dashSpeed = 40f;        // 대쉬 속도
         dashTime = 0.25f;       // 대쉬 시간
         dashDelay = 0.25f;      // 대쉬 쿨타임

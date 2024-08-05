@@ -125,8 +125,8 @@ public abstract class Weapon : MonoBehaviour
     private void OnDestroy()
     {
         // 델리게이트 해제
-        PlayerInput.AttackDel -= Attack;
-        PlayerInput.SkillDel -= Skill;
+        PlayerController.AttackDel -= Attack;
+        PlayerController.SkillDel -= Skill;
         ChoiceManager.GetChoiceDel -= SelectRandomId;
         ChoiceButton.GetSelectedIdDel -= GetSelectedId;
         ChoiceButton.GetExplainTextDel -= GetExplainTextById;
@@ -138,8 +138,8 @@ public abstract class Weapon : MonoBehaviour
     private void InitVariable()
     {
         // 델리게이트 등록
-        PlayerInput.AttackDel = Attack;                      // 키 입력 시 실행할 공격 함수
-        PlayerInput.SkillDel = Skill;                        // 키 입력 시 실행할 스킬 함수
+        PlayerController.AttackDel = Attack;                 // 키 입력 시 실행할 공격 함수
+        PlayerController.SkillDel = Skill;                   // 키 입력 시 실행할 스킬 함수
         ChoiceManager.GetChoiceDel = SelectRandomId;         // 랜덤한 Id를 뽑는 함수
         ChoiceButton.GetSelectedIdDel = GetSelectedId;       // 선택된 Id를 전달하는 함수
         ChoiceButton.GetExplainTextDel = GetExplainTextById; // 선택지의 텍스트를 전달하는 함수
