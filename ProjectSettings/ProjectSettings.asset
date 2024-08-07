@@ -631,9 +631,9 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: edfc5433-6f94-4e52-a030-de79090339ed
+  cloudProjectId: 90f2670d-f231-4bf8-b7b1-ee76fbfa5d5f
   framebufferDepthMemorylessMode: 0
-  projectName: angel 2024-03-15_02-11-42
+  projectName: Inferno
   organizationId: slow3195_unity
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
